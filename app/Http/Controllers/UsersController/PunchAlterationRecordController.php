@@ -4,7 +4,7 @@ namespace App\Http\Controllers\UsersController;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\AlterationRecords;
+use App\Models\AlterationRecords;
 use Validator;
 use DB;
 use DateTime;

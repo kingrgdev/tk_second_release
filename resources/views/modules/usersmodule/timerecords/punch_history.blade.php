@@ -96,6 +96,8 @@
 </script>
 
 <script>
+   
+
 // get punch history
     refreshTable();
     function refreshTable(){

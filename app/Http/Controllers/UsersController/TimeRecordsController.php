@@ -2570,7 +2570,7 @@ class TimeRecordsController extends Controller
                                 $apply_alteration->total_hrs = $hour;
                                 $apply_alteration->undertime = $total_undertime;
                                 $apply_alteration->late = $total_late;
-                                $apply_alteration->reason = "Hombre";
+                                $apply_alteration->reason = $request->input('txtReason_apply'); // $request->txtReason_apply;
 
                                 // if($request->input('txtremarks'.$i) == "Punch Altered"){
                                 //     $apply_alteration->alt_remarks = "Punch Altered";
@@ -2594,7 +2594,7 @@ class TimeRecordsController extends Controller
                                 $apply_alteration->total_hrs = $hour;
                                 $apply_alteration->undertime = $total_undertime;
                                 $apply_alteration->late = $total_late;
-                                $apply_alteration->reason = "Hombre";
+                                $apply_alteration->reason = $request->input('txtReason_apply');
 
                                 //$apply_alteration->reason = $request->input('txtremarks'.$i);
                                 // if($request->input('txtremarks'.$i) == "Punch Altered"){
@@ -4115,7 +4115,7 @@ class TimeRecordsController extends Controller
                                 $apply_alteration->total_hrs = $hour;
                                 $apply_alteration->undertime = $total_undertime;
                                 $apply_alteration->late = $total_late;
-                                $apply_alteration->reason = "Hombre";
+                                $apply_alteration->reason = $request->input('txtReason_apply');
 
                                 // if($request->input('txtremarks'.$i) == "Punch Altered"){
                                 //     $apply_alteration->alt_remarks = "Punch Altered";
@@ -4140,7 +4140,7 @@ class TimeRecordsController extends Controller
                                 $apply_alteration->total_hrs = $hour;
                                 $apply_alteration->undertime = $total_undertime;
                                 $apply_alteration->late = $total_late;
-                                $apply_alteration->reason = "Hombre";
+                                $apply_alteration->reason = $request->input('txtReason_apply');
 
                                 // if($request->input('txtremarks'.$i) == "Punch Altered"){
                                 //     $apply_alteration->alt_remarks = "Punch Altered";

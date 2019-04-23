@@ -86,6 +86,7 @@
                 </table>
             </form>
             <br>
+            <form id='alteration_data'>
             <div class="form__group col-md-3">
                 <textarea id="txtReason_apply" name = "txtReason_apply" class="form__field" placeholder="Reason for Alteration *"></textarea>
                 <label for="txtReason_apply" class="span-header form__label"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Reason for Alteration *</label>
@@ -97,7 +98,7 @@
             {{-- LOADER --}}
             <div class="p_load" id="loader"></div>
             {{-- FORM --}}
-            <form id='alteration_data'>
+            
                 {{-- <input type="hidden" id="hidden_ID" name="hidden_ID" value={{auth()->user()->company_id }}> --}}
                 <div class="table-responsive" id="table_DTR">
                     <table id="table_time_records" name="tableTimeRecords" class="table table-hover">
@@ -138,6 +139,8 @@
 </div>
 
 <script>
+
+
     //This will get the current date
         var curDate = new Date();
         var dd = String(curDate.getDate()).padStart(2, '0');
@@ -157,7 +160,7 @@
         "retrieve": true, 
         "ordering": false
     });
-
+    
     //function refresh 
     refresh_Table();
     function refresh_Table(){
@@ -170,18 +173,12 @@
             {
                 
                 $('#table_DTR').html(data);
+                
                 $('#table_time_records').dataTable({
                     "serverSide": false, 
                     "retrieve": true, 
                     "ordering": false
                 });
-                //for(i = 1; i <=100; i++){
-                //    var dateApplied = $('#disabledDate' + i).val();
-                //    if (dateApplied == curDate){
-                //        $('#timein' + i).attr('disabled','disabled');
-                //        $('#timeout' + i).attr('disabled','disabled');
-                //    }
-                //}
             },
             error: function(xhr, ajaxOptions, thrownError){
                 console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -233,7 +230,7 @@
     var altered_date = "";
     $(document).on("click", ".btn_punchAlter", function(){
         
-        $('#txtReason').val("");
+        $('#txtReason_apply').val("");
         $('#newlog_datein').html("");
         $('#newlog_dateout').html("");
         $('#reason').html("");
@@ -241,7 +238,7 @@
         $('#startDate_newlog_ico').css("display", "block");
         $('#endDate_newlog').css("display", "block");
         $('#endDate_newlog_ico').css("display", "block");
-        $('#txtReason').css("display", "block");
+        $('#txtReason_apply').css("display", "block");
         $('#btn_ApplyAlter').css("display", "block");
         $("#punchAlterationModal").modal('show');
     
@@ -285,7 +282,7 @@
                 headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 url: "{{ route('applyalteration') }}",
                 method: "POST",
-                data:{hidden_Id: hidden_Id, altered_date: altered_date, cur_time_in: cur_time_in, cur_time_out: cur_time_out, new_time_in: new_time_in, new_time_out: new_time_out, txtReason_apply:txtReason_apply}, 
+                data:{hidden_Id: hidden_Id, altered_date: altered_date, cur_time_in: cur_time_in, cur_time_out: cur_time_out, new_time_in: new_time_in, new_time_out: new_time_out, txtReason_apply: txtReason_apply}, 
                 dataType: "json",
                 success:function(data)
                 {
@@ -303,7 +300,6 @@
                         alert(data.success);
                         $("#punchAlterationModal").modal('hide');
                         refresh_Table();
-                        
                     }                   
                 },
                 error: function(xhr, ajaxOptions, thrownError){
@@ -344,16 +340,12 @@
     var datas = "";
     var a = "";
     $(document).on("click", ".chkbox", function(){
-
         a = $(this).data("add");
-        
         var b = $('#infos'+a).val();
-
         datas = b.split("]]");
-
         //alert(datas[0]);
-       
     });
+
     var az = "";
     // function validation
     function validation_altered_data()
@@ -476,7 +468,6 @@
     $(document).on("click", ".btnApplyAlter", function(){
 
         var a = $('select[name=table_time_records_length]').val();
-        //alert(az);
         validation_altered_data();    
         if(counter_alter_validation == 0)
         {
@@ -520,7 +511,6 @@
                             $("select[name=table_time_records_length] option[value='365']").remove(); 
                             $('select[name=table_time_records_length]').val(a).trigger('change');          
                             alert("Alteration Applied!");
-                            // refresh_Table(); 
                         } 
                     },
                     complete:function(){
@@ -538,6 +528,7 @@
 </script>
 
 <script>
+//Format Datepicker
     //start format
     $(function (){
         $('#startDate').datetimepicker({
@@ -550,5 +541,6 @@
             format: 'L'
         });
     });
+//Format Datepicker
 </script>
 @endsection
