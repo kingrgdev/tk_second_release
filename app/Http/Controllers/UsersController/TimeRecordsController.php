@@ -23,10 +23,10 @@ class TimeRecordsController extends Controller
     public function print_date_now()
     {
         //Code for getting the current date of Asia/Manila
-        date_default_timezone_set('Asia/Manila');
-        $todays_date = date("y-m-d");
-        $today = strtotime($todays_date);
-        $todayDate = date("Y-m-d", $today); 
+            date_default_timezone_set('Asia/Manila');
+            $todays_date = date("y-m-d");
+            $today = strtotime($todays_date);
+            $todayDate = date("Y-m-d", $today); 
         //Code for getting the current date of Asia/Manila
 
         $getdatetimein = "";
@@ -71,21 +71,20 @@ class TimeRecordsController extends Controller
             {   
                 //may record
                 //Getting the time previous time in and out on the time records table and convert it into formatted type
-                $timein = $time_record[0]->date_time_in;
-                $date = date("Y-m-d", strtotime("$timein")); 
-                $date2 = date("H:i", strtotime("$timein"));
-                $getdatetimein =  $date . 'T' . $date2;
+                    $timein = $time_record[0]->date_time_in;
+                    $date = date("Y-m-d", strtotime("$timein")); 
+                    $date2 = date("H:i", strtotime("$timein"));
+                    $getdatetimein =  $date . 'T' . $date2;
 
-                $timeout = $time_record[0]->date_time_out;
-                $date = date("Y-m-d", strtotime("$timeout")); 
-                $date2 = date("H:i", strtotime("$timeout"));
-                $getdatetimeout =  $date . 'T' . $date2;
+                    $timeout = $time_record[0]->date_time_out;
+                    $date = date("Y-m-d", strtotime("$timeout")); 
+                    $date2 = date("H:i", strtotime("$timeout"));
+                    $getdatetimeout =  $date . 'T' . $date2;
                 //end
                 
                 $data .= "<input type='text' style='display:none' value='".$time_record[0]->sched_date."]]".$timein."]]".$timeout."' name='infos".$counter."' id='infos".$counter."' >"; //hidden value of the date of you want to alter and previous time in and out
                 $data .= "<tr>";
                 //check nya kung may value na sa alter table kung meron na hindi na sya machecheck or else checkable 
-                
                 
                 if(!empty($alter_record))
                 {
@@ -501,10 +500,10 @@ class TimeRecordsController extends Controller
     public function filter_dates(Request $request)
     {
         //Code for getting the current date of Asia/Manila
-        date_default_timezone_set('Asia/Manila');
-        $todays_date = date("y-m-d");
-        $today = strtotime($todays_date);
-        $todayDate = date("Y-m-d", $today); 
+            date_default_timezone_set('Asia/Manila');
+            $todays_date = date("y-m-d");
+            $today = strtotime($todays_date);
+            $todayDate = date("Y-m-d", $today); 
         //Code for getting the current date of Asia/Manila
 
         $date_now = new DateTime();
@@ -1024,13 +1023,14 @@ class TimeRecordsController extends Controller
         // }
 
     //apply alteration new
+
     public function apply_alteration(Request $request)
     {
         //Code for getting the current date of Asia/Manila
-        date_default_timezone_set('Asia/Manila');
-        $todays_date = date("y-m-d");
-        $today = strtotime($todays_date);
-        $todayDate = date("Y-m-d", $today); 
+            date_default_timezone_set('Asia/Manila');
+            $todays_date = date("y-m-d");
+            $today = strtotime($todays_date);
+            $todayDate = date("Y-m-d", $today); 
         //Code for getting the current date of Asia/Manila  
 
         for($i = 1; $i <= 100; $i++)
@@ -2570,15 +2570,15 @@ class TimeRecordsController extends Controller
                                 $apply_alteration->total_hrs = $hour;
                                 $apply_alteration->undertime = $total_undertime;
                                 $apply_alteration->late = $total_late;
+                                $apply_alteration->reason = "Hombre";
 
-                                //This will avoid editing the remarks from inspect element
-                                if($request->input('txtremarks'.$i) == "Punch Altered"){
-                                    $apply_alteration->reason = "Punch Altered";
-                                }else if($request->input('txtremarks'.$i) == "Absent"){
-                                    $apply_alteration->reason = "Absent";
-                                }else{
-                                    $apply_alteration->reason = "DTR";
-                                }
+                                // if($request->input('txtremarks'.$i) == "Punch Altered"){
+                                //     $apply_alteration->alt_remarks = "Punch Altered";
+                                // }else if($request->input('txtremarks'.$i) == "Absent"){
+                                //     $apply_alteration->alt_remarks = "Absent";
+                                // }else{
+                                //     $apply_alteration->alt_remarks = "DTR";
+                                // }
 
                                 $apply_alteration->lu_by = auth()->user()->name; 
                                 $apply_alteration->save();
@@ -2594,16 +2594,16 @@ class TimeRecordsController extends Controller
                                 $apply_alteration->total_hrs = $hour;
                                 $apply_alteration->undertime = $total_undertime;
                                 $apply_alteration->late = $total_late;
+                                $apply_alteration->reason = "Hombre";
 
-                                //This will avoid editing the remarks from inspect element
                                 //$apply_alteration->reason = $request->input('txtremarks'.$i);
-                                if($request->input('txtremarks'.$i) == "Punch Altered"){
-                                    $apply_alteration->reason = "Punch Altered";
-                                }else if($request->input('txtremarks'.$i) == "Absent"){
-                                    $apply_alteration->reason = "Absent";
-                                }else{
-                                    $apply_alteration->reason = "DTR";
-                                }
+                                // if($request->input('txtremarks'.$i) == "Punch Altered"){
+                                //     $apply_alteration->alt_remarks = "Punch Altered";
+                                // }else if($request->input('txtremarks'.$i) == "Absent"){
+                                //     $apply_alteration->alt_remarks = "Absent";
+                                // }else{
+                                //     $apply_alteration->alt_remarks = "DTR";
+                                // }
 
                                 $apply_alteration->lu_by = auth()->user()->name; 
                                 $apply_alteration->save();
@@ -4115,13 +4115,16 @@ class TimeRecordsController extends Controller
                                 $apply_alteration->total_hrs = $hour;
                                 $apply_alteration->undertime = $total_undertime;
                                 $apply_alteration->late = $total_late;
-                                if($request->input('txtremarks'.$i) == "Punch Altered"){
-                                    $apply_alteration->reason = "Punch Altered";
-                                }else if($request->input('txtremarks'.$i) == "Absent"){
-                                    $apply_alteration->reason = "Absent";
-                                }else{
-                                    $apply_alteration->reason = "DTR";
-                                }
+                                $apply_alteration->reason = "Hombre";
+
+                                // if($request->input('txtremarks'.$i) == "Punch Altered"){
+                                //     $apply_alteration->alt_remarks = "Punch Altered";
+                                // }else if($request->input('txtremarks'.$i) == "Absent"){
+                                //     $apply_alteration->alt_remarks = "Absent";
+                                // }else{
+                                //     $apply_alteration->alt_remarks = "DTR";
+                                // }
+
                                 //$apply_alteration->reason = $request->input('txtremarks'.$i);
                                 $apply_alteration->lu_by = auth()->user()->name; 
                                 $apply_alteration->save();
@@ -4137,13 +4140,16 @@ class TimeRecordsController extends Controller
                                 $apply_alteration->total_hrs = $hour;
                                 $apply_alteration->undertime = $total_undertime;
                                 $apply_alteration->late = $total_late;
-                                if($request->input('txtremarks'.$i) == "Punch Altered"){
-                                    $apply_alteration->reason = "Punch Altered";
-                                }else if($request->input('txtremarks'.$i) == "Absent"){
-                                    $apply_alteration->reason = "Absent";
-                                }else{
-                                    $apply_alteration->reason = "DTR";
-                                }
+                                $apply_alteration->reason = "Hombre";
+
+                                // if($request->input('txtremarks'.$i) == "Punch Altered"){
+                                //     $apply_alteration->alt_remarks = "Punch Altered";
+                                // }else if($request->input('txtremarks'.$i) == "Absent"){
+                                //     $apply_alteration->alt_remarks = "Absent";
+                                // }else{
+                                //     $apply_alteration->alt_remarks = "DTR";
+                                // }
+
                                 //$apply_alteration->reason = $request->input('txtremarks'.$i);
                                 $apply_alteration->lu_by = auth()->user()->name; 
                                 $apply_alteration->save();

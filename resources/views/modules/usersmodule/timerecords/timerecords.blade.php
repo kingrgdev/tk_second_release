@@ -71,23 +71,27 @@
                                 <label for="startDate" class="span-header form__label"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;Start Date</label>
                             </div>
                         </td>
-                        <td>&nbsp;&nbsp;</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                         <td>
                             <div class="form__group input-group date" data-target-input="nearest">
                                 <input id="endDate" name="endDate" class="datetimepicker-input form__field" placeholder="End Date" data-target="#endDate" data-toggle="datetimepicker">
                                 <label for="endDate" class="span-header form__label"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;End Date</label>
                             </div>
                         </td>
-                        <td>&nbsp;&nbsp;</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                         <td>
                             <input type="button" id="btnGenerate" name="btnGenerate" class="btn btn-sm button blue" value="Generate">
                         </td>
                     </tr>
-
                 </table>
             </form>
             <br>
-            <input style="float:right" type="button" id="btnApplyAlter" class="btn btn-sm button blue btnApplyAlter" value="Apply Alteration">
+            <div class="form__group col-md-3">
+                <textarea id="txtReason_apply" name = "txtReason_apply" class="form__field" placeholder="Reason for Alteration *"></textarea>
+                <label for="txtReason_apply" class="span-header form__label"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Reason for Alteration *</label>
+            </div>
+            <br>
+            <input type="button" id="btnApplyAlter" class="pull-right btn btn-sm button blue btnApplyAlter" value="Apply Alteration">
 
             <br><br>
             {{-- LOADER --}}
@@ -135,11 +139,11 @@
 
 <script>
     //This will get the current date
-    var curDate = new Date();
-    var dd = String(curDate.getDate()).padStart(2, '0');
-    var mm = String(curDate.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = curDate.getFullYear();
-    curDate = yyyy + '-' + mm + '-' + dd;
+        var curDate = new Date();
+        var dd = String(curDate.getDate()).padStart(2, '0');
+        var mm = String(curDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = curDate.getFullYear();
+        curDate = yyyy + '-' + mm + '-' + dd;
     //This will get the current date
 
     var counter_alter_validation = 0;
@@ -264,7 +268,6 @@
 
     //button on apply alteration on modal
     $(document).on("click", "#btn_ApplyAlter", function(){
-
         var c = confirm("Apply this alteration?");
 
         if(c == true)
@@ -274,13 +277,15 @@
             var cur_time_out = $('#cur_time_out').html();
             var new_time_in = $('#startDate_newlog').val();
             var new_time_out = $('#endDate_newlog').val();
-            var txtReason = $('#txtReason').val();
+            var txtReason_apply = $('#txtReason_apply').val();
+            
+
 
             $.ajax({
                 headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 url: "{{ route('applyalteration') }}",
                 method: "POST",
-                data:{hidden_Id: hidden_Id, altered_date: altered_date, cur_time_in: cur_time_in, cur_time_out: cur_time_out, new_time_in: new_time_in, new_time_out: new_time_out, txtReason: txtReason}, 
+                data:{hidden_Id: hidden_Id, altered_date: altered_date, cur_time_in: cur_time_in, cur_time_out: cur_time_out, new_time_in: new_time_in, new_time_out: new_time_out, txtReason_apply:txtReason_apply}, 
                 dataType: "json",
                 success:function(data)
                 {
@@ -392,20 +397,27 @@
                     var date_to_alter = $('#infos' + i).val().split("]]");
                     
                     counter_alter_validation++;
-                    //If time in or time out IS EMPTY
-                    if($('#timeout' + i).val() == "" || $('#timein' + i).val() == "")
-                    {
+                    if($('#txtReason_apply').val() == ""){
                         az = "1";
+                        checker_validation = "false";
+                        error="Reason for Alteration is Required!";
+                        $("select[name=table_time_records_length] option[value='365']").remove(); 
+                        $('select[name=table_time_records_length]').val(a).trigger('change');
+                        break;
+                    }
+                    //If time in or time out IS EMPTY
+                    else if($('#timeout' + i).val() == "" || $('#timein' + i).val() == "")
+                    {
+                        az = "2";
                         checker_validation = "false";
                         error="Time In field and Time Out field is required!";
                         $("select[name=table_time_records_length] option[value='365']").remove(); 
                         $('select[name=table_time_records_length]').val(a).trigger('change');
-                        
                         break;
                     }
                     else if($('#timeout' + i).val() <= $('#timein' + i).val())
                     {
-                        az = "2";
+                        az = "3";
                         checker_validation = "false";
                         error="Time Out field must be greater than Time In field!";
                         $("select[name=table_time_records_length] option[value='365']").remove(); 
@@ -414,7 +426,7 @@
                     }
                     else if(res != date_to_alter[0])
                     {
-                        az = "3";
+                        az = "4";
                         //alert(res);
                         checker_validation = "false";
                         error="Invalid Details, Check Time in and Time out!";
@@ -422,15 +434,15 @@
                         $('select[name=table_time_records_length]').val(a).trigger('change');
                         break;
                     }
-                    else if($('#txtremarks' + i).val() == "")
-                    {
-                        az = "4";
-                        checker_validation = "false";
-                        error="Complete remarks!";
-                        $("select[name=table_time_records_length] option[value='365']").remove(); 
-                        $('select[name=table_time_records_length]').val(a).trigger('change');
-                        break;
-                    }
+                    // else if($('#txtremarks' + i).val() == "")
+                    // {
+                    //     az = "5";
+                    //     checker_validation = "false";
+                    //     error="Complete remarks!";
+                    //     $("select[name=table_time_records_length] option[value='365']").remove(); 
+                    //     $('select[name=table_time_records_length]').val(a).trigger('change');
+                    //     break;
+                    // }
 
                     //Avoid saving the current date, If the user removes disabled attribute in the inspect elements
                     else if(date_to_alter[0] == curDate)
@@ -508,7 +520,7 @@
                             $("select[name=table_time_records_length] option[value='365']").remove(); 
                             $('select[name=table_time_records_length]').val(a).trigger('change');          
                             alert("Alteration Applied!");
-                            refresh_Table(); 
+                            // refresh_Table(); 
                         } 
                     },
                     complete:function(){
