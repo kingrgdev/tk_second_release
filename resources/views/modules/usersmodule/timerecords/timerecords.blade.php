@@ -154,13 +154,14 @@
     var timein_validation = "false";
     var remarks_validation = "false";
     var error = "";
-
-    $('#table_time_records').dataTable({
+    
+    
+    $('#table_time_records').DataTable({
         "serverSide": false, 
         "retrieve": true, 
         "ordering": false
     });
-    
+
     //function refresh 
     refresh_Table();
     function refresh_Table(){
@@ -174,9 +175,9 @@
                 
                 $('#table_DTR').html(data);
                 
-                $('#table_time_records').dataTable({
+                $('#table_time_records').DataTable({
                     "serverSide": false, 
-                    "retrieve": true, 
+                    "retrieve": true,
                     "ordering": false
                 });
             },
