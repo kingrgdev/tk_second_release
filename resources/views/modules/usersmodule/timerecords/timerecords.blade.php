@@ -357,7 +357,7 @@
     {   
         var a = $('select[name=table_time_records_length]').val();
         $('select[name=table_time_records_length]').append("<option id='optioncount' value='365'></option>");
-        $('select[name=table_time_records_length]').val(365).trigger('click');
+        $('select[name=table_time_records_length]').val(365).trigger('change');
 
 
         counter_alter_validation = 0;
