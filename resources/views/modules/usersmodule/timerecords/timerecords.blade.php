@@ -176,10 +176,13 @@
                 $('#table_DTR').html(data);
                 
                 $('#table_time_records').DataTable({
-                    "serverSide": false, 
+                    
+                    "serverSide": false,
                     "retrieve": true,
                     "ordering": false
+                   
                 });
+
             },
             error: function(xhr, ajaxOptions, thrownError){
                 console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -210,7 +213,8 @@
                     $('#table_DTR').html(data);
                     $('#table_time_records').dataTable({
                         "serverSide": false, 
-                        "retrieve": true, 
+                        "retrieve": true,
+                        "bStateSave":true,
                         "ordering": false
                     });
                 },
@@ -353,7 +357,8 @@
     {   
         var a = $('select[name=table_time_records_length]').val();
         $('select[name=table_time_records_length]').append("<option id='optioncount' value='365'></option>");
-        $('select[name=table_time_records_length]').val(365).trigger('change');
+        $('select[name=table_time_records_length]').val(365).trigger('click');
+
 
         counter_alter_validation = 0;
         for(i = 1; i <=100; i++)
@@ -420,23 +425,12 @@
                     else if(res != date_to_alter[0])
                     {
                         az = "4";
-                        //alert(res);
                         checker_validation = "false";
                         error="Invalid Details, Check Time in and Time out!";
                         $("select[name=table_time_records_length] option[value='365']").remove(); 
                         $('select[name=table_time_records_length]').val(a).trigger('change');
                         break;
                     }
-                    // else if($('#txtremarks' + i).val() == "")
-                    // {
-                    //     az = "5";
-                    //     checker_validation = "false";
-                    //     error="Complete remarks!";
-                    //     $("select[name=table_time_records_length] option[value='365']").remove(); 
-                    //     $('select[name=table_time_records_length]').val(a).trigger('change');
-                    //     break;
-                    // }
-
                     //Avoid saving the current date, If the user removes disabled attribute in the inspect elements
                     else if(date_to_alter[0] == curDate)
                     {
@@ -445,13 +439,13 @@
                         error="You can't alter the current date!";
                         $("select[name=table_time_records_length] option[value='365']").remove(); 
                         $('select[name=table_time_records_length]').val(a).trigger('change');
-                        break;validateTimein
+                        break;
                     }
                     else if($('#validateStatus' + i).val() == "Punch Altered")
                     {
                         az = "6";
                         checker_validation = "false";
-                        error = "You can't alter this row!";
+                        error = "You can't edit altered rows!";
                         $("select[name=table_time_records_length] option[value='365']").remove(); 
                         $('select[name=table_time_records_length]').val(a).trigger('change');
                         break;
@@ -474,7 +468,7 @@
         {
             $("select[name=table_time_records_length] option[value='365']").remove(); 
             $('select[name=table_time_records_length]').val(a).trigger('change');
-            alert("Check the row you want to apply alter");   
+            alert("Check the row you want to apply alter");
         }
         else if(checker_validation == "false")
         { 
@@ -510,8 +504,9 @@
                         else
                         {
                             $("select[name=table_time_records_length] option[value='365']").remove(); 
-                            $('select[name=table_time_records_length]').val(a).trigger('change');          
+                            $('select[name=table_time_records_length]').val(a).trigger('change');     
                             alert("Alteration Applied!");
+
                         } 
                     },
                     complete:function(){

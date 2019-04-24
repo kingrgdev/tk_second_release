@@ -567,14 +567,14 @@ class TimeRecordsController extends Controller
                 //check nya kung may value na sa alter table kung meron na hindi na sya machecheck or else checkable 
                 if(!empty($alter_record))
                 {
-                    $data .= '<td><input type="checkbox" name="checkalt'.$counter.'" class="chkbox" id="checkalt'.$counter.'" data-add="'.$counter.'" disabled/></td>';
+                    $data .= '<td><input type="checkbox" name="checkalt'.$counter.'" class="chkbox" id="checkalt'.$counter.'" data-add="'.$counter.'" required disabled/></td>';
                 }
                 else
                 {
                     if($todayDate == date("Y-m-d",strtotime($time_record[0]->sched_date))){
-                        $data .= '<td><input type="checkbox" name="checkalt'.$counter.'" class="chkbox" id="checkalt'.$counter.'" data-add="'.$counter.'" disabled></td>';
+                        $data .= '<td><input type="checkbox" name="checkalt'.$counter.'" class="chkbox" id="checkalt'.$counter.'" data-add="'.$counter.'" required disabled></td>';
                     }else{
-                        $data .= '<td><input type="checkbox" name="checkalt'.$counter.'" class="chkbox" id="checkalt'.$counter.'" data-add="'.$counter.'" /></td>';
+                        $data .= '<td><input type="checkbox" name="checkalt'.$counter.'" class="chkbox" id="checkalt'.$counter.'" data-add="'.$counter.'" required /></td>';
                     }
                 }
                 //end
@@ -712,14 +712,14 @@ class TimeRecordsController extends Controller
                 {  
                     //kung may laman punch altered ang print sa remarks
                     $data .= "<td>
-                    <input type='text' style='background-color:transparent; font-weight: bold; text-align:center;' value='Punch Altered' class='form-control reason' name='txtremarks".$counter."' id='txtremarks".$counter."' disabled>
+                    <input type='text' style='background-color:transparent; font-weight: bold; text-align:center;' value='Punch Altered' class='form-control reason' name='txtremarks".$counter."' id='txtremarks".$counter."' required disabled>
                     </td>";
                 }
                 else
                 {
                     //kung wala, editable ang txtremarks para sa pag sasave
                     $data .= "<td>
-                    <input type='text' style='background-color:transparent; font-weight: bold; text-align:center; display:none;' value='' class='form-control reason' name='txtremarks".$counter."' id='txtremarks".$counter."' disabled>
+                    <input type='text' style='background-color:transparent; font-weight: bold; text-align:center; display:none;' value='' class='form-control reason' name='txtremarks".$counter."' id='txtremarks".$counter."' required disabled>
                     </td>";
                 }
             
@@ -735,14 +735,14 @@ class TimeRecordsController extends Controller
                  //check nya kung may value na sa alter table kung meron na hindi na sya machecheck or else checkable 
                 if(!empty($alter_record))
                 {   
-                    $data .= '<td><input type="checkbox" name="checkalt'.$counter.'" class="chkbox" id="checkalt'.$counter.'" data-add="'.$counter.'" disabled/></td>';
+                    $data .= '<td><input type="checkbox" name="checkalt'.$counter.'" class="chkbox" id="checkalt'.$counter.'" data-add="'.$counter.'" required disabled/></td>';
                 }
                 else
                 {
                     if($todayDate == $dates){
-                        $data .= '<td><input type="checkbox" name="checkalt'.$counter.'" class="chkbox" id="checkalt'.$counter.'" data-add="'.$counter.'" disabled></td>';
+                        $data .= '<td><input type="checkbox" name="checkalt'.$counter.'" class="chkbox" id="checkalt'.$counter.'" data-add="'.$counter.'" required disabled></td>';
                     }else{
-                        $data .= '<td><input type="checkbox" name="checkalt'.$counter.'" class="chkbox" id="checkalt'.$counter.'" data-add="'.$counter.'" /></td>';
+                        $data .= '<td><input type="checkbox" name="checkalt'.$counter.'" class="chkbox" id="checkalt'.$counter.'" data-add="'.$counter.'" required/></td>';
                     }
                 }
                 //end
@@ -896,7 +896,7 @@ class TimeRecordsController extends Controller
                     $data .= "<td></td>";
                 }
                  
-                //Check if Holidays matches the sched date
+                //Check if Holidays matches the sched date 
                 $restday = date("l",strtotime($dates));
                 if(!empty($holiday_record))
                 {
@@ -916,10 +916,10 @@ class TimeRecordsController extends Controller
 
                 if(!empty($alter_record))
                 {
-                    $data .= "<td><input type='text' style='background-color:transparent; font-weight: bold; text-align:center;' value='Punch Altered' class='form-control reason' name='txtremarks".$counter."' id='txtremarks".$counter."' disabled></td>";
+                    $data .= "<td><input type='text' style='background-color:transparent; font-weight: bold; text-align:center;' value='Punch Altered' class='form-control reason' name='txtremarks".$counter."' id='txtremarks".$counter."' required disabled></td>";
                 }
                 else{
-                    $data .= "<td style='color: #dc3545;'><input style='background-color:transparent; font-weight: bold; text-align:center; color:#dc3545' type='text' value='Absent' class='form-control reason' name='txtremarks".$counter."' id='txtremarks".$counter."' disabled></td>";
+                    $data .= "<td style='color: #dc3545;'><input style='background-color:transparent; font-weight: bold; text-align:center; color:#dc3545' type='text' value='Absent' class='form-control reason' name='txtremarks".$counter."' id='txtremarks".$counter."' required disabled></td>";
                 }
                 
                 $data .= "</tr>";

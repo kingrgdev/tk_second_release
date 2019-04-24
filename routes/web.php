@@ -172,5 +172,9 @@ Route::get('/timerecords/view_punch_history/historyfilter', 'UsersController\\Pu
 //overtime records
 Route::get('/overtimerecords', 'UsersController\\OvertimeRecordsController@index');
 
+//For integration with clint//
+Route::get('overtimerecords/printovertime', 'UsersController\\OvertimeRecordsController@print_overtime_now')->name('printovertime');
+Route::post('overtimerecords/cancelovertime', 'UsersController\\OvertimeRecordsController@cancel_overtime')->name('cancelovertime');
+//For integration with clint//
 
 //USER MODULE

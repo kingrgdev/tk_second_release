@@ -367,6 +367,7 @@
                     $('#table_punch_alteration_record').dataTable({
                         "serverSide": false, 
                         "retrieve": true, 
+                        "bStateSave":true,
                         "ordering": false
                     });               
                 }

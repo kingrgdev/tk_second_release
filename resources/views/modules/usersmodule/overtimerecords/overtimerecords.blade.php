@@ -105,11 +105,10 @@ elseif(Session::get('overtime_records') == 'delete'){
                     </div>
                 </div>
             </div>
+            
         <div>
 
-
-
-
+        
 
         <!-- <div class="form-group">
         <div class="col-md-3">
@@ -121,10 +120,82 @@ elseif(Session::get('overtime_records') == 'delete'){
                 
             </div>
         </div> -->
-        <div class="form__group">
+
+        {{-- <div class="form__group">
             <input id="btnAdd" name="btnAdd" class="btn btn-sm button blue pull-right" type="button" value="Apply For Advance Overtime?" style="width:220px;"/>
         </div>
-        <br><br>
+        <br><br> --}}
+
+            <label class="pull-right"><b>Apply for Advance Overtime? </b><span id="overtimeIcon" class="fa fa-caret-square-o-right fa-lg" style="cursor:pointer;"></span></label>
+            <br><br>
+            {{-- apply overtime --}}
+            <div id="hideOvertimeField" style="display:none">
+
+                <div class="form-group row">
+                    <div class="col-md-6">
+
+                        {{-- overtime date --}}
+                        <div class="form__group col-md-8 fg_margin input-group date" data-target-input="nearest">
+                            <input id="schedDate" name = "schedDate" type="text" class="datetimepicker-input form__field" placeholder="Schedule Date" data-target="#schedDate" data-toggle="datetimepicker">
+                            <label for="schedDate" class="span-header form__label"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;Schedule Date</label>
+                        </div>
+                        <br>
+
+                        {{-- time in --}}
+                         <div class="form__group col-md-8 fg_margin input-group date" data-target-input="nearest">
+                            <input id="timeIn" name = "timeIn" type="text" class="datetimepicker-input form__field" placeholder="Time In" data-target="#timeIn" data-toggle="datetimepicker">
+                            <label for="timeIn" class="span-header form__label"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Time In</label>
+                        </div>
+                        <br>
+
+                        {{-- time out --}}
+                        <div class="form__group col-md-8 fg_margin input-group date" data-target-input="nearest">
+                            <input id="timeOut" name = "timeOut" type="text" class="datetimepicker-input form__field" placeholder="Time Out" data-target="#timeOut" data-toggle="datetimepicker">
+                            <label for="timeOut" class="span-header form__label"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Time Out</label>
+                        </div>
+                        <br>
+                        {{-- total hours --}}
+                        <!-- {{-- <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for='txtReason'><b>Total Hours&nbsp;</b></label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="txtTotalHours" name="txtTotalHours" rows="3" placeholder="0.0"></input>
+                            </div>
+                        </div> --}} -->
+
+                        <!-- {{-- shift type --}} -->
+                        <div class="form__group col-md-8 fg_margin">
+                                <select id="cmbShift" name = "cmbShift" class="form__field" placeholder="Shift Type">
+                                        <option value="">- Select Shift -</option>
+                                        <option value="Pre-Shift">Pre-Shift</option>
+                                        <option value="Post-Shift">Post-Shift</option>
+                                </select>
+                            <label for="cmbShiftType" class="span-header form__label"><i class="fa fa-server" aria-hidden="true"></i>&nbsp;Shift Type</label>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                    <br>
+                        {{-- reason --}}
+                        <div class="form__group col-md-8 fg_margin">
+                            <textarea type="text" id="txtReason" name = "txtReason" class="form__field" placeholder="Reason"></textarea>
+                            <label for="txtReason" class="span-header form__label"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Reason</label>
+                        </div>
+
+                        <div class="form__group col-md-8 fg_margin">
+                            <div class="container form-group row">
+                            {{-- <input id="btnAdd" type="button" class="btn btn-sm button blue" value="Add Overtime" style="width:150px;"/>
+                             --}}
+                            <input id="btnAdd" name="btnAdd" class="btn btn-sm button blue pull-right" type="button" value="Apply Overtime" style="width:220px;"/>
+                            
+                            {{-- check all --}}
+                            <input id="selectCount" name="selectCount" type="hidden" value=""/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br><br>
 
         <div id="divOvertimeRecord"class="table-responsive">
                 <table id="tableOvertimeRecord" name="tableOvertimeRecord" class="table table-hover" style="width:100%">
@@ -153,16 +224,15 @@ elseif(Session::get('overtime_records') == 'delete'){
                     </thead>
                     <tbody>
                         <tr>
-                            <td>2019-04-12</td>
-                            <td>2019-04-12 19:30:00</td>
-                            <td>2019-04-12 22:30:00</td>
-                            <td>Post Shift</td>    
-                            <td>Sakit Ulo</td> 
-                            <td>3.0</td>    
-                            <td>PENDING</td>  
-                            <td>PENDING</td> 
-                            <td><input type="button" class="btn btn-sm button red btnCancel" value="Cancel Alteration"></td> 
-                        
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>    
+                            <td></td> 
+                            <td></td>    
+                            <td></td>  
+                            <td></td> 
+                            <td></td> <!--- <input type="button" class="btn btn-sm button red btnCancel" value="Cancel Alteration"> --->
                         </tr>
                     </tbody>
                 </table>
@@ -203,5 +273,90 @@ $(function (){
         format: 'L'
     });
 });
+</script>
+
+
+
+<script>
+    $('#tableOvertimeRecord').DataTable({
+        "serverSide": false, 
+        "retrieve": true, 
+        "bStateSave": true,
+        "ordering": false
+    });
+
+    //function refresh 
+    refresh_Table();
+    function refresh_Table(){
+        $.ajax({
+            headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            url: "{{ route('printovertime') }}",
+            method: "GET",
+            data:{}, 
+            success:function(data)
+            {
+                
+                $('#divOvertimeRecord').html(data);
+                
+                $('#tableOvertimeRecord').DataTable({
+                    "serverSide": false, 
+                    "retrieve": true,
+                    "bStateSave": true,
+                    "ordering": false
+                });
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+                console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
+        });
+    }
+
+
+
+//overtime field
+$(document).on("click", "#overtimeIcon", function(){
+        if($("#hideOvertimeField").is(":visible")){
+
+            $("#overtimeIcon").removeClass("fa-caret-square-o-down");
+            $("#overtimeIcon").addClass("fa fa-caret-square-o-right");
+            $("#hideOvertimeField").stop().slideUp(150);
+        }
+        else{
+
+            $("#overtimeIcon").removeClass("fa-caret-square-o-right");
+            $("#overtimeIcon").addClass("fa-caret-square-o-down");
+            $("#hideOvertimeField").stop().slideDown(150);
+            
+        }
+    });
+//overtime field
+
+
+//cancel overtime
+    $(document).on("click", ".btnCancel", function(){
+            
+        var id_to_cancel = $(this).data("add");
+        var c = confirm("Do you want to cancel this overtime?");
+
+        if(c == true)
+        {
+            $.ajax({
+                headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                url: "{{ route('cancelovertime') }}",
+                method: "POST",
+                data:{id_to_cancel: id_to_cancel}, 
+                dataType: "json",
+                success:function(data)
+                {
+                    alert(data);
+                    refresh_Table();
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            });
+        }
+    });
+//cancel alteration
 </script>
 @endsection
