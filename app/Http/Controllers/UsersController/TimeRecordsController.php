@@ -495,8 +495,7 @@ class TimeRecordsController extends Controller
         echo $data;
     }  
 
-
-    //filter dates and show it on table
+    //filter dates and show it on table/
     public function filter_dates(Request $request)
     {
         //Code for getting the current date of Asia/Manila

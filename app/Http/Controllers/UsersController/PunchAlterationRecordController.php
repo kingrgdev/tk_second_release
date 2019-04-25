@@ -495,7 +495,7 @@ class PunchAlterationRecordController extends Controller
             $today = strtotime($todays_date);
             $todayDate = date("Y-m-d", $today); 
         //Code for getting the current date of Asia/Manila
-
+        
         $date_now = new DateTime();
         $date_now = $date_now->format('Y-m-d');
 

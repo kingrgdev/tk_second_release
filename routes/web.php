@@ -175,6 +175,8 @@ Route::get('/overtimerecords', 'UsersController\\OvertimeRecordsController@index
 //For integration with clint//
 Route::get('overtimerecords/printovertime', 'UsersController\\OvertimeRecordsController@print_overtime_now')->name('printovertime');
 Route::post('overtimerecords/cancelovertime', 'UsersController\\OvertimeRecordsController@cancel_overtime')->name('cancelovertime');
+Route::get('overtimerecords/filterdates', 'UsersController\\OvertimeRecordsController@filter_dates')->name('filterdates');
+Route::post('overtimerecords/saveovertime', 'UsersController\\OvertimeRecordsController@save_overtime')->name('saveovertime');
 //For integration with clint//
 
 //USER MODULE

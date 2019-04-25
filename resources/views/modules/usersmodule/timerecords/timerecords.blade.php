@@ -165,6 +165,7 @@
     //function refresh 
     refresh_Table();
     function refresh_Table(){
+        
         $.ajax({
             headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             url: "{{ route('printdate') }}",
@@ -214,7 +215,6 @@
                     $('#table_time_records').dataTable({
                         "serverSide": false, 
                         "retrieve": true,
-                        "bStateSave":true,
                         "ordering": false
                     });
                 },
@@ -355,6 +355,7 @@
     // function validation
     function validation_altered_data()
     {   
+        
         var a = $('select[name=table_time_records_length]').val();
         $('select[name=table_time_records_length]').append("<option id='optioncount' value='365'></option>");
         $('select[name=table_time_records_length]').val(365).trigger('change');
@@ -459,7 +460,7 @@
         }
     }
 
-    //button apply alteration
+    //button apply alteration/
     $(document).on("click", ".btnApplyAlter", function(){
 
         var a = $('select[name=table_time_records_length]').val();
