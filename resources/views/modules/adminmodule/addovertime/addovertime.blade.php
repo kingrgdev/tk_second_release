@@ -304,7 +304,7 @@
 {{-- end --}}
 <script>
 
-    //get employee info and get overtime record
+    //get employee info and get overtime records
     refreshTable();
     function refreshTable(){
 

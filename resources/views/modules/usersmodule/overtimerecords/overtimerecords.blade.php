@@ -61,6 +61,7 @@ elseif(Session::get('overtime_records') == 'delete'){
 
     <div id="moduleContainer" class="container-fluid" style="padding:9px;">
         <br>
+
         <div class="form-group">
             <div class="col-md-3">
                 <div class="row">
@@ -118,25 +119,6 @@ elseif(Session::get('overtime_records') == 'delete'){
             
         <div>
 
-        
-
-        <!-- <div class="form-group">
-        <div class="col-md-3">
-                {{-- time in --}}
-                <div class="form__group col-md-6 input-group date" data-target-input="nearest">
-                    <input type="text" id="timeIn" name = "timeIn" class="datetimepicker-input form__field" placeholder="Time In" data-target="#timeIn" data-toggle="datetimepicker">
-                    <label for="timeIn" class="span-header form__label"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Time In</label>
-                </div>
-                
-            </div>
-        </div> -->
-
-        {{-- <div class="form__group">
-            <input id="btnAdd" name="btnAdd" class="btn btn-sm button blue pull-right" type="button" value="Apply For Advance Overtime?" style="width:220px;"/>
-        </div>
-        <br><br> --}}
-
-
             <label class="pull-right"><b>Apply for Advance Overtime? </b><span id="overtimeIcon" class="fa fa-caret-square-o-right fa-lg" style="cursor:pointer;"></span></label>
             <br><br>
             {{-- apply overtime --}}
@@ -168,15 +150,7 @@ elseif(Session::get('overtime_records') == 'delete'){
                             <label for="timeOut" class="span-header form__label"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Time Out</label>
                         </div>
                         <br>
-                        {{-- total hours --}}
-                        <!-- {{-- <div class="form-group row">
-                            <label class="col-md-3 col-form-label" for='txtReason'><b>Total Hours&nbsp;</b></label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" id="txtTotalHours" name="txtTotalHours" rows="3" placeholder="0.0"></input>
-                            </div>
-                        </div> --}} -->
-
-                        <!-- {{-- shift type --}} -->
+                        
                         <div class="form__group col-md-8 fg_margin">
                                 <select id="cmbShift" name = "cmbShift" class="form__field" placeholder="Shift Type">
                                         <option value="">- Select Shift -</option>
@@ -198,10 +172,7 @@ elseif(Session::get('overtime_records') == 'delete'){
 
                         <div class="form__group col-md-8 fg_margin">
                             <div class="container form-group row">
-                            {{-- <input id="btnAdd" type="button" class="btn btn-sm button blue" value="Add Overtime" style="width:150px;"/>
-                             --}}
                             <input id="btnApplyAlter" name="btnApplyAlter" class="btnApplyAlter btn btn-sm button blue pull-right" type="button" value="Apply Overtime" style="width:220px;"/>
-                          
                             </div>
                         </div>
                     </div>
@@ -388,12 +359,39 @@ $(document).on("click", "#overtimeIcon", function(){
 
 
 <script>
-//button apply alteration/
+//button apply alteration//
 $(document).on("click", ".btnApplyAlter", function(){
 
-    var c = confirm("Apply this Overtime?");
-    
+var datetimein = $("#schedDate").val() + " " + $("#timeIn").val();
+var datetimeout = $("#timeOut").val();
 
+if($("#schedDate").val() == ""){
+    
+    alert("Schedule Date Field Required!");
+}
+else if($("#timeIn").val() == "")
+{
+    alert("Time In Required!");
+}
+else if($("#timeOut").val() == "")
+{
+    alert("Time Out Required!");
+}
+else if($("#cmbShift").val() == "")
+{
+    alert("Shift Type Field Required!");
+}
+else if($("#txtReason").val() == "")
+{
+    alert("Reason Field Required!");
+}
+else if(datetimeout <= datetimein)
+{
+    alert("Date time out must greater than Date time in!");
+}
+else
+{
+    var c = confirm("Apply this overtime?");
     if(c == true)
     {
         var schedDate = $("#schedDate").val();
@@ -417,46 +415,47 @@ $(document).on("click", ".btnApplyAlter", function(){
             }
         }); 
     }
+}
 });
+//button apply alteration//
 
 
-    //button generate filter dates
-    $(document).on('click', '#btnFilter', function (){        
-        filterDate();   
-    });
-    //function filter dates
-    function filterDate()
+//button generate filter dates
+$(document).on('click', '#btnFilter', function (){        
+    filterDate();   
+});
+//function filter dates
+function filterDate()
+{
+    var startDate = $('#searchStartDate').val();
+    var endDate = $('#searchEndDate').val();
+
+    if(startDate == "" || endDate == "")
     {
-        var startDate = $('#searchStartDate').val();
-        var endDate = $('#searchEndDate').val();
-
-        if(startDate == "" || endDate == "")
-        {
-            alert("No Date selected");
-        }
-        else
-        {
-            $.ajax({
-                headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                url: "{{ route('filterdates') }}",
-                method: "GET",
-                data:{start_date: startDate, end_date: endDate}, 
-                success:function(data)
-                {
-                    $('#divOvertimeRecord').html(data);
-                    $('#tableOvertimeRecord').DataTable({
-                        "serverSide": false, 
-                        "retrieve": true, 
-                        "ordering": false
-                    });
-                },
-                error: function(xhr, ajaxOptions, thrownError){
-                    console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-                }
-            });
-        }  
+        alert("No Date selected");
     }
-
+    else
+    {
+        $.ajax({
+            headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            url: "{{ route('filterdates') }}",
+            method: "GET",
+            data:{start_date: startDate, end_date: endDate}, 
+            success:function(data)
+            {
+                $('#divOvertimeRecord').html(data);
+                $('#tableOvertimeRecord').DataTable({
+                    "serverSide": false, 
+                    "retrieve": true, 
+                    "ordering": false
+                });
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+                console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
+        });
+    }  
+}
 </script>
 
 @endsection
