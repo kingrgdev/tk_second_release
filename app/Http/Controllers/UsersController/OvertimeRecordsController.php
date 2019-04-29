@@ -131,8 +131,6 @@ class OvertimeRecordsController extends Controller
         if(!empty($check_ot)){
             
             $message = "Your overtime already exists!";
-            
-
 
         //If there's no overtime matched for particular date
         }else{
@@ -148,20 +146,1319 @@ class OvertimeRecordsController extends Controller
 
             if(!empty($select_schedule_request)){
                 if($select_schedule_request[0]->type == "Regular Shift"){
-                    $message = "No Schedule Request Found: Regular Shift";
-                    
+                    $day = date("N", strtotime($request->input('schedDate'))); //converts the date into day
+                                    
+                    //Monday
+                        if($day == "1"){
+
+                            $overtime = "false";
+
+                            //date in
+                            $date_in = date("Y-m-d", strtotime($datetimein));
+                            //date out
+                            $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                            //time in of employee 
+                            $reg_in = $select_schedule_request[0]->reg_in;
+                            //time out of employee 
+                            $reg_out = $select_schedule_request[0]->reg_out;
+
+                            //datetime in
+                            $_datetimein = new DateTime($datetimein);
+                            //datetime out
+                            $_datetimeout = new DateTime($datetimeout);
+
+                            //employee datetime in
+                            $reg_datetimein = new DateTime($date_in . " " . $reg_in);
+                            //employee datetime out
+                            $reg_datetimeout = new DateTime($date_in . " " . $reg_out);
+
+                            if($date_in != $date_out){
+
+                                $chkDay = date("N", strtotime($date_out));
+
+                                //get emp time in
+                                $reg_in = $select_schedule_request[0]->reg_in;
+                                $reg_datetimein = new DateTime($date_out . " " . $reg_in);
+
+                                //add 1 day to check if the date out is greater than 1 to date in
+                                $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                if($reg_datetimeout < $_datetimein){
+                                    //kapag sobra sa isang araw yung inapply na overtime
+                                    if($date_out > $valid_date_out){
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                    else{
+                                        //kapag next day ang inapply na overtime
+                                        if($chkDay == "2"){
+                                            if($reg_in == "00:00:00"){
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                            else if($tue_datetimein > $reg_datetimeout){
+
+                                                $message = "Overtime cannot be applied!";
+                                                
+                                            }
+                                            else{
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                        }
+                                    }
+                                }
+                                else{
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                            }
+                            else{
+                                //kapag tumama sa inapplyang overtime yung sched time niya 
+                                if($_datetimeout < $reg_datetimeout && $_datetimeout > $reg_datetimein || $_datetimein < $reg_datetimein &&  $_datetimeout > $reg_datetimeout || 
+                                $_datetimein > $reg_datetimein && $_datetimeout > $reg_datetimeout && $_datetimein < $reg_datetimeout){
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                                else{
+
+                                    $overtime = "true";
+                                    $interval = $_datetimeout->diff($_datetimein);
+                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                }
+                            }
+                        }
+                    //End of Monday
+
+                    //Tuesday
+                        if($day == "2"){
+
+                            $overtime = "false";
+
+                            //date in
+                            $date_in = date("Y-m-d", strtotime($datetimein));
+                            //date out
+                            $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                            //time in of employee 
+                            $reg_in = $select_schedule_request[0]->reg_in;
+                            //time out of employee 
+                            $reg_out = $select_schedule_request[0]->reg_out;
+
+                            //datetime in
+                            $_datetimein = new DateTime($datetimein);
+                            //datetime out
+                            $_datetimeout = new DateTime($datetimeout);
+
+                            //employee datetime in
+                            $reg_datetimein = new DateTime($date_in . " " . $reg_in);
+                            //employee datetime out
+                            $reg_datetimeout = new DateTime($date_in . " " . $reg_out);
+
+                            if($date_in != $date_out){
+
+                                $chkDay = date("N", strtotime($date_out));
+
+                                //get emp time in
+                                $reg_in = $select_schedule_request[0]->reg_in;
+                                $reg_datetimein = new DateTime($date_out . " " . $reg_in);
+
+                                //add 1 day to check if the date out is greater than 1 to date in
+                                $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                if($reg_datetimeout < $_datetimein){
+                                    //kapag sobra sa isang araw yung inapply na overtime
+                                    if($date_out > $valid_date_out){
+
+                                        $message = "Overtime cannot be applied!";
+                                    
+                                    }
+                                    else{
+                                        //kapag next day ang inapply na overtime
+                                        if($chkDay == "3"){
+                                            if($reg_in == "00:00:00"){
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                            else if($tue_datetimein > $reg_datetimeout){
+
+                                                $message = "Overtime cannot be applied!";
+                                                
+                                            }
+                                            else{
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                        }
+                                    }
+                                }
+                                else{
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                            }
+                            else{
+                                //kapag tumama sa inapplyang overtime yung sched time niya 
+                                if($_datetimeout < $reg_datetimeout && $_datetimeout > $reg_datetimein || $_datetimein < $reg_datetimein &&  $_datetimeout > $reg_datetimeout || 
+                                $_datetimein > $reg_datetimein && $_datetimeout > $reg_datetimeout && $_datetimein < $reg_datetimeout){
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                                else{
+
+                                    $overtime = "true";
+                                    $interval = $_datetimeout->diff($_datetimein);
+                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                }
+                            }
+                        }
+                    //End of Tuesday
+
+                    //Wednesday
+                        if($day == "3"){
+
+                            $overtime = "false";
+
+                            //date in
+                            $date_in = date("Y-m-d", strtotime($datetimein));
+                            //date out
+                            $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                            //time in of employee 
+                            $reg_in = $select_schedule_request[0]->reg_in;
+
+                            //time out of employee 
+                            $reg_out = $select_schedule_request[0]->reg_out;
+
+                            //datetime in
+                            $_datetimein = new DateTime($datetimein);
+                            //datetime out
+                            $_datetimeout = new DateTime($datetimeout);
+
+                            //employee datetime in
+                            $reg_datetimein = new DateTime($date_in . " " . $reg_in);
+                            //employee datetime out
+                            $reg_datetimeout = new DateTime($date_in . " " . $reg_out);
+
+                            if($date_in != $date_out){
+
+                                $chkDay = date("N", strtotime($date_out));
+
+                                //get emp time in
+                                $reg_in = $select_schedule_request[0]->reg_in;
+                                $reg_datetimein = new DateTime($date_out . " " . $reg_in);
+
+                                //add 1 day to check if the date out is greater than 1 to date in
+                                $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                if($reg_datetimeout < $_datetimein){
+                                    //kapag sobra sa isang araw yung inapply na overtime
+                                    if($date_out > $valid_date_out){
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                    else{
+                                        //kapag next day ang inapply na overtime
+                                        if($chkDay == "4"){
+                                            if($reg_in == "00:00:00"){
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                            else if($tue_datetimein > $reg_datetimeout){
+
+                                                $message = "Overtime cannot be applied!";
+                                                
+                                            }
+                                            else{
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                        }
+                                    }
+                                }
+                                else{
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                            }
+                            else{
+                                //kapag tumama sa inapplyang overtime yung sched time niya 
+                                if($_datetimeout < $reg_datetimeout && $_datetimeout > $reg_datetimein || $_datetimein < $reg_datetimein &&  $_datetimeout > $reg_datetimeout || 
+                                $_datetimein > $reg_datetimein && $_datetimeout > $reg_datetimeout && $_datetimein < $reg_datetimeout){
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                                else{
+
+                                    $overtime = "true";
+                                    $interval = $_datetimeout->diff($_datetimein);
+                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                }
+                            }
+                        }
+                    //End of Wednesday
+
+                    //Thursday
+                        if($day == "4"){
+
+                            $overtime = "false";
+
+                            //date in
+                            $date_in = date("Y-m-d", strtotime($datetimein));
+                            //date out
+                            $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                            //time in of employee 
+                            $reg_in = $select_schedule_request[0]->reg_in;
+                            //time out of employee 
+                            $reg_out = $select_schedule_request[0]->reg_out;
+
+                            //datetime in
+                            $_datetimein = new DateTime($datetimein);
+                            //datetime out
+                            $_datetimeout = new DateTime($datetimeout);
+
+                            //employee datetime in
+                            $reg_datetimein = new DateTime($date_in . " " . $reg_in);
+                            //employee datetime out
+                            $reg_datetimeout = new DateTime($date_in . " " . $reg_out);
+
+                            if($date_in != $date_out){
+
+                                $chkDay = date("N", strtotime($date_out));
+
+                                //get emp time in
+                                $reg_in = $select_schedule_request[0]->reg_in;
+                                $reg_datetimein = new DateTime($date_out . " " . $reg_in);
+
+                                //add 1 day to check if the date out is greater than 1 to date in
+                                $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                if($reg_datetimeout < $_datetimein){
+                                    //kapag sobra sa isang araw yung inapply na overtime
+                                    if($date_out > $valid_date_out){
+
+                                        $message = "Overtime cannot be applied!";
+                                    
+                                    }
+                                    else{
+                                        //kapag next day ang inapply na overtime
+                                        if($chkDay == "5"){
+                                            if($reg_in == "00:00:00"){
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                            else if($tue_datetimein > $reg_datetimeout){
+
+                                                $message = "Overtime cannot be applied!";
+                                                
+                                            }
+                                            else{
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                        }
+                                    }
+                                }
+                                else{
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                            }
+                            else{
+                                //kapag tumama sa inapplyang overtime yung sched time niya 
+                                if($_datetimeout < $reg_datetimeout && $_datetimeout > $reg_datetimein || $_datetimein < $reg_datetimein &&  $_datetimeout > $reg_datetimeout || 
+                                $_datetimein > $reg_datetimein && $_datetimeout > $reg_datetimeout && $_datetimein < $reg_datetimeout){
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                                else{
+
+                                    $overtime = "true";
+                                    $interval = $_datetimeout->diff($_datetimein);
+                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                }
+                            }
+                        }
+                    //End of Thursday
+
+                    //Friday
+                        if($day == "5"){
+
+                            $overtime = "false";
+
+                            //date in
+                            $date_in = date("Y-m-d", strtotime($datetimein));
+                            //date out
+                            $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                            //time in of employee 
+                            $reg_in = $select_schedule_request[0]->reg_in;
+                            //time out of employee 
+                            $reg_out = $select_schedule_request[0]->reg_out;
+
+                            //datetime in
+                            $_datetimein = new DateTime($datetimein);
+                            //datetime out
+                            $_datetimeout = new DateTime($datetimeout);
+
+                            //employee datetime in
+                            $reg_datetimein = new DateTime($date_in . " " . $reg_in);
+                            //employee datetime out
+                            $reg_datetimeout = new DateTime($date_in . " " . $reg_out);
+
+                            if($date_in != $date_out){
+
+                                $chkDay = date("N", strtotime($date_out));
+
+                                //get emp time in
+                                $reg_in = $select_schedule_request[0]->reg_in;
+                                $reg_datetimein = new DateTime($date_out . " " . $reg_in);
+
+                                //add 1 day to check if the date out is greater than 1 to date in
+                                $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                if($reg_datetimeout < $_datetimein){
+                                    //kapag sobra sa isang araw yung inapply na overtime
+                                    if($date_out > $valid_date_out){
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                    else{
+                                        //kapag next day ang inapply na overtime
+                                        if($chkDay == "6"){
+                                            if($reg_in == "00:00:00"){
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                            else if($tue_datetimein > $reg_datetimeout){
+
+                                                $message = "Overtime cannot be applied!";
+                                                
+                                            }
+                                            else{
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                        }
+                                    }
+                                }
+                                else{
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                            }
+                            else{
+                                //kapag tumama sa inapplyang overtime yung sched time niya 
+                                if($_datetimeout < $reg_datetimeout && $_datetimeout > $reg_datetimein || $_datetimein < $reg_datetimein &&  $_datetimeout > $reg_datetimeout || 
+                                $_datetimein > $reg_datetimein && $_datetimeout > $reg_datetimeout && $_datetimein < $reg_datetimeout){
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                                else{
+
+                                    $overtime = "true";
+                                    $interval = $_datetimeout->diff($_datetimein);
+                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                }
+                            }
+                        }
+                    //End of Friday
+
+                    //Saturday
+                        if($day == "6"){
+
+                            $overtime = "false";
+
+                            //date in
+                            $date_in = date("Y-m-d", strtotime($datetimein));
+                            //date out
+                            $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                            //time in of employee 
+                            $reg_in = $select_schedule_request[0]->reg_in;
+                            //time out of employee 
+                            $reg_out = $select_schedule_request[0]->reg_out;
+
+                            //datetime in
+                            $_datetimein = new DateTime($datetimein);
+                            //datetime out
+                            $_datetimeout = new DateTime($datetimeout);
+
+                            //employee datetime in
+                            $reg_datetimein = new DateTime($date_in . " " . $reg_in);
+                            //employee datetime out
+                            $reg_datetimeout = new DateTime($date_in . " " . $reg_out);
+
+                            if($date_in != $date_out){
+
+                                $chkDay = date("N", strtotime($date_out));
+
+                                //get emp time in
+                                $reg_in = $select_schedule_request[0]->reg_in;
+                                $reg_datetimein = new DateTime($date_out . " " . $reg_in);
+
+                                //add 1 day to check if the date out is greater than 1 to date in
+                                $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                if($reg_datetimeout < $_datetimein){
+                                    //kapag sobra sa isang araw yung inapply na overtime
+                                    if($date_out > $valid_date_out){
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                    else{
+                                        //kapag next day ang inapply na overtime
+                                        if($chkDay == "7"){
+                                            if($reg_in == "00:00:00"){
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                            else if($tue_datetimein > $reg_datetimeout){
+
+                                                $message = "Overtime cannot be applied!";
+                                                
+                                            }
+                                            else{
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                        }
+                                    }
+                                }
+                                else{
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                            }
+                            else{
+                                //kapag tumama sa inapplyang overtime yung sched time niya 
+                                if($_datetimeout < $reg_datetimeout && $_datetimeout > $reg_datetimein || $_datetimein < $reg_datetimein &&  $_datetimeout > $reg_datetimeout || 
+                                $_datetimein > $reg_datetimein && $_datetimeout > $reg_datetimeout && $_datetimein < $reg_datetimeout){
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                                else{
+
+                                    $overtime = "true";
+                                    $interval = $_datetimeout->diff($_datetimein);
+                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                }
+                            }
+                        }
+                    //End of Saturday
+
+                    //Sunday
+                        if($day == "7"){
+
+                            $overtime = "false";
+
+                            //date in
+                            $date_in = date("Y-m-d", strtotime($datetimein));
+                            //date out
+                            $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                            //time in of employee 
+                            $reg_in = $select_schedule_request[0]->reg_in;
+                            //time out of employee 
+                            $reg_out = $select_schedule_request[0]->reg_out;
+
+                            //datetime in
+                            $_datetimein = new DateTime($datetimein);
+                            //datetime out
+                            $_datetimeout = new DateTime($datetimeout);
+
+                            //employee datetime in
+                            $reg_datetimein = new DateTime($date_in . " " . $reg_in);
+                            //employee datetime out
+                            $reg_datetimeout = new DateTime($date_in . " " . $reg_out);
+
+                            if($date_in != $date_out){
+
+                                $chkDay = date("N", strtotime($date_out));
+
+                                //get emp time in
+                                $reg_in = $select_schedule_request[0]->reg_in;
+                                $reg_datetimein = new DateTime($date_out . " " . $reg_in);
+
+                                //add 1 day to check if the date out is greater than 1 to date in
+                                $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                if($reg_datetimeout < $_datetimein){
+                                    //kapag sobra sa isang araw yung inapply na overtime
+                                    if($date_out > $valid_date_out){
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                    else{
+                                        //kapag next day ang inapply na overtime
+                                        if($chkDay == "1"){
+                                            if($reg_in == "00:00:00"){
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                            else if($tue_datetimein > $reg_datetimeout){
+
+                                                $message = "Overtime cannot be applied!";
+                                                
+                                            }
+                                            else{
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                        }
+                                    }
+                                }
+                                else{
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                            }
+                            else{
+                                //kapag tumama sa inapplyang overtime yung sched time niya 
+                                if($_datetimeout < $reg_datetimeout && $_datetimeout > $reg_datetimein || $_datetimein < $reg_datetimein &&  $_datetimeout > $reg_datetimeout || 
+                                $_datetimein > $reg_datetimein && $_datetimeout > $reg_datetimeout && $_datetimein < $reg_datetimeout){
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                                else{
+
+                                    $overtime = "true";
+                                    $interval = $_datetimeout->diff($_datetimein);
+                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                }
+                            }
+                        }
+                    //End of sunday
                 }
-                else if($select_schedule_request->type == "Irregular Shift"){
-                    $message = "No Schedule Request Found: Irregular Shift";
+                else if($select_schedule_request[0]->type == "Irregular Shift"){
                     
+                    $day = date("N", strtotime($request->input('schedDate'))); //converts the date into day
+
+                    //Monday
+                        if($day == "1"){
+
+                            $overtime = "false";
+                            //date in
+                            $date_in = date("Y-m-d", strtotime($datetimein));
+                            //date out
+                            $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                            //time in of employee 
+                            $mon_in = $select_schedule_request[0]->mon_in;
+                            //time out of employee 
+                            $mon_out = $select_schedule_request[0]->mon_out;
+
+                            //datetime in
+                            $_datetimein = new DateTime($datetimein);
+                            //datetime out
+                            $_datetimeout = new DateTime($datetimeout);
+
+                            //employee datetime in
+                            $mon_datetimein = new DateTime($date_in . " " . $mon_in);
+                            //employee datetime out
+                            $mon_datetimeout = new DateTime($date_in . " " . $mon_out);
+
+                            //check if the application for overtime is between the next day
+                            if($date_in != $date_out){
+
+                                $chkDay = date("N", strtotime($date_out));
+
+                                //get emp time in
+                                $tue_in = $select_schedule_request[0]->mon_in;
+                                $tue_datetimein = new DateTime($date_out . " " . $tue_in);
+
+                                //add 1 day to check if the date out is greater than 1 to date in
+                                $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                if($mon_datetimeout < $_datetimein){
+                                    //kapag sobra sa isang araw yung inapply na overtime
+                                    if($date_out > $valid_date_out){
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                    else{
+                                        //kapag next day ang inapply na overtime
+                                        if($chkDay == "6"){
+                                            if($tue_in == "00:00:00"){
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                            else if($tue_datetimein > $mon_datetimeout){
+
+                                                $message = "Overtime cannot be applied!";
+                                                
+                                            }
+                                            else{
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                        }
+                                    }
+                                }
+                                else{
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                            }
+                            else{
+                                //kapag tumama sa inapplyang overtime yung sched time niya 
+                                if($_datetimeout < $mon_datetimeout && $_datetimeout > $mon_datetimein || $_datetimein < $mon_datetimein &&  $_datetimeout > $mon_datetimeout || 
+                                $_datetimein > $mon_datetimein && $_datetimeout > $mon_datetimeout && $_datetimein < $mon_datetimeout){
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                                else{
+
+                                    $overtime = "true";
+                                    $interval = $_datetimeout->diff($_datetimein);
+                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                }
+                            }
+
+                        }
+                    //End of Monday
+
+                    //Tuesday
+                        if($day == "2"){
+
+                            $overtime = "false";
+                            //date in
+                            $date_in = date("Y-m-d", strtotime($datetimein));
+                            //date out
+                            $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                            //time in of employee 
+                            $tue_in = $select_schedule_request[0]->tue_in;
+                            //time out of employee 
+                            $tue_out = $select_schedule_request[0]->tue_out;
+
+                            //datetime in
+                            $_datetimein = new DateTime($datetimein);
+                            //datetime out
+                            $_datetimeout = new DateTime($datetimeout);
+
+                            //employee datetime in
+                            $tue_datetimein = new DateTime($date_in . " " . $tue_in);
+                            //employee datetime out
+                            $tue_datetimeout = new DateTime($date_in . " " . $tue_out);
+
+                            //check if the application for overtime is between the next day
+                            if($date_in != $date_out){
+
+                                $chkDay = date("N", strtotime($date_out));
+
+                                //get emp time in
+                                $wed_in = $select_schedule_request[0]->mon_in;
+                                $wed_datetimein = new DateTime($date_out . " " . $wed_in);
+
+                                //add 1 day to check if the date out is greater than 1 to date in
+                                $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                if($tue_datetimeout < $_datetimein){
+                                    //kapag sobra sa isang araw yung inapply na overtime
+                                    if($date_out > $valid_date_out){
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                    else{
+                                        //kapag next day ang inapply na overtime
+                                        if($chkDay == "6"){
+                                            if($wed_in == "00:00:00"){
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                            else if($wed_datetimein > $tue_datetimeout){
+
+                                                $message = "Overtime cannot be applied!";
+                                                
+                                            }
+                                            else{
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                        }
+                                    }
+                                }
+                                else{
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                            }
+                            else{
+                                //kapag tumama sa inapplyang overtime yung sched time niya 
+                                if($_datetimeout < $tue_datetimeout && $_datetimeout > $tue_datetimein || $_datetimein < $tue_datetimein &&  $_datetimeout > $tue_datetimeout || 
+                                $_datetimein > $tue_datetimein && $_datetimeout > $tue_datetimeout && $_datetimein < $tue_datetimeout){
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                                else{
+
+                                    $overtime = "true";
+                                    $interval = $_datetimeout->diff($_datetimein);
+                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                }
+                            }
+
+                        }
+                    //End of Tuesday
+
+                    //Wednesday
+                        if($day == "3"){
+
+                            $overtime = "false";
+                            //date in
+                            $date_in = date("Y-m-d", strtotime($datetimein));
+                            //date out
+                            $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                            //time in of employee 
+                            $wed_in = $select_schedule_request[0]->wed_in;
+                            //time out of employee 
+                            $wed_out = $select_schedule_request[0]->wed_out;
+
+                            //datetime in
+                            $_datetimein = new DateTime($datetimein);
+                            //datetime out
+                            $_datetimeout = new DateTime($datetimeout);
+
+                            //employee datetime in
+                            $wed_datetimein = new DateTime($date_in . " " . $wed_in);
+                            //employee datetime out
+                            $wed_datetimeout = new DateTime($date_in . " " . $wed_out);
+
+                            //check if the application for overtime is between the next day
+                            if($date_in != $date_out){
+
+                                $chkDay = date("N", strtotime($date_out));
+
+                                //get emp time in
+                                $thu_in = $select_schedule_request[0]->mon_in;
+                                $thu_datetimein = new DateTime($date_out . " " . $thu_in);
+
+                                //add 1 day to check if the date out is greater than 1 to date in
+                                $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                if($wed_datetimeout < $_datetimein){
+                                    //kapag sobra sa isang araw yung inapply na overtime
+                                    if($date_out > $valid_date_out){
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                    else{
+                                        //kapag next day ang inapply na overtime
+                                        if($chkDay == "6"){
+                                            if($thu_in == "00:00:00"){
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                            else if($thu_datetimein > $wed_datetimeout){
+
+                                                $message = "Overtime cannot be applied!";
+                                                
+                                            }
+                                            else{
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                        }
+                                    }
+                                }
+                                else{
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                            }
+                            else{
+                                //kapag tumama sa inapplyang overtime yung sched time niya 
+                                if($_datetimeout < $wed_datetimeout && $_datetimeout > $wed_datetimein || $_datetimein < $wed_datetimein &&  $_datetimeout > $wed_datetimeout || 
+                                $_datetimein > $wed_datetimein && $_datetimeout > $wed_datetimeout && $_datetimein < $wed_datetimeout){
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                                else{
+
+                                    $overtime = "true";
+                                    $interval = $_datetimeout->diff($_datetimein);
+                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                }
+                            }
+
+                        }
+                    //End of Wednesday
+
+                    //Thursday
+                        if($day == "4"){
+
+                            $overtime = "false";
+                            //date in
+                            $date_in = date("Y-m-d", strtotime($datetimein));
+                            //date out
+                            $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                            //time in of employee 
+                            $thu_in = $select_schedule_request[0]->thu_in;
+                            //time out of employee 
+                            $thu_out = $select_schedule_request[0]->thu_out;
+
+                            //datetime in
+                            $_datetimein = new DateTime($datetimein);
+                            //datetime out
+                            $_datetimeout = new DateTime($datetimeout);
+
+                            //employee datetime in
+                            $thu_datetimein = new DateTime($date_in . " " . $thu_in);
+                            //employee datetime out
+                            $thu_datetimeout = new DateTime($date_in . " " . $thu_out);
+
+                            //check if the application for overtime is between the next day
+                            if($date_in != $date_out){
+
+                                $chkDay = date("N", strtotime($date_out));
+
+                                //get emp time in
+                                $fri_in = $select_schedule_request[0]->mon_in;
+                                $fri_datetimein = new DateTime($date_out . " " . $fri_in);
+
+                                //add 1 day to check if the date out is greater than 1 to date in
+                                $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                if($thu_datetimeout < $_datetimein){
+                                    //kapag sobra sa isang araw yung inapply na overtime
+                                    if($date_out > $valid_date_out){
+                                        $message = "Overtime cannot be applied!";
+                                    }
+                                    else{
+                                        //kapag next day ang inapply na overtime
+                                        if($chkDay == "6"){
+                                            if($fri_in == "00:00:00"){
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                            else if($fri_datetimein > $thu_datetimeout){
+
+                                                $message = "Overtime cannot be applied!";
+                                                
+                                            }
+                                            else{
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                        }
+                                    }
+                                }
+                                else{
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                            }
+                            else{
+                                //kapag tumama sa inapplyang overtime yung sched time niya 
+                                if($_datetimeout < $thu_datetimeout && $_datetimeout > $thu_datetimein || $_datetimein < $thu_datetimein &&  $_datetimeout > $thu_datetimeout || 
+                                $_datetimein > $thu_datetimein && $_datetimeout > $thu_datetimeout && $_datetimein < $thu_datetimeout){
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                                else{
+
+                                    $overtime = "true";
+                                    $interval = $_datetimeout->diff($_datetimein);
+                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                }
+                            }
+
+                        }
+                    //End of Thursday
+
+                    //Friday
+                        if($day == "5"){
+
+                            $overtime = "false";
+                            //date in
+                            $date_in = date("Y-m-d", strtotime($datetimein));
+                            //date out
+                            $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                            //time in of employee 
+                            $fri_in = $select_schedule_request[0]->fri_in;
+                            //time out of employee 
+                            $fri_out = $select_schedule_request[0]->fri_out;
+
+                            //datetime in
+                            $_datetimein = new DateTime($datetimein);
+                            //datetime out
+                            $_datetimeout = new DateTime($datetimeout);
+
+                            //employee datetime in
+                            $fri_datetimein = new DateTime($date_in . " " . $fri_in);
+                            //employee datetime out
+                            $fri_datetimeout = new DateTime($date_in . " " . $fri_out);
+
+                            //check if the application for overtime is between the next day
+                            if($date_in != $date_out){
+
+                                $chkDay = date("N", strtotime($date_out));
+
+                                //get emp time in
+                                $sat_in = $select_schedule_request[0]->sat_in;
+                                $sat_datetimein = new DateTime($date_out . " " . $sat_in);
+
+                                //add 1 day to check if the date out is greater than 1 to date in
+                                $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                if($fri_datetimeout < $_datetimein){
+                                    //kapag sobra sa isang araw yung inapply na overtime
+                                    if($date_out > $valid_date_out){
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                    else{
+                                        //kapag next day ang inapply na overtime
+                                        if($chkDay == "6"){
+                                            if($sat_in == "00:00:00"){
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                            else if($sat_datetimein > $fri_datetimeout){
+
+                                                $message = "Overtime cannot be applied!";
+                                                
+                                            }
+                                            else{
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                        }
+                                    }
+                                }
+                                else{
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                            }
+                            else{
+                                //kapag tumama sa inapplyang overtime yung sched time niya 
+                                if($_datetimeout < $fri_datetimeout && $_datetimeout > $fri_datetimein || $_datetimein < $fri_datetimein &&  $_datetimeout > $fri_datetimeout || 
+                                $_datetimein > $fri_datetimein && $_datetimeout > $fri_datetimeout && $_datetimein < $fri_datetimeout){
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                                else{
+
+                                    $overtime = "true";
+                                    $interval = $_datetimeout->diff($_datetimein);
+                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                }
+                            }
+
+                        }
+                    //End of Friday
+
+                    //Saturday
+                        if($day == "6"){
+
+                            $overtime = "false";
+                            //date in
+                            $date_in = date("Y-m-d", strtotime($datetimein));
+                            //date out
+                            $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                            //time in of employee 
+                            $sat_in = $select_schedule_request[0]->sat_in;
+                            //time out of employee 
+                            $sat_out = $select_schedule_request[0]->sat_out;
+
+                            //datetime in
+                            $_datetimein = new DateTime($datetimein);
+                            //datetime out
+                            $_datetimeout = new DateTime($datetimeout);
+
+                            //employee datetime in
+                            $sat_datetimein = new DateTime($date_in . " " . $sat_in);
+                            //employee datetime out
+                            $sat_datetimeout = new DateTime($date_in . " " . $sat_out);
+
+                            //check if the application for overtime is between the next day
+                            if($date_in != $date_out){
+
+                                $chkDay = date("N", strtotime($date_out));
+
+                                //get emp time in
+                                $sun_in = $select_schedule_request[0]->sun_in;
+                                $sun_datetimein = new DateTime($date_out . " " . $sun_in);
+
+                                //add 1 day to check if the date out is greater than 1 to date in
+                                $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                if($sat_datetimeout < $_datetimein){
+                                    //kapag sobra sa isang araw yung inapply na overtime
+                                    if($date_out > $valid_date_out){
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                    else{
+                                        //kapag next day ang inapply na overtime
+                                        if($chkDay == "6"){
+                                            if($sun_in == "00:00:00"){
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                            else if($sun_datetimein > $sat_datetimeout){
+
+                                                $message = "Overtime cannot be applied!";
+                                                
+                                            }
+                                            else{
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                        }
+                                    }
+                                }
+                                else{
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                            }
+                            else{
+                                //kapag tumama sa inapplyang overtime yung sched time niya 
+                                if($_datetimeout < $sat_datetimeout && $_datetimeout > $sat_datetimein || $_datetimein < $sat_datetimein &&  $_datetimeout > $sat_datetimeout || 
+                                $_datetimein > $sat_datetimein && $_datetimeout > $sat_datetimeout && $_datetimein < $sat_datetimeout){
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                                else{
+
+                                    $overtime = "true";
+                                    $interval = $_datetimeout->diff($_datetimein);
+                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                }
+                            }
+
+                        }
+                    //End of Saturday
+
+                    //Sunday
+                        if($day == "7"){
+
+                            $overtime = "false";
+                            //date in
+                            $date_in = date("Y-m-d", strtotime($datetimein));
+                            //date out
+                            $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                            //time in of employee 
+                            $sun_in = $select_schedule_request[0]->sun_in;
+                            //time out of employee 
+                            $sun_out = $select_schedule_request[0]->sun_out;
+
+                            //datetime in
+                            $_datetimein = new DateTime($datetimein);
+                            //datetime out
+                            $_datetimeout = new DateTime($datetimeout);
+
+                            //employee datetime in
+                            $sun_datetimein = new DateTime($date_in . " " . $sun_in);
+                            //employee datetime out
+                            $sun_datetimeout = new DateTime($date_in . " " . $sun_out);
+
+                            //check if the application for overtime is between the next day
+                            if($date_in != $date_out){
+
+                                $chkDay = date("N", strtotime($date_out));
+
+                                //get emp time in
+                                $mon_in = $select_schedule_request[0]->mon_in;
+                                $mon_datetimein = new DateTime($date_out . " " . $mon_in);
+
+                                //add 1 day to check if the date out is greater than 1 to date in
+                                $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                if($sun_datetimeout < $_datetimein){
+                                    //kapag sobra sa isang araw yung inapply na overtime
+                                    if($date_out > $valid_date_out){
+
+                                        $message = "Overtime cannot be applied!";
+                                       
+                                    }
+                                    else{
+                                        //kapag next day ang inapply na overtime
+                                        if($chkDay == "1"){
+                                            if($mon_in == "00:00:00"){
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                            else if($mon_datetimein > $sun_datetimeout){
+
+                                                $message = "Overtime cannot be applied!";
+                                                
+                                            }
+                                            else{
+
+                                                $overtime = "true";
+                                                $interval = $_datetimeout->diff($_datetimein);
+                                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                            }
+                                        }
+                                    }
+                                }
+                                else{
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                            }
+                            else{
+                                //kapag tumama sa inapplyang overtime yung sched time niya 
+                                if($_datetimeout < $sun_datetimeout && $_datetimeout > $sun_datetimein || $_datetimein < $sun_datetimein &&  $_datetimeout > $sun_datetimeout || 
+                                $_datetimein > $sun_datetimein && $_datetimeout > $sun_datetimeout && $_datetimein < $sun_datetimeout){
+
+                                    $message = "Overtime cannot be applied!";
+                                    
+                                }
+                                else{
+
+                                    $overtime = "true";
+                                    $interval = $_datetimeout->diff($_datetimein);
+                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                }
+                            }
+
+                        }
+                    //End of Sunday
                 }
-                else if($select_schedule_request->type == "Flexi Shift"){
-                    $message = "No Schedule Request Found: Flexi Shift";
-                    
+                else if($select_schedule_request[0]->type == "Flexi Shift"){
+                    $day = date("N", strtotime($request->input('schedDate'))); //converts the date into day
+ 
+                    $overtime = "false";
+
+                    //datetime in
+                    $_datetimein = new DateTime($datetimein);
+                    //datetime out
+                    $_datetimeout = new DateTime($datetimeout);
+
+                    //check if the application for overtime is between the next day
+                    if($date_in != $date_out){
+
+                        $chkDay = date("N", strtotime($date_out));
+
+                        //add 1 day to check if the date out is greater than 1 to date in
+                        $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                        //kapag sobra sa isang araw yung inapply na overtime
+                        if($date_out > $valid_date_out){
+
+                            $message = "Overtime cannot be applied!";
+                            
+                        }
+                        else{
+                            
+                            $overtime = "true";
+                            $interval = $_datetimeout->diff($_datetimein);
+                            $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+
+                        }
+                    }
+                    else{
+
+                        $overtime = "true";
+                        $interval = $_datetimeout->diff($_datetimein);
+                        $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                    }
                 }
-                else if($select_schedule_request->type == "Free Shift"){
+                else if($select_schedule_request[0]->type == "Free Shift"){
                     $message = "No Schedule Request Found: Free Shift";
-                    
                 }
             }
             
@@ -171,7 +1468,6 @@ class OvertimeRecordsController extends Controller
                 $select_schedule_query = "SELECT a.id, a.company_id, a.template_id, b.template, b.type, b.reg_in, b.reg_out, b.mon_in, b.mon_out, b.mon, b.tue_in, b.tue_out, b.tue, b.wed_in, b.wed_out, b.wed, b.thu_in, b.thu_out, b.thu, b.fri_in, b.fri_out, b.fri, b.sat_in, b.sat_out, 
                 b.sat, b.sun_in, b.sun_out, b.sun, b.flexihrs FROM employee_schedule AS a LEFT JOIN schedule_template AS b ON a.template_id = b.ind 
                 WHERE a.deleted = '0' AND a.company_id = '".auth()->user()->company_id."'";
-
 
                 $select_schedule = DB::connection('mysql3')->select($select_schedule_query);
 
@@ -236,8 +1532,8 @@ class OvertimeRecordsController extends Controller
                                                 }
                                                 else if($tue_datetimein > $reg_datetimeout){
 
-                                                    $message = $request->input('empListVal' . $i) . "]]" . $request->input('fname' . $i) . "]]" . "Overtime cannot be applied!";
-                                                    $error[] = $message;
+                                                    $message = "Overtime cannot be applied!";
+                                                    
                                                 }
                                                 else{
 
@@ -783,18 +2079,692 @@ class OvertimeRecordsController extends Controller
                             }
                         //End of Sunday
                     }
-                    else if($select_schedule->type == "Irregular Shift"){
-                        $message = "Schedule: Irregular Shift";
-                    }
-                    else if($select_schedule->type == "Flexi Shift"){
-                        $message = "Schedule: Flexi Shift";
-                        
-                    }
-                    else if($select_schedule->type == "Free Shift"){
-                        $message = "Schedule: Free Shift";
-                        
-                    }
+                    else if($select_schedule[0]->type == "Irregular Shift"){
 
+                        //This will convert schedule date to day
+                        $day = date("N", strtotime($request->input('schedDate')));
+
+                        //Monday
+                            if($day == "1"){
+                                
+                                $overtime = "false";
+                                //date in
+                                $date_in = date("Y-m-d", strtotime($datetimein));
+                                //date out
+                                $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                                //time in of employee 
+                                $mon_in = $select_schedule[0]->mon_in;
+                                //time out of employee 
+                                $mon_out = $select_schedule[0]->mon_out;
+
+                                //datetime in
+                                $_datetimein = new DateTime($datetimein);
+                                //datetime out
+                                $_datetimeout = new DateTime($datetimeout);
+
+                                //employee datetime in
+                                $mon_datetimein = new DateTime($date_in . " " . $mon_in);
+                                //employee datetime out
+                                $mon_datetimeout = new DateTime($date_in . " " . $mon_out);
+
+                                //check if the application for overtime is between the next day
+                                if($date_in != $date_out){
+
+                                    $chkDay = date("N", strtotime($date_out));
+
+                                    //get emp time in
+                                    $tue_in = $select_schedule[0]->mon_in;
+                                    $tue_datetimein = new DateTime($date_out . " " . $tue_in);
+
+                                    //add 1 day to check if the date out is greater than 1 to date in
+                                    $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                    if($mon_datetimeout < $_datetimein){
+                                        //kapag sobra sa isang araw yung inapply na overtime
+                                        if($date_out > $valid_date_out){
+
+                                            $message = "Overtime cannot be applied!";
+                                        }
+                                        else{
+                                            //kapag next day ang inapply na overtime
+                                            if($chkDay == "6"){
+                                                if($tue_in == "00:00:00"){
+
+                                                    $overtime = "true";
+                                                    $interval = $_datetimeout->diff($_datetimein);
+                                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                                }
+                                                else if($tue_datetimein > $mon_datetimeout){
+
+                                                    $message = "Overtime cannot be applied!";
+
+                                                }
+                                                else{
+
+                                                    $overtime = "true";
+                                                    $interval = $_datetimeout->diff($_datetimein);
+                                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else{
+                                        $message = "Overtime cannot be applied!";
+                                    }
+                                }
+                                else{
+                                    //kapag tumama sa inapplyang overtime yung sched time niya 
+                                    if($_datetimeout < $mon_datetimeout && $_datetimeout > $mon_datetimein || $_datetimein < $mon_datetimein &&  $_datetimeout > $mon_datetimeout || 
+                                    $_datetimein > $mon_datetimein && $_datetimeout > $mon_datetimeout && $_datetimein < $mon_datetimeout){
+
+                                        $message = "Overtime cannot be applied!";
+                                    }
+                                    else{
+
+                                        $overtime = "true";
+                                        $interval = $_datetimeout->diff($_datetimein);
+                                        $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                    }
+                                }
+
+                            }
+                        //End of Monday
+
+                        //Tuesday
+                            if($day == "2"){
+
+                                $overtime = "false";
+                                //date in
+                                $date_in = date("Y-m-d", strtotime($datetimein));
+                                //date out
+                                $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                                //time in of employee 
+                                $tue_in = $select_schedule[0]->tue_in;
+                                //time out of employee 
+                                $tue_out = $select_schedule[0]->tue_out;
+
+                                //datetime in
+                                $_datetimein = new DateTime($datetimein);
+                                //datetime out
+                                $_datetimeout = new DateTime($datetimeout);
+
+                                //employee datetime in
+                                $tue_datetimein = new DateTime($date_in . " " . $tue_in);
+                                //employee datetime out
+                                $tue_datetimeout = new DateTime($date_in . " " . $tue_out);
+
+                                //check if the application for overtime is between the next day
+                                if($date_in != $date_out){
+
+                                    $chkDay = date("N", strtotime($date_out));
+
+                                    //get emp time in
+                                    $wed_in = $select_schedule[0]->mon_in;
+                                    $wed_datetimein = new DateTime($date_out . " " . $wed_in);
+
+                                    //add 1 day to check if the date out is greater than 1 to date in
+                                    $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                    if($tue_datetimeout < $_datetimein){
+                                        //kapag sobra sa isang araw yung inapply na overtime
+                                        if($date_out > $valid_date_out){
+
+                                            $message = "Overtime cannot be applied!";
+                                            
+                                        }
+                                        else{
+                                            //kapag next day ang inapply na overtime
+                                            if($chkDay == "6"){
+                                                if($wed_in == "00:00:00"){
+
+                                                    $overtime = "true";
+                                                    $interval = $_datetimeout->diff($_datetimein);
+                                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                                }
+                                                else if($wed_datetimein > $tue_datetimeout){
+
+                                                    $message = "Overtime cannot be applied!";
+                                                    
+                                                }
+                                                else{
+
+                                                    $overtime = "true";
+                                                    $interval = $_datetimeout->diff($_datetimein);
+                                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else{
+
+                                        $message = "Overtime cannot be applied!";
+                                    }
+                                }
+                                else{
+                                    //kapag tumama sa inapplyang overtime yung sched time niya 
+                                    if($_datetimeout < $tue_datetimeout && $_datetimeout > $tue_datetimein || $_datetimein < $tue_datetimein &&  $_datetimeout > $tue_datetimeout || 
+                                    $_datetimein > $tue_datetimein && $_datetimeout > $tue_datetimeout && $_datetimein < $tue_datetimeout){
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                    else{
+
+                                        $overtime = "true";
+                                        $interval = $_datetimeout->diff($_datetimein);
+                                        $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                    }
+                                }
+
+                            }
+                        //End of Tuesday
+
+                        //Wednesday
+                            if($day == "3"){
+
+                                $overtime = "false";
+                                //date in
+                                $date_in = date("Y-m-d", strtotime($datetimein));
+                                //date out
+                                $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                                //time in of employee 
+                                $wed_in = $select_schedule[0]->wed_in;
+                                //time out of employee 
+                                $wed_out = $select_schedule[0]->wed_out;
+
+                                //datetime in
+                                $_datetimein = new DateTime($datetimein);
+                                //datetime out
+                                $_datetimeout = new DateTime($datetimeout);
+
+                                //employee datetime in
+                                $wed_datetimein = new DateTime($date_in . " " . $wed_in);
+                                //employee datetime out
+                                $wed_datetimeout = new DateTime($date_in . " " . $wed_out);
+
+                                //check if the application for overtime is between the next day
+                                if($date_in != $date_out){
+
+                                    $chkDay = date("N", strtotime($date_out));
+
+                                    //get emp time in
+                                    $thu_in = $select_schedule[0]->mon_in;
+                                    $thu_datetimein = new DateTime($date_out . " " . $thu_in);
+
+                                    //add 1 day to check if the date out is greater than 1 to date in
+                                    $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                    if($wed_datetimeout < $_datetimein){
+                                        //kapag sobra sa isang araw yung inapply na overtime
+                                        if($date_out > $valid_date_out){
+
+                                            $message = "Overtime cannot be applied!";
+                                           
+                                        }
+                                        else{
+                                            //kapag next day ang inapply na overtime
+                                            if($chkDay == "6"){
+                                                if($thu_in == "00:00:00"){
+
+                                                    $overtime = "true";
+                                                    $interval = $_datetimeout->diff($_datetimein);
+                                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                                }
+                                                else if($thu_datetimein > $wed_datetimeout){
+
+                                                    $message = "Overtime cannot be applied!";
+                                                    
+                                                }
+                                                else{
+
+                                                    $overtime = "true";
+                                                    $interval = $_datetimeout->diff($_datetimein);
+                                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else{
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                }
+                                else{
+                                    //kapag tumama sa inapplyang overtime yung sched time niya 
+                                    if($_datetimeout < $wed_datetimeout && $_datetimeout > $wed_datetimein || $_datetimein < $wed_datetimein &&  $_datetimeout > $wed_datetimeout || 
+                                    $_datetimein > $wed_datetimein && $_datetimeout > $wed_datetimeout && $_datetimein < $wed_datetimeout){
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                    else{
+
+                                        $overtime = "true";
+                                        $interval = $_datetimeout->diff($_datetimein);
+                                        $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                    }
+                                }
+
+                            }
+                        //End of Wednesday
+
+                        //Thursday
+                            if($day == "4"){
+
+                                $overtime = "false";
+                                //date in
+                                $date_in = date("Y-m-d", strtotime($datetimein));
+                                //date out
+                                $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                                //time in of employee 
+                                $thu_in = $select_schedule[0]->thu_in;
+                                //time out of employee 
+                                $thu_out = $select_schedule[0]->thu_out;
+
+                                //datetime in
+                                $_datetimein = new DateTime($datetimein);
+                                //datetime out
+                                $_datetimeout = new DateTime($datetimeout);
+
+                                //employee datetime in
+                                $thu_datetimein = new DateTime($date_in . " " . $thu_in);
+                                //employee datetime out
+                                $thu_datetimeout = new DateTime($date_in . " " . $thu_out);
+
+                                //check if the application for overtime is between the next day
+                                if($date_in != $date_out){
+
+                                    $chkDay = date("N", strtotime($date_out));
+
+                                    //get emp time in
+                                    $fri_in = $select_schedule[0]->mon_in;
+                                    $fri_datetimein = new DateTime($date_out . " " . $fri_in);
+
+                                    //add 1 day to check if the date out is greater than 1 to date in
+                                    $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                    if($thu_datetimeout < $_datetimein){
+                                        //kapag sobra sa isang araw yung inapply na overtime
+                                        if($date_out > $valid_date_out){
+
+                                            $message = "Overtime cannot be applied!";
+
+                                        }
+                                        else{
+                                            //kapag next day ang inapply na overtime
+                                            if($chkDay == "6"){
+                                                if($fri_in == "00:00:00"){
+
+                                                    $overtime = "true";
+                                                    $interval = $_datetimeout->diff($_datetimein);
+                                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                                }
+                                                else if($fri_datetimein > $thu_datetimeout){
+
+                                                    $message = "Overtime cannot be applied!";
+                                                    
+                                                }
+                                                else{
+
+                                                    $overtime = "true";
+                                                    $interval = $_datetimeout->diff($_datetimein);
+                                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else{
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                }
+                                else{
+                                    //kapag tumama sa inapplyang overtime yung sched time niya 
+                                    if($_datetimeout < $thu_datetimeout && $_datetimeout > $thu_datetimein || $_datetimein < $thu_datetimein &&  $_datetimeout > $thu_datetimeout || 
+                                    $_datetimein > $thu_datetimein && $_datetimeout > $thu_datetimeout && $_datetimein < $thu_datetimeout){
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                    else{
+
+                                        $overtime = "true";
+                                        $interval = $_datetimeout->diff($_datetimein);
+                                        $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                    }
+                                }
+
+                            }
+                        //End of Thursday
+
+                        //Friday
+                            if($day == "5"){
+
+                                $overtime = "false";
+                                //date in
+                                $date_in = date("Y-m-d", strtotime($datetimein));
+                                //date out
+                                $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                                //time in of employee 
+                                $fri_in = $select_schedule[0]->fri_in;
+                                //time out of employee 
+                                $fri_out = $select_schedule[0]->fri_out;
+
+                                //datetime in
+                                $_datetimein = new DateTime($datetimein);
+                                //datetime out
+                                $_datetimeout = new DateTime($datetimeout);
+
+                                //employee datetime in
+                                $fri_datetimein = new DateTime($date_in . " " . $fri_in);
+                                //employee datetime out
+                                $fri_datetimeout = new DateTime($date_in . " " . $fri_out);
+
+                                //check if the application for overtime is between the next day
+                                if($date_in != $date_out){
+
+                                    $chkDay = date("N", strtotime($date_out));
+
+                                    //get emp time in
+                                    $sat_in = $select_schedule[0]->sat_in;
+                                    $sat_datetimein = new DateTime($date_out . " " . $sat_in);
+
+                                    //add 1 day to check if the date out is greater than 1 to date in
+                                    $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                    if($fri_datetimeout < $_datetimein){
+                                        //kapag sobra sa isang araw yung inapply na overtime
+                                        if($date_out > $valid_date_out){
+
+                                            $message = "Overtime cannot be applied!";
+                                            
+                                        }
+                                        else{
+                                            //kapag next day ang inapply na overtime
+                                            if($chkDay == "6"){
+                                                if($sat_in == "00:00:00"){
+
+                                                    $overtime = "true";
+                                                    $interval = $_datetimeout->diff($_datetimein);
+                                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                                }
+                                                else if($sat_datetimein > $fri_datetimeout){
+
+                                                    $message = "Overtime cannot be applied!";
+                                                    
+                                                }
+                                                else{
+
+                                                    $overtime = "true";
+                                                    $interval = $_datetimeout->diff($_datetimein);
+                                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else{
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                }
+                                else{
+                                    //kapag tumama sa inapplyang overtime yung sched time niya 
+                                    if($_datetimeout < $fri_datetimeout && $_datetimeout > $fri_datetimein || $_datetimein < $fri_datetimein &&  $_datetimeout > $fri_datetimeout || 
+                                    $_datetimein > $fri_datetimein && $_datetimeout > $fri_datetimeout && $_datetimein < $fri_datetimeout){
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                    else{
+
+                                        $overtime = "true";
+                                        $interval = $_datetimeout->diff($_datetimein);
+                                        $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                    }
+                                }
+
+                            }
+                        //End of Friday
+
+
+                        //Saturday
+                            if($day == "6"){
+
+                                $overtime = "false";
+                                //date in
+                                $date_in = date("Y-m-d", strtotime($datetimein));
+                                //date out
+                                $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                                //time in of employee 
+                                $sat_in = $select_schedule[0]->sat_in;
+                                //time out of employee 
+                                $sat_out = $select_schedule[0]->sat_out;
+
+                                //datetime in
+                                $_datetimein = new DateTime($datetimein);
+                                //datetime out
+                                $_datetimeout = new DateTime($datetimeout);
+
+                                //employee datetime in
+                                $sat_datetimein = new DateTime($date_in . " " . $sat_in);
+                                //employee datetime out
+                                $sat_datetimeout = new DateTime($date_in . " " . $sat_out);
+
+                                //check if the application for overtime is between the next day
+                                if($date_in != $date_out){
+
+                                    $chkDay = date("N", strtotime($date_out));
+
+                                    //get emp time in
+                                    $sun_in = $select_schedule[0]->sun_in;
+                                    $sun_datetimein = new DateTime($date_out . " " . $sun_in);
+
+                                    //add 1 day to check if the date out is greater than 1 to date in
+                                    $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                    if($sat_datetimeout < $_datetimein){
+                                        //kapag sobra sa isang araw yung inapply na overtime
+                                        if($date_out > $valid_date_out){
+
+                                            $message = "Overtime cannot be applied!";
+                                            
+                                        }
+                                        else{
+                                            //kapag next day ang inapply na overtime
+                                            if($chkDay == "6"){
+                                                if($sun_in == "00:00:00"){
+
+                                                    $overtime = "true";
+                                                    $interval = $_datetimeout->diff($_datetimein);
+                                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                                }
+                                                else if($sun_datetimein > $sat_datetimeout){
+
+                                                    $message = "Overtime cannot be applied!";
+                                                    
+                                                }
+                                                else{
+
+                                                    $overtime = "true";
+                                                    $interval = $_datetimeout->diff($_datetimein);
+                                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else{
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                }
+                                else{
+                                    //kapag tumama sa inapplyang overtime yung sched time niya 
+                                    if($_datetimeout < $sat_datetimeout && $_datetimeout > $sat_datetimein || $_datetimein < $sat_datetimein &&  $_datetimeout > $sat_datetimeout || 
+                                    $_datetimein > $sat_datetimein && $_datetimeout > $sat_datetimeout && $_datetimein < $sat_datetimeout){
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                    else{
+
+                                        $overtime = "true";
+                                        $interval = $_datetimeout->diff($_datetimein);
+                                        $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                    }
+                                }
+
+                            }
+                        //End of Saturday
+
+                        //Sunday
+                            if($day == "7"){
+
+                                $overtime = "false";
+                                //date in
+                                $date_in = date("Y-m-d", strtotime($datetimein));
+                                //date out
+                                $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                                //time in of employee 
+                                $sun_in = $select_schedule[0]->sun_in;
+                                //time out of employee 
+                                $sun_out = $select_schedule[0]->sun_out;
+
+                                //datetime in
+                                $_datetimein = new DateTime($datetimein);
+                                //datetime out
+                                $_datetimeout = new DateTime($datetimeout);
+
+                                //employee datetime in
+                                $sun_datetimein = new DateTime($date_in . " " . $sun_in);
+                                //employee datetime out
+                                $sun_datetimeout = new DateTime($date_in . " " . $sun_out);
+
+                                //check if the application for overtime is between the next day
+                                if($date_in != $date_out){
+
+                                    $chkDay = date("N", strtotime($date_out));
+
+                                    //get emp time in
+                                    $mon_in = $select_schedule[0]->mon_in;
+                                    $mon_datetimein = new DateTime($date_out . " " . $mon_in);
+
+                                    //add 1 day to check if the date out is greater than 1 to date in
+                                    $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                    if($sun_datetimeout < $_datetimein){
+                                        //kapag sobra sa isang araw yung inapply na overtime
+                                        if($date_out > $valid_date_out){
+
+                                            $message = "Overtime cannot be applied!";
+                                            
+                                        }
+                                        else{
+                                            //kapag next day ang inapply na overtime
+                                            if($chkDay == "1"){
+                                                if($mon_in == "00:00:00"){
+
+                                                    $overtime = "true";
+                                                    $interval = $_datetimeout->diff($_datetimein);
+                                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                                }
+                                                else if($mon_datetimein > $sun_datetimeout){
+
+                                                    $message = "Overtime cannot be applied!";
+                                                    
+                                                }
+                                                else{
+
+                                                    $overtime = "true";
+                                                    $interval = $_datetimeout->diff($_datetimein);
+                                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else{
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                }
+                                else{
+                                    //kapag tumama sa inapplyang overtime yung sched time niya 
+                                    if($_datetimeout < $sun_datetimeout && $_datetimeout > $sun_datetimein || $_datetimein < $sun_datetimein &&  $_datetimeout > $sun_datetimeout || 
+                                    $_datetimein > $sun_datetimein && $_datetimeout > $sun_datetimeout && $_datetimein < $sun_datetimeout){
+
+                                        $message = "Overtime cannot be applied!";
+                                        
+                                    }
+                                    else{
+
+                                        $overtime = "true";
+                                        $interval = $_datetimeout->diff($_datetimein);
+                                        $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                    }
+                                }
+
+                            }
+                        //End of Sunday
+
+                    }
+                    else if($select_schedule[0]->type == "Flexi Shift"){
+                        $day = date("N", strtotime($request->input('schedDate'))); //converts the date into day
+    
+                        $overtime = "false";
+
+                        //date in
+                        $date_in = date("Y-m-d", strtotime($datetimein));
+                        //date out
+                        $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                        //datetime in
+                        $_datetimein = new DateTime($datetimein);
+                        //datetime out
+                        $_datetimeout = new DateTime($datetimeout);
+
+                        //check if the application for overtime is between the next day
+                        if($date_in != $date_out){
+
+                            $chkDay = date("N", strtotime($date_out));
+
+                            //add 1 day to check if the date out is greater than 1 to date in
+                            $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                            //kapag sobra sa isang araw yung inapply na overtime
+                            if($date_out > $valid_date_out){
+
+                                $message = "Overtime cannot be applied!";
+                            }
+                            else{
+                                
+                                $overtime = "true";
+                                $interval = $_datetimeout->diff($_datetimein);
+                                $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+
+                            }
+                        }
+                        else{
+                            
+                            $overtime = "true";
+                            $interval = $_datetimeout->diff($_datetimein);
+                            $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                        }
+                        
+                    }
+                    else if($select_schedule[0]->type == "Free Shift"){
+                        $message = "Schedule: Free Shift";
+                    }
                     if($overtime == true){
 
                         $insert_query = new OvertimeRecords;
@@ -807,10 +2777,8 @@ class OvertimeRecordsController extends Controller
                         $insert_query->total_hrs = $hour;
                         $insert_query->reason = $reason;
                         $insert_query->status = "PENDING";
-                        $insert_query->approved_1 = 1;
-                        $insert_query->approved_2 = 1;
-                        $insert_query->approved_1_id = auth()->user()->company_id;
-                        $insert_query->approved_2_id = auth()->user()->company_id;
+                        $insert_query->approved_1_id = 0;
+                        $insert_query->approved_2_id = 0;
                         $insert_query->lu_by = auth()->user()->name;
                         $insert_query->save();
 

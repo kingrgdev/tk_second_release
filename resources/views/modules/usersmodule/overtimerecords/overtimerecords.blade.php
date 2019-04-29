@@ -385,10 +385,10 @@ else if($("#txtReason").val() == "")
 {
     alert("Reason Field Required!");
 }
-else if(datetimeout <= datetimein)
-{
-    alert("Date time out must greater than Date time in!");
-}
+// else if(datetimeout <= datetimein)
+// {
+//     alert(datetimeout);
+// }
 else
 {
     var c = confirm("Apply this overtime?");

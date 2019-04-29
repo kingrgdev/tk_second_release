@@ -237,7 +237,7 @@ class AddOvertimeController extends Controller
                                         //time in of employee 
                                         $reg_in = $SELECT_SCHEDULE_REQUEST[0]->reg_in;
                                         //time out of employee 
-                                        $reg_out = $SELECT_SCHEDULE_REQUEST->reg_out;
+                                        $reg_out = $SELECT_SCHEDULE_REQUEST[0]->reg_out;
 
                                         //datetime in
                                         $_datetimein = new DateTime($datetimein);
@@ -254,7 +254,7 @@ class AddOvertimeController extends Controller
                                             $chkDay = date("N", strtotime($date_out));
 
                                             //get emp time in
-                                            $reg_in = $SELECT_SCHEDULE_REQUEST->reg_in;
+                                            $reg_in = $SELECT_SCHEDULE_REQUEST[0]->reg_in;
                                             $reg_datetimein = new DateTime($date_out . " " . $reg_in);
 
                                             //add 1 day to check if the date out is greater than 1 to date in
@@ -325,9 +325,9 @@ class AddOvertimeController extends Controller
                                         $date_out = date("Y-m-d", strtotime($datetimeout));
 
                                         //time in of employee 
-                                        $reg_in = $SELECT_SCHEDULE_REQUEST->reg_in;
+                                        $reg_in = $SELECT_SCHEDULE_REQUEST[0]->reg_in;
                                         //time out of employee 
-                                        $reg_out = $SELECT_SCHEDULE_REQUEST->reg_out;
+                                        $reg_out = $SELECT_SCHEDULE_REQUEST[0]->reg_out;
 
                                         //datetime in
                                         $_datetimein = new DateTime($datetimein);
@@ -344,7 +344,7 @@ class AddOvertimeController extends Controller
                                             $chkDay = date("N", strtotime($date_out));
 
                                             //get emp time in
-                                            $reg_in = $SELECT_SCHEDULE_REQUEST->reg_in;
+                                            $reg_in = $SELECT_SCHEDULE_REQUEST[0]->reg_in;
                                             $reg_datetimein = new DateTime($date_out . " " . $reg_in);
 
                                             //add 1 day to check if the date out is greater than 1 to date in
@@ -415,9 +415,9 @@ class AddOvertimeController extends Controller
                                         $date_out = date("Y-m-d", strtotime($datetimeout));
 
                                         //time in of employee 
-                                        $reg_in = $SELECT_SCHEDULE_REQUEST->reg_in;
+                                        $reg_in = $SELECT_SCHEDULE_REQUEST[0]->reg_in;
                                         //time out of employee 
-                                        $reg_out = $SELECT_SCHEDULE_REQUEST->reg_out;
+                                        $reg_out = $SELECT_SCHEDULE_REQUEST[0]->reg_out;
 
                                         //datetime in
                                         $_datetimein = new DateTime($datetimein);
@@ -434,7 +434,7 @@ class AddOvertimeController extends Controller
                                             $chkDay = date("N", strtotime($date_out));
 
                                             //get emp time in
-                                            $reg_in = $SELECT_SCHEDULE_REQUEST->reg_in;
+                                            $reg_in = $SELECT_SCHEDULE_REQUEST[0]->reg_in;
                                             $reg_datetimein = new DateTime($date_out . " " . $reg_in);
 
                                             //add 1 day to check if the date out is greater than 1 to date in
@@ -505,9 +505,9 @@ class AddOvertimeController extends Controller
                                         $date_out = date("Y-m-d", strtotime($datetimeout));
 
                                         //time in of employee 
-                                        $reg_in = $SELECT_SCHEDULE_REQUEST->reg_in;
+                                        $reg_in = $SELECT_SCHEDULE_REQUEST[0]->reg_in;
                                         //time out of employee 
-                                        $reg_out = $SELECT_SCHEDULE_REQUEST->reg_out;
+                                        $reg_out = $SELECT_SCHEDULE_REQUEST[0]->reg_out;
 
                                         //datetime in
                                         $_datetimein = new DateTime($datetimein);
@@ -524,7 +524,7 @@ class AddOvertimeController extends Controller
                                             $chkDay = date("N", strtotime($date_out));
 
                                             //get emp time in
-                                            $reg_in = $SELECT_SCHEDULE_REQUEST->reg_in;
+                                            $reg_in = $SELECT_SCHEDULE_REQUEST[0]->reg_in;
                                             $reg_datetimein = new DateTime($date_out . " " . $reg_in);
 
                                             //add 1 day to check if the date out is greater than 1 to date in
@@ -595,9 +595,9 @@ class AddOvertimeController extends Controller
                                         $date_out = date("Y-m-d", strtotime($datetimeout));
 
                                         //time in of employee 
-                                        $reg_in = $SELECT_SCHEDULE_REQUEST->reg_in;
+                                        $reg_in = $SELECT_SCHEDULE_REQUEST[0]->reg_in;
                                         //time out of employee 
-                                        $reg_out = $SELECT_SCHEDULE_REQUEST->reg_out;
+                                        $reg_out = $SELECT_SCHEDULE_REQUEST[0]->reg_out;
 
                                         //datetime in
                                         $_datetimein = new DateTime($datetimein);
@@ -614,7 +614,7 @@ class AddOvertimeController extends Controller
                                             $chkDay = date("N", strtotime($date_out));
 
                                             //get emp time in
-                                            $reg_in = $SELECT_SCHEDULE_REQUEST->reg_in;
+                                            $reg_in = $SELECT_SCHEDULE_REQUEST[0]->reg_in;
                                             $reg_datetimein = new DateTime($date_out . " " . $reg_in);
 
                                             //add 1 day to check if the date out is greater than 1 to date in
@@ -685,9 +685,9 @@ class AddOvertimeController extends Controller
                                         $date_out = date("Y-m-d", strtotime($datetimeout));
 
                                         //time in of employee 
-                                        $reg_in = $SELECT_SCHEDULE_REQUEST->reg_in;
+                                        $reg_in = $SELECT_SCHEDULE_REQUEST[0]->reg_in;
                                         //time out of employee 
-                                        $reg_out = $SELECT_SCHEDULE_REQUEST->reg_out;
+                                        $reg_out = $SELECT_SCHEDULE_REQUEST[0]->reg_out;
 
                                         //datetime in
                                         $_datetimein = new DateTime($datetimein);
@@ -704,7 +704,7 @@ class AddOvertimeController extends Controller
                                             $chkDay = date("N", strtotime($date_out));
 
                                             //get emp time in
-                                            $reg_in = $SELECT_SCHEDULE_REQUEST->reg_in;
+                                            $reg_in = $SELECT_SCHEDULE_REQUEST[0]->reg_in;
                                             $reg_datetimein = new DateTime($date_out . " " . $reg_in);
 
                                             //add 1 day to check if the date out is greater than 1 to date in
@@ -767,7 +767,7 @@ class AddOvertimeController extends Controller
 
                             }
                             //irreg
-                            else if($SELECT_SCHEDULE_REQUEST->type == "Irregular Shift"){
+                            else if($SELECT_SCHEDULE_REQUEST[0]->type == "Irregular Shift"){
 
                                 $day = date("N", strtotime($request->input('schedDate'))); //converts the date into day
 
@@ -781,9 +781,9 @@ class AddOvertimeController extends Controller
                                     $date_out = date("Y-m-d", strtotime($datetimeout));
 
                                     //time in of employee 
-                                    $mon_in = $SELECT_SCHEDULE_REQUEST->mon_in;
+                                    $mon_in = $SELECT_SCHEDULE_REQUEST[0]->mon_in;
                                     //time out of employee 
-                                    $mon_out = $SELECT_SCHEDULE_REQUEST->mon_out;
+                                    $mon_out = $SELECT_SCHEDULE_REQUEST[0]->mon_out;
 
                                     //datetime in
                                     $_datetimein = new DateTime($datetimein);
@@ -801,7 +801,7 @@ class AddOvertimeController extends Controller
                                         $chkDay = date("N", strtotime($date_out));
 
                                         //get emp time in
-                                        $tue_in = $SELECT_SCHEDULE_REQUEST->mon_in;
+                                        $tue_in = $SELECT_SCHEDULE_REQUEST[0]->mon_in;
                                         $tue_datetimein = new DateTime($date_out . " " . $tue_in);
 
                                         //add 1 day to check if the date out is greater than 1 to date in
@@ -872,9 +872,9 @@ class AddOvertimeController extends Controller
                                     $date_out = date("Y-m-d", strtotime($datetimeout));
 
                                     //time in of employee 
-                                    $tue_in = $SELECT_SCHEDULE_REQUEST->tue_in;
+                                    $tue_in = $SELECT_SCHEDULE_REQUEST[0]->tue_in;
                                     //time out of employee 
-                                    $tue_out = $SELECT_SCHEDULE_REQUEST->tue_out;
+                                    $tue_out = $SELECT_SCHEDULE_REQUEST[0]->tue_out;
 
                                     //datetime in
                                     $_datetimein = new DateTime($datetimein);
@@ -892,7 +892,7 @@ class AddOvertimeController extends Controller
                                         $chkDay = date("N", strtotime($date_out));
 
                                         //get emp time in
-                                        $wed_in = $SELECT_SCHEDULE_REQUEST->mon_in;
+                                        $wed_in = $SELECT_SCHEDULE_REQUEST[0]->mon_in;
                                         $wed_datetimein = new DateTime($date_out . " " . $wed_in);
 
                                         //add 1 day to check if the date out is greater than 1 to date in
@@ -963,9 +963,9 @@ class AddOvertimeController extends Controller
                                     $date_out = date("Y-m-d", strtotime($datetimeout));
 
                                     //time in of employee 
-                                    $wed_in = $SELECT_SCHEDULE_REQUEST->wed_in;
+                                    $wed_in = $SELECT_SCHEDULE_REQUEST[0]->wed_in;
                                     //time out of employee 
-                                    $wed_out = $SELECT_SCHEDULE_REQUEST->wed_out;
+                                    $wed_out = $SELECT_SCHEDULE_REQUEST[0]->wed_out;
 
                                     //datetime in
                                     $_datetimein = new DateTime($datetimein);
@@ -983,7 +983,7 @@ class AddOvertimeController extends Controller
                                         $chkDay = date("N", strtotime($date_out));
 
                                         //get emp time in
-                                        $thu_in = $SELECT_SCHEDULE_REQUEST->mon_in;
+                                        $thu_in = $SELECT_SCHEDULE_REQUEST[0]->mon_in;
                                         $thu_datetimein = new DateTime($date_out . " " . $thu_in);
 
                                         //add 1 day to check if the date out is greater than 1 to date in
@@ -1054,9 +1054,9 @@ class AddOvertimeController extends Controller
                                     $date_out = date("Y-m-d", strtotime($datetimeout));
 
                                     //time in of employee 
-                                    $thu_in = $SELECT_SCHEDULE_REQUEST->thu_in;
+                                    $thu_in = $SELECT_SCHEDULE_REQUEST[0]->thu_in;
                                     //time out of employee 
-                                    $thu_out = $SELECT_SCHEDULE_REQUEST->thu_out;
+                                    $thu_out = $SELECT_SCHEDULE_REQUEST[0]->thu_out;
 
                                     //datetime in
                                     $_datetimein = new DateTime($datetimein);
@@ -1074,7 +1074,7 @@ class AddOvertimeController extends Controller
                                         $chkDay = date("N", strtotime($date_out));
 
                                         //get emp time in
-                                        $fri_in = $SELECT_SCHEDULE_REQUEST->mon_in;
+                                        $fri_in = $SELECT_SCHEDULE_REQUEST[0]->mon_in;
                                         $fri_datetimein = new DateTime($date_out . " " . $fri_in);
 
                                         //add 1 day to check if the date out is greater than 1 to date in
@@ -1145,9 +1145,9 @@ class AddOvertimeController extends Controller
                                     $date_out = date("Y-m-d", strtotime($datetimeout));
 
                                     //time in of employee 
-                                    $fri_in = $SELECT_SCHEDULE_REQUEST->fri_in;
+                                    $fri_in = $SELECT_SCHEDULE_REQUEST[0]->fri_in;
                                     //time out of employee 
-                                    $fri_out = $SELECT_SCHEDULE_REQUEST->fri_out;
+                                    $fri_out = $SELECT_SCHEDULE_REQUEST[0]->fri_out;
 
                                     //datetime in
                                     $_datetimein = new DateTime($datetimein);
@@ -1165,7 +1165,7 @@ class AddOvertimeController extends Controller
                                         $chkDay = date("N", strtotime($date_out));
 
                                         //get emp time in
-                                        $sat_in = $SELECT_SCHEDULE_REQUEST->sat_in;
+                                        $sat_in = $SELECT_SCHEDULE_REQUEST[0]->sat_in;
                                         $sat_datetimein = new DateTime($date_out . " " . $sat_in);
 
                                         //add 1 day to check if the date out is greater than 1 to date in
@@ -1236,9 +1236,9 @@ class AddOvertimeController extends Controller
                                     $date_out = date("Y-m-d", strtotime($datetimeout));
 
                                     //time in of employee 
-                                    $sat_in = $SELECT_SCHEDULE_REQUEST->sat_in;
+                                    $sat_in = $SELECT_SCHEDULE_REQUEST[0]->sat_in;
                                     //time out of employee 
-                                    $sat_out = $SELECT_SCHEDULE_REQUEST->sat_out;
+                                    $sat_out = $SELECT_SCHEDULE_REQUEST[0]->sat_out;
 
                                     //datetime in
                                     $_datetimein = new DateTime($datetimein);
@@ -1256,7 +1256,7 @@ class AddOvertimeController extends Controller
                                         $chkDay = date("N", strtotime($date_out));
 
                                         //get emp time in
-                                        $sun_in = $SELECT_SCHEDULE_REQUEST->sun_in;
+                                        $sun_in = $SELECT_SCHEDULE_REQUEST[0]->sun_in;
                                         $sun_datetimein = new DateTime($date_out . " " . $sun_in);
 
                                         //add 1 day to check if the date out is greater than 1 to date in
@@ -1327,9 +1327,9 @@ class AddOvertimeController extends Controller
                                     $date_out = date("Y-m-d", strtotime($datetimeout));
 
                                     //time in of employee 
-                                    $sun_in = $SELECT_SCHEDULE_REQUEST->sun_in;
+                                    $sun_in = $SELECT_SCHEDULE_REQUEST[0]->sun_in;
                                     //time out of employee 
-                                    $sun_out = $SELECT_SCHEDULE_REQUEST->sun_out;
+                                    $sun_out = $SELECT_SCHEDULE_REQUEST[0]->sun_out;
 
                                     //datetime in
                                     $_datetimein = new DateTime($datetimein);
@@ -1347,7 +1347,7 @@ class AddOvertimeController extends Controller
                                         $chkDay = date("N", strtotime($date_out));
 
                                         //get emp time in
-                                        $mon_in = $SELECT_SCHEDULE_REQUEST->mon_in;
+                                        $mon_in = $SELECT_SCHEDULE_REQUEST[0]->mon_in;
                                         $mon_datetimein = new DateTime($date_out . " " . $mon_in);
 
                                         //add 1 day to check if the date out is greater than 1 to date in
@@ -1409,9 +1409,9 @@ class AddOvertimeController extends Controller
                                 //end day sunday
                             }
                             //flexi
-                            else if($SELECT_SCHEDULE_REQUEST->type == "Flexi Shift"){
+                            else if($SELECT_SCHEDULE_REQUEST[0]->type == "Flexi Shift"){
 
-                                //$total_flexihrs = $SELECT_SCHEDULE_REQUEST->flexihrs;
+                                //$total_flexihrs = $SELECT_SCHEDULE_REQUEST[0]->flexihrs;
 
                                 $day = date("N", strtotime($request->input('schedDate'))); //converts the date into day
  
@@ -1452,7 +1452,7 @@ class AddOvertimeController extends Controller
                                 }
                             }
                             //free
-                            else if($SELECT_SCHEDULE_REQUEST->type == "Free Shift"){
+                            else if($SELECT_SCHEDULE_REQUEST[0]->type == "Free Shift"){
                             }
                             
                             if($overtime == "true"){
@@ -2125,7 +2125,7 @@ class AddOvertimeController extends Controller
                                 }
 
                                 //irreg
-                                else if($SELECT_SCHEDULE->type == "Irregular Shift"){
+                                else if($SELECT_SCHEDULE[0]->type == "Irregular Shift"){
 
                                     $day = date("N", strtotime($request->input('schedDate'))); //converts the date into day
 
@@ -2769,9 +2769,9 @@ class AddOvertimeController extends Controller
 
                                 }
                                 //flexi
-                                else if($SELECT_SCHEDULE->type == "Flexi Shift"){
+                                else if($SELECT_SCHEDULE[0]->type == "Flexi Shift"){
 
-                                    //$total_flexihrs = $SELECT_SCHEDULE->flexihrs;
+                                    //$total_flexihrs = $SELECT_SCHEDULE[0]->flexihrs;
 
                                     $day = date("N", strtotime($request->input('schedDate'))); //converts the date into day
     
@@ -2818,7 +2818,7 @@ class AddOvertimeController extends Controller
                                 }
 
                                 //free
-                                else if($SELECT_SCHEDULE->type == "Free Shift"){
+                                else if($SELECT_SCHEDULE[0]->type == "Free Shift"){
                                 }
                                 
                                 if($overtime == "true"){
