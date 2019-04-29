@@ -105,10 +105,10 @@ elseif(Session::get('overtime_records') == 'delete'){
                     <div class="row">
                         <div class="form__group col-md-6 fg_margin">
                             <select id="cmbStatus" name="cmbStatus" class="form__field">
-                                <option value="All">All</option>
-                                <option value="Pending">Pending</option>
-                                <option value="Approved">Approved</option>
-                                <option value="Cancelled">Cancelled</option>
+                                <option value="ALL">All</option>
+                                <option value="PENDING">Pending</option>
+                                <option value="APPROVED">Approved</option>
+                                <option value="CANCELLED">Cancelled</option>
                             </select>
                             <label for="cmbStatus" class="span-header form__label"><i class="icon-right fa fa-bar-chart" aria-hidden="true"></i>Status</label>
                         </div>
@@ -123,7 +123,7 @@ elseif(Session::get('overtime_records') == 'delete'){
             <br><br>
             {{-- apply overtime --}}
             <div id="hideOvertimeField" style="display:none">
-
+                
             
                 <div class="form-group row">
                     <div class="col-md-6">
@@ -189,7 +189,7 @@ elseif(Session::get('overtime_records') == 'delete'){
                     <colgroup span="2"></colgroup>
                     <thead>
                         <tr class="header" style="background:#f7f7f7;">
-                            <th colspan="9" class="text-center">OVERTIME RECORDS</th>
+                            <th colspan="10" class="text-center">OVERTIME RECORDS</th>
                         </tr>
                         <tr>
                             <th rowspan="2">Date Applied</th>
@@ -203,7 +203,10 @@ elseif(Session::get('overtime_records') == 'delete'){
                                 
                                 <th scope="col">Level 1</th>
                                 <th scope="col" >Level 2</th>
-                                <th style="border-top:0px;"></th>
+                                <th style="border-top:0px;">
+                                    Status
+                                </th>
+                                <th style="border-top:0px;">Actions</th>
                             </tr>
                         </tr>          
                     </thead>
@@ -217,6 +220,7 @@ elseif(Session::get('overtime_records') == 'delete'){
                             <td></td>    
                             <td></td>  
                             <td></td> 
+                            <td></td>
                             <td></td> <!--- <input type="button" class="btn btn-sm button red btnCancel" value="Cancel Alteration"> --->
                         </tr>
                     </tbody>
@@ -226,6 +230,8 @@ elseif(Session::get('overtime_records') == 'delete'){
 </div>
 
 <script>
+
+
     $(document).ready(function(){
         $("#cmbSearchBy").change(function(){
         var searchBy = $('#cmbSearchBy').val();
@@ -359,11 +365,32 @@ $(document).on("click", "#overtimeIcon", function(){
 
 
 <script>
+//Validation for Overtime with less than 10 hours work
+function diff_hours(dt2, dt1) 
+{
+    var diff =(dt2.getTime() - dt1.getTime()) / 1000;
+    diff /= (60 * 60);
+    return Math.abs(Math.round(diff));
+}
+  
+
+
+
 //button apply alteration//
 $(document).on("click", ".btnApplyAlter", function(){
 
 var datetimein = $("#schedDate").val() + " " + $("#timeIn").val();
 var datetimeout = $("#timeOut").val();
+
+dt1 = new Date(datetimein);
+dt2 = new Date(datetimeout);
+var total_hrs = diff_hours(dt1, dt2);
+
+// var datetimeinVal = new Date(datetimein);
+// var datetimeoutVal = new Date(datetimeout);
+
+// var inVal = datetimeinVal.toLocaleString("en-GB");
+// var outVal = datetimeoutVal.toLocaleString("en-GB");
 
 if($("#schedDate").val() == ""){
     
@@ -385,9 +412,13 @@ else if($("#txtReason").val() == "")
 {
     alert("Reason Field Required!");
 }
-// else if(datetimeout <= datetimein)
+else if(total_hrs < 11)
+{
+    alert("Invalid must exceed 10 hours work!");
+}
+// else if(outVal <= inVal)
 // {
-//     alert(datetimeout);
+//     alert("Time out must be greater than Time In");
 // }
 else
 {
@@ -427,34 +458,41 @@ $(document).on('click', '#btnFilter', function (){
 //function filter dates
 function filterDate()
 {
-    var startDate = $('#searchStartDate').val();
-    var endDate = $('#searchEndDate').val();
+    if($("#cmbSearchBy").val() == "Date Range"){
 
-    if(startDate == "" || endDate == "")
-    {
-        alert("No Date selected");
+        var startDate = $('#searchStartDate').val();
+        var endDate = $('#searchEndDate').val();
+
+        if(startDate == "" || endDate == "")
+        {
+            alert("No Date selected");
+        }
+        else
+        {
+            $.ajax({
+                headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                url: "{{ route('filterdates') }}",
+                method: "POST",
+                data:{start_date: startDate, end_date: endDate}, 
+                success:function(data)
+                {
+                    $('#divOvertimeRecord').html(data);
+                    $('#tableOvertimeRecord').DataTable({
+                        "serverSide": false, 
+                        "retrieve": true, 
+                        "ordering": false
+                    });
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            });
+        }  
+    }else if($("#cmbSearchBy").val() == "Status"){
+
+        alert("Status");
+
     }
-    else
-    {
-        $.ajax({
-            headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            url: "{{ route('filterdates') }}",
-            method: "GET",
-            data:{start_date: startDate, end_date: endDate}, 
-            success:function(data)
-            {
-                $('#divOvertimeRecord').html(data);
-                $('#tableOvertimeRecord').DataTable({
-                    "serverSide": false, 
-                    "retrieve": true, 
-                    "ordering": false
-                });
-            },
-            error: function(xhr, ajaxOptions, thrownError){
-                console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-            }
-        });
-    }  
 }
 </script>
 

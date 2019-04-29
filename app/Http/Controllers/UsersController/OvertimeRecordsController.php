@@ -18,7 +18,7 @@ class OvertimeRecordsController extends Controller
     }
     public function print_overtime_now(){
 
-        $view_overtime_records = DB::connection('mysql')->select("SELECT * FROM view_overtime_records WHERE company_id = '".auth()->user()->company_id."'");
+        $view_overtime_records = DB::connection('mysql')->select("SELECT * FROM view_overtime_records WHERE company_id = '".auth()->user()->company_id."' ORDER BY sched_date DESC");
         $data = "";
         $data .= '<div id="divOvertimeRecord"class="table-responsive">
                     <table id="tableOvertimeRecord" name="tableOvertimeRecord" class="table table-hover" style="width:100%">
@@ -27,7 +27,7 @@ class OvertimeRecordsController extends Controller
                         <colgroup span="2"></colgroup>
                         <thead>
                             <tr class="header" style="background:#f7f7f7;">
-                                <th colspan="9" class="text-center">OVERTIME RECORDS</th>
+                                <th colspan="10" class="text-center">OVERTIME RECORDS</th>
                             </tr>
                             <tr>
                                 <th rowspan="2">Date Applied</th>
@@ -42,7 +42,10 @@ class OvertimeRecordsController extends Controller
                                     <th scope="col">Level 1</th>
                                     <th scope="col" >Level 2</th>
                                     <th style="border-top:0px;">
-                                        
+                                        Status
+                                    </th>
+                                    <th style="border-top:0px;">
+                                        Actions
                                     </th>
                                 </tr>
                             </tr>          
@@ -69,8 +72,19 @@ class OvertimeRecordsController extends Controller
                     $data .= "<td><a id='shift_applied".$counter."'>".$field->shift_applied."</a></td>";
                     $data .= "<td><a id='reason".$counter."'>".$field->reason."</a></td>";
                     $data .= "<td><a id='total_hrs".$counter."'>".$field->total_hrs."</a></td>";
-                    $data .= "<td></td>";
-                    $data .= "<td></td>";
+
+                    if($field->approved_1_id != ""){
+                        $data .= "<td><a id='approved_1_id".$counter."'>".$field->approved_1_id."</a></td>";
+                    }else{
+                        $data .= "<td></td>";
+                    }
+
+                    if($field->approved_2_id != ""){
+                        $data .= "<td><a id='approved_2_id".$counter."'>".$field->approved_2_id."</a></td>";
+                    }else{
+                        $data .= "<td></td>";
+                    }
+
                     if($field->status == "APPROVED")
                     {
                         $data .= "<td style='color:#28a745; text-align:center;'><i class='icon-right fa fa-check-circle'></i><b>APPROVED</b></td>";
@@ -80,6 +94,13 @@ class OvertimeRecordsController extends Controller
                     }
                     else if ($field->status == "PENDING")
                     {
+                        $data .="<td style='color:#E87B15;'><i class='icon-right fa fa-question-circle'></i><b>PENDING</b></td>";
+                    }
+                    else{
+                        $data .="<td></td>";
+                    }
+
+                    if($field->status == "PENDING"){
                         $data .="<td><input type='button' class='btn btn-sm button red btnCancel' data-add = '".$field->id."' name='btnCancel".$counter."' id='btnCancel".$counter."' value='Cancel Alteration'></td>";
                     }else{
                         $data .="<td></td>";
@@ -141,8 +162,6 @@ class OvertimeRecordsController extends Controller
             b.sat, b.sun_in, b.sun_out, b.sun, b.flexihrs FROM employee_schedule_request AS a LEFT JOIN schedule_template AS b ON a.template_id = b.ind 
             WHERE a.deleted = '0' AND '" . $sched_date . "' BETWEEN a.start_date AND a.end_date AND a.company_id = '".auth()->user()->company_id."'";
             $select_schedule_request = DB::connection('mysql3')->select($select_schedule_request_query);
-
-
 
             if(!empty($select_schedule_request)){
                 if($select_schedule_request[0]->type == "Regular Shift"){
@@ -1460,6 +1479,21 @@ class OvertimeRecordsController extends Controller
                 else if($select_schedule_request[0]->type == "Free Shift"){
                     $message = "No Schedule Request Found: Free Shift";
                 }
+                if($overtime == "true"){
+                    $insert_query = new OvertimeRecords;
+                    $insert_query->company_id = auth()->user()->company_id;
+                    $insert_query->date_applied = $date_now;
+                    $insert_query->sched_date = $sched_date;
+                    $insert_query->shift_applied = $shift_type;
+                    $insert_query->date_timein = $datetimein;
+                    $insert_query->date_timeout = $datetimeout;
+                    $insert_query->total_hrs = $hour;
+                    $insert_query->reason = $reason;
+                    $insert_query->status = "PENDING";
+                    $insert_query->lu_by = auth()->user()->name;
+                    $insert_query->save();
+                    $message = "Overtime successfully apply!";
+                }
             }
             
             //Employee Schedule
@@ -2766,7 +2800,6 @@ class OvertimeRecordsController extends Controller
                         $message = "Schedule: Free Shift";
                     }
                     if($overtime == true){
-
                         $insert_query = new OvertimeRecords;
                         $insert_query->company_id = auth()->user()->company_id;
                         $insert_query->date_applied = $date_now;
@@ -2777,11 +2810,8 @@ class OvertimeRecordsController extends Controller
                         $insert_query->total_hrs = $hour;
                         $insert_query->reason = $reason;
                         $insert_query->status = "PENDING";
-                        $insert_query->approved_1_id = 0;
-                        $insert_query->approved_2_id = 0;
                         $insert_query->lu_by = auth()->user()->name;
                         $insert_query->save();
-
                         $message = "Overtime Successfully Applied!";
                     }
                 }
@@ -2800,82 +2830,5 @@ class OvertimeRecordsController extends Controller
 
         $message = "Success!";
         echo json_encode($message);
-        // $message = "Trying if ajax working fine".$start_date.$end_date;
-            // echo json_encode($message);
-            
-            // $data = '<div id="divOvertimeRecord"class="table-responsive">
-            //             <table id="tableOvertimeRecord" name="tableOvertimeRecord" class="table table-hover" style="width:100%">
-            //                 <col>
-            //                 <colgroup span="2"></colgroup>
-            //                 <colgroup span="2"></colgroup>
-            //                 <thead>
-            //                     <tr class="header" style="background:#f7f7f7;">
-            //                         <th colspan="9" class="text-center">OVERTIME RECORDS</th>
-            //                     </tr>
-            //                     <tr>
-            //                         <th rowspan="2">Date Applied</th>
-            //                         <th rowspan="2">Applied Time In</th>
-            //                         <th rowspan="2">Applied Time Out</th>
-            //                         <th rowspan="2">Shift Type</th>
-            //                         <th rowspan="2" >Reason</th>
-            //                         <th rowspan="2" >Total Hours</th>
-            //                         <th colspan="2" scope="colgroup" style="">Approval History</th>
-            //                         <tr>
-                                        
-            //                             <th scope="col">Level 1</th>
-            //                             <th scope="col" >Level 2</th>
-            //                             <th style="border-top:0px;">
-                                            
-            //                             </th>
-            //                         </tr>
-            //                     </tr>          
-            //                 </thead>
-            //         <tbody>';
-
-            // $counter = 1;
-
-            // while($start_date <= $end_date)
-            // {
-            //     $dates = date("Y-m-d", strtotime("$start_date"));
-
-            //     $view_overtime_records = DB::connection('mysql')->select("");
-
-            //     $data .= "<tr>";
-
-            //             if(!empty($view_overtime_records))
-            //             {
-            //                 $data .= "<td>".$view_overtime_records[0]->date_applied."</td>";
-            //                 $data .= "<td>".$view_overtime_records[0]->date_timein."</td>";
-            //                 $data .= "<td>".$view_overtime_records[0]->date_timeout."</td>";
-            //                 $data .= "<td>".$view_overtime_records[0]->shift_applied."</td>";
-            //                 $data .= "<td>".$view_overtime_records[0]->reason."</td>";
-            //                 $data .= "<td>".$view_overtime_records[0]->total_hrs."</td>";
-            //                 $data .= "<td></td>";
-            //                 $data .= "<td></td>";
-            //                 $data .= "<td></td>";
-            //             }
-            //             else
-            //             {
-            //                 $data .= "<td></td>";
-            //                 $data .= "<td></td>";
-            //                 $data .= "<td></td>";
-            //                 $data .= "<td></td>";
-            //                 $data .= "<td></td>";
-            //                 $data .= "<td></td>";
-            //                 $data .= "<td></td>";
-            //                 $data .= "<td></td>";
-            //                 $data .= "<td></td>";
-            //             }
-            
-                        
-                        
-            //     $data .= "</tr>";
-            //     $counter++;
-            // }
-
-            // $data .= "</tbody>
-            //         </table>";
-
-        // echo $data;
     }
 }
