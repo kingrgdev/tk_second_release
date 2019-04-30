@@ -278,8 +278,6 @@ $(function (){
 });
 </script>
 
-
-
 <script>
     $('#tableOvertimeRecord').DataTable({
         "serverSide": false, 
@@ -393,7 +391,6 @@ var total_hrs = diff_hours(dt1, dt2);
 // var outVal = datetimeoutVal.toLocaleString("en-GB");
 
 if($("#schedDate").val() == ""){
-    
     alert("Schedule Date Field Required!");
 }
 else if($("#timeIn").val() == "")
@@ -412,14 +409,17 @@ else if($("#txtReason").val() == "")
 {
     alert("Reason Field Required!");
 }
-else if(total_hrs < 11)
-{
-    alert("Invalid must exceed 10 hours work!");
-}
+
+// else if(total_hrs < 11)
+// {
+//     alert("Invalid must exceed 10 hours work!");
+// }
+
 // else if(outVal <= inVal)
 // {
 //     alert("Time out must be greater than Time In");
 // }
+
 else
 {
     var c = confirm("Apply this overtime?");
