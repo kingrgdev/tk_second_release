@@ -217,12 +217,24 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="icon-right fa fa-bell"></i>Notifications</a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Notifications</a>
-                    </div>
-                </li>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle dropdownListNotif" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><!--<i class="icon-right fa fa-bell"></i>-->
+                            <i class="fa fa-bell" id="num"></i>
+                            Announcements</a>
+                        <div class="dropdown-menu dropdown-menu-right" id="dropNotification" aria-labelledby="navbarDropdown" >
+                            
+                        </div>
+                    </li>
             @endguest
         </ul>
     </div>
 </nav>
+
+<script>
+    $(document).ready(function(){
+    setInterval(function (){
+        $("#dropNotification").load("{{ route('viewnotifications') }}")
+        $("#num").load("{{ route('numnotifications') }}")
+    }, 3000);
+});
+
+</script>

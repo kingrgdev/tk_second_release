@@ -502,7 +502,7 @@
     });
     //end clear field
 
-    //addovertime
+    //addovertimes
     $(document).on("click", "#btnAdd", function(){
 
         var a = $('select[name=tableEmployeeList_length]').val();

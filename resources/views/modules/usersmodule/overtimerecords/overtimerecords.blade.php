@@ -123,7 +123,6 @@ elseif(Session::get('overtime_records') == 'delete'){
             <br><br>
             {{-- apply overtime --}}
             <div id="hideOvertimeField" style="display:none">
-                
             
                 <div class="form-group row">
                     <div class="col-md-6">
@@ -253,29 +252,6 @@ elseif(Session::get('overtime_records') == 'delete'){
 });
 
 
-$(function (){
-    $('#searchStartDate').datetimepicker({
-        format: 'L'
-    });
-});
-
-$(function (){
-    $('#searchEndDate').datetimepicker({
-        format: 'L'
-    });
-});
-
-$(function (){
-    $('#schedDate').datetimepicker({
-        format: 'L'
-    });
-});
-
-$(function (){
-    $('#timeIn').datetimepicker({
-        format: 'LT'
-    });
-});
 </script>
 
 <script>
@@ -407,7 +383,7 @@ else if($("#cmbShift").val() == "")
 }
 else if($("#txtReason").val() == "")
 {
-    alert("Reason Field Required!");
+    alert("Reason Field Required!" + datetimeout);
 }
 
 // else if(total_hrs < 11)
@@ -415,13 +391,14 @@ else if($("#txtReason").val() == "")
 //     alert("Invalid must exceed 10 hours work!");
 // }
 
-// else if(outVal <= inVal)
+// else if(datetimeout <= datetimein)
 // {
 //     alert("Time out must be greater than Time In");
 // }
 
 else
 {
+    
     var c = confirm("Apply this overtime?");
     if(c == true)
     {
@@ -436,25 +413,27 @@ else
             url: "{{ route('saveovertime') }}",
             method: "POST",
             data: {schedDate: schedDate, timeIn:timeIn, timeOut:timeOut, cmbShift:cmbShift, txtReason: txtReason},
+            dataType: "json",
             success:function(data)
             {
-                alert(data);
-                refresh_Table();
+                if(data.error.length > 0){
+                    alert(data.error[0]);
+                }
+                if(data.success.length > 0){
+                    alert(data.success[0]);
+                    refresh_Table();
+                }
+                
             },
             error: function(xhr, ajaxOptions, thrownError){
                 console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
-        }); 
+        });
     }
 }
 });
 //button apply alteration//
 
-
-//button generate filter dates
-$(document).on('click', '#btnFilter', function (){        
-    filterDate();   
-});
 //function filter dates
 function filterDate()
 {
@@ -472,8 +451,8 @@ function filterDate()
             $.ajax({
                 headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 url: "{{ route('filterdates') }}",
-                method: "POST",
-                data:{start_date: startDate, end_date: endDate}, 
+                method: "GET",
+                data:{startDate: startDate, endDate: endDate}, 
                 success:function(data)
                 {
                     $('#divOvertimeRecord').html(data);
@@ -490,10 +469,70 @@ function filterDate()
         }  
     }else if($("#cmbSearchBy").val() == "Status"){
 
-        alert("Status");
+        var status = $("#cmbStatus").val();
+        
+        if(status ==  ""){
+            alert("Invalid Status Required!");
+        }else{
+            $.ajax({
+                headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                url: "{{ route('filterdates') }}",
+                method: "GET",
+                data:{status: status, status: status}, 
+                success:function(data)
+                {
+                    $('#divOvertimeRecord').html(data);
+                    $('#tableOvertimeRecord').DataTable({
+                        "serverSide": false, 
+                        "retrieve": true, 
+                        "ordering": false
+                    });
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            });
+        }
 
     }
 }
+
+//button generate filter dates
+$(document).on('click', '#btnFilter', function (){        
+    filterDate();   
+});
+
+
+
+$(function (){
+    $('#searchStartDate').datetimepicker({
+        format: 'L'
+    });
+});
+
+$(function (){
+    $('#searchEndDate').datetimepicker({
+        format: 'L'
+    });
+});
+
+$(function (){
+    $('#schedDate').datetimepicker({
+        format: 'L'
+    });
+});
+
+$(function (){
+    $('#timeIn').datetimepicker({
+        format: 'LT'
+    });
+});
+
+$(function (){
+    $('#timeOut').datetimepicker({
+        
+    });
+});
 </script>
 
 @endsection

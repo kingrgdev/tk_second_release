@@ -178,8 +178,10 @@ Route::get('/overtimerecords', 'UsersController\\OvertimeRecordsController@index
         Route::post('overtimerecords/cancelovertime', 'UsersController\\OvertimeRecordsController@cancel_overtime')->name('cancelovertime');
         Route::get('overtimerecords/filterdates', 'UsersController\\OvertimeRecordsController@filter_dates')->name('filterdates');
         Route::post('overtimerecords/saveovertime', 'UsersController\\OvertimeRecordsController@save_overtime')->name('saveovertime');
+        
+        Route::get('navbar/numnotifications', 'Auth\\NotificationController@numnotifications')->name('numnotifications');//Fetch Num Notifications
+        Route::get('navbar/viewnotifications', 'Auth\\NotificationController@viewnotifications')->name('viewnotifications');//Fetch Notifications
 
-   
 //For integration with clint//
 
 

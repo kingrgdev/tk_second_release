@@ -521,3 +521,31 @@ input[type='file'] {
     display: block;
   }
 }
+
+
+
+
+.time-board{
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+  }
+  i.fa-bell {
+    position: relative;
+    font-size: 1em;
+    cursor: pointer;
+  }
+  span.fa-comment {
+    position: absolute;
+    font-size: 1.5em;
+    top: -15px;
+    color: red;
+    right: -15px;
+  }
+  span.num {
+    position: absolute;
+    font-size: 0.8em;
+    top: -10px;
+    color: #fff;
+    right: -7px;
+  }
