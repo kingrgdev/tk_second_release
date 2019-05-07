@@ -61,7 +61,7 @@
                     $teamstatus = "nav-link"; 
                     $payslips = "nav-link";   
                 @endphp
-            @elseif(Request::segment(1) == 'workschedules')
+            @elseif(Request::segment(1) == 'workschedulerecords')
                 @php
                     $worksched = "nav-link active";   
                     $overtime_rec = "nav-link"; 
@@ -117,9 +117,9 @@
             </li>
             @endif
 
-            @if(Session::get('work_schedules') != 'none')
+            @if(Session::get('workschedulerecords') != 'none')
             <li class="nav-item">
-                <a id="navSelect" class="{{$worksched}}" href="/workschedules">Work Schedules</a>
+                <a id="navSelect" class="{{$worksched}}" href="/workschedulerecords">Work Schedules</a>
             </li>
             @endif
 
@@ -153,8 +153,8 @@
                     @if(Session::get('leave_records') != 'none')
                         <a class="dropdown-item" href="/">Leave Records</a>
                     @endif
-                    @if(Session::get('work_schedules') != 'none')
-                        <a class="dropdown-item" href="/">Work Schedules</a>
+                    @if(Session::get('workschedulerecords') != 'none')
+                        <a class="dropdown-item" href="/workschedulerecords">Work Schedules</a>
                     @endif
                     @if(Session::get('team_status') != 'none')
                         <a class="dropdown-item" href="/">Team Status</a>

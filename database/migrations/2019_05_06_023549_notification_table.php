@@ -15,12 +15,10 @@ class NotificationTable extends Migration
     {
         Schema::create('notification_records', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('company_id');
-            $table->string('employee_name');
-            $table->datetime('time_in')->nullable();
-            $table->datetime('time_out')->nullable();
             $table->string('title');
             $table->string('body');
+            $table->integer('status');
+            $table->integer('deleted');
             $table->string('lu_by')->nullable();
             $table->string('created_by')->nullable();
             $table->timestamps();

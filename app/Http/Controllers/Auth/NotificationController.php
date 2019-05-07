@@ -13,16 +13,26 @@ class NotificationController extends Controller
     public function viewnotifications(Request $request){
         $data = "";
 
-        $query = "SELECT * FROM events ORDER BY created_by DESC, status DESC";
+        $query = "SELECT * FROM events ORDER BY created_by DESC"; //, status DESC
         $select_query = DB::connection('mysql3')->select($query);
 
         if(count($select_query) > 0){
             foreach($select_query as $info){
                 if($info->status == 0){
-                    $data .= '<a class="dropdown-item">'.$info->title.'</a>';
+                    $data .= '<a class="dropdown-item"><small><b>'.$info->title.'</b></small>
+                    <br>
+                    <small><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p></small>
+                    
+                    <small><em>'.date("F j Y H:i:s A",strtotime($info->created)).'</em></small>
+                    </a>';
                 }
                 else if($info->status == 1){
-                    $data .= '<a class="dropdown-item">'.$info->title.'&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge badge-success">new</span></a>';
+                    $data .= '<a class="dropdown-item"><small><b>'.$info->title.'</b></small>&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge badge-success">new</span>
+                    <br>
+                    <small><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p></small>
+                    
+                    <small><em>'.date("F j Y H:i:s A",strtotime($info->created)).'</em></small>
+                    </a>';
                 }
             }
         }

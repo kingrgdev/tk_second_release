@@ -549,3 +549,9 @@ input[type='file'] {
     color: #fff;
     right: -7px;
   }
+  #dropNotification{
+    height: 400px!important;
+    overflow-y: auto!important;
+    overflow-x: auto!important;
+
+  }

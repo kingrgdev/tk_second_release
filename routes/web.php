@@ -172,6 +172,7 @@ Route::get('/timerecords/view_punch_history/historyfilter', 'UsersController\\Pu
 //overtime records
 Route::get('/overtimerecords', 'UsersController\\OvertimeRecordsController@index');
 
+
 //For integration with clint//
     ////----Overtime----////
         Route::get('overtimerecords/printovertime', 'UsersController\\OvertimeRecordsController@print_overtime_now')->name('printovertime');
@@ -179,8 +180,12 @@ Route::get('/overtimerecords', 'UsersController\\OvertimeRecordsController@index
         Route::get('overtimerecords/filterdates', 'UsersController\\OvertimeRecordsController@filter_dates')->name('filterdates');
         Route::post('overtimerecords/saveovertime', 'UsersController\\OvertimeRecordsController@save_overtime')->name('saveovertime');
         
-        Route::get('navbar/numnotifications', 'Auth\\NotificationController@numnotifications')->name('numnotifications');//Fetch Num Notifications
-        Route::get('navbar/viewnotifications', 'Auth\\NotificationController@viewnotifications')->name('viewnotifications');//Fetch Notifications
+        Route::get('navbar/numnotifications', 'Auth\\NotificationController@numnotifications')->name('numnotifications');
+        Route::get('navbar/viewnotifications', 'Auth\\NotificationController@viewnotifications')->name('viewnotifications');
+    
+    ////----WorkSchedule----////
+        Route::get('/workschedulerecords', 'UsersController\\WorkScheduleController@index');
+        Route::get('workschedulerecords/printschedule', 'UsersController\\WorkScheduleController@print_schedule')->name('printschedule');
 
 //For integration with clint//
 

@@ -1467,30 +1467,26 @@ class OvertimeRecordsController extends Controller
                                     }
                                 //End of Sunday
                             }
-                            else if($select_schedule[0]->type == "Flexi Shift"){
-
-                                //$total_flexihrs = $SELECT_SCHEDULE->flexihrs;
-
-                                $day = date("N", strtotime($request->schedDate)); //converts the date into day
+                            else if($select_schedule_request[0]->type == "Flexi Shift"){
  
                                 $overtime = "false";
 
-                                //datetime in
+                                $date_in = date("Y-m-d", strtotime($datetimein));
+                                
+                                $date_out = date("Y-m-d", strtotime($datetimeout));
+
                                 $_datetimein = new DateTime($datetimein);
-                                //datetime out
+                                
                                 $_datetimeout = new DateTime($datetimeout);
 
-                                //check if the application for overtime is between the next day
                                 if($date_in != $date_out){
 
                                     $chkDay = date("N", strtotime($date_out));
 
-                                    //add 1 day to check if the date out is greater than 1 to date in
                                     $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
 
-                                    //kapag sobra sa isang araw yung inapply na overtime
-                                    if($date_out > $valid_date_out){
-
+                                    if($date_out > $valid_date_out)
+                                    {
                                         $message = "Your overtime exceeds 1 day!";
                                         $error[] = $message;
                                     }
@@ -1499,17 +1495,48 @@ class OvertimeRecordsController extends Controller
                                         $overtime = "true";
                                         $interval = $_datetimeout->diff($_datetimein);
                                         $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
-
                                     }
                                 }
                                 else{
-
                                     $overtime = "true";
                                     $interval = $_datetimeout->diff($_datetimein);
                                     $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
                                 }
                             }
-                            else if($select_schedule[0]->type == "Free Shift"){
+                            else if($select_schedule_request[0]->type == "Free Shift"){
+                                $overtime = "false";
+
+                                $date_in = date("Y-m-d", strtotime($datetimein));
+                                
+                                $date_out = date("Y-m-d", strtotime($datetimeout));
+
+                                $_datetimein = new DateTime($datetimein);
+                                
+                                $_datetimeout = new DateTime($datetimeout);
+
+                                if($date_in != $date_out){
+
+                                    $chkDay = date("N", strtotime($date_out));
+
+                                    $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+
+                                    if($date_out > $valid_date_out)
+                                    {
+                                        $message = "Your overtime exceeds 1 day!";
+                                        $error[] = $message;
+                                    }
+                                    else{
+                                        
+                                        $overtime = "true";
+                                        $interval = $_datetimeout->diff($_datetimein);
+                                        $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                    }
+                                }
+                                else{
+                                    $overtime = "true";
+                                    $interval = $_datetimeout->diff($_datetimein);
+                                    $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                }
                             }
                             if($overtime == "true"){
                                 $insert_query = new OvertimeRecords;
@@ -2816,29 +2843,25 @@ class OvertimeRecordsController extends Controller
                                     //End of Sunday
                                 }
                                 else if($select_schedule[0]->type == "Flexi Shift"){
-
-                                    //$total_flexihrs = $SELECT_SCHEDULE->flexihrs;
-    
-                                    $day = date("N", strtotime($request->schedDate)); //converts the date into day
      
                                     $overtime = "false";
+
+                                    $date_in = date("Y-m-d", strtotime($datetimein));
+                                    
+                                    $date_out = date("Y-m-d", strtotime($datetimeout));
     
-                                    //datetime in
                                     $_datetimein = new DateTime($datetimein);
-                                    //datetime out
+                                    
                                     $_datetimeout = new DateTime($datetimeout);
     
-                                    //check if the application for overtime is between the next day
                                     if($date_in != $date_out){
     
                                         $chkDay = date("N", strtotime($date_out));
     
-                                        //add 1 day to check if the date out is greater than 1 to date in
                                         $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
     
-                                        //kapag sobra sa isang araw yung inapply na overtime
-                                        if($date_out > $valid_date_out){
-    
+                                        if($date_out > $valid_date_out)
+                                        {
                                             $message = "Your overtime exceeds 1 day!";
                                             $error[] = $message;
                                         }
@@ -2847,17 +2870,48 @@ class OvertimeRecordsController extends Controller
                                             $overtime = "true";
                                             $interval = $_datetimeout->diff($_datetimein);
                                             $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
-    
                                         }
                                     }
                                     else{
-    
                                         $overtime = "true";
                                         $interval = $_datetimeout->diff($_datetimein);
                                         $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
                                     }
                                 }
                                 else if($select_schedule[0]->type == "Free Shift"){
+                                    $overtime = "false";
+
+                                    $date_in = date("Y-m-d", strtotime($datetimein));
+                                    
+                                    $date_out = date("Y-m-d", strtotime($datetimeout));
+    
+                                    $_datetimein = new DateTime($datetimein);
+                                    
+                                    $_datetimeout = new DateTime($datetimeout);
+    
+                                    if($date_in != $date_out){
+    
+                                        $chkDay = date("N", strtotime($date_out));
+    
+                                        $valid_date_out = date("Y-m-d", strtotime("+1 days", strtotime($sched_date)));
+    
+                                        if($date_out > $valid_date_out)
+                                        {
+                                            $message = "Your overtime exceeds 1 day!";
+                                            $error[] = $message;
+                                        }
+                                        else{
+                                            
+                                            $overtime = "true";
+                                            $interval = $_datetimeout->diff($_datetimein);
+                                            $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                        }
+                                    }
+                                    else{
+                                        $overtime = "true";
+                                        $interval = $_datetimeout->diff($_datetimein);
+                                        $hour = round($interval->s / 3600 + $interval->i / 60 + $interval->h + $interval->days * 24, 2);
+                                    }
                                 }
                                 if($overtime == "true"){
                                     $insert_query = new OvertimeRecords;
