@@ -57,7 +57,7 @@ input, select{
 /* Style the input fields */
 .form-inline input {
     vertical-align: middle;
-    border: 1px solid #ddd;
+    /* border: 1px solid #ddd; */
 }
 
 /* Style the submit button */

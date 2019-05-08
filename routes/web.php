@@ -186,7 +186,9 @@ Route::get('/overtimerecords', 'UsersController\\OvertimeRecordsController@index
     ////----WorkSchedule----////
         Route::get('/workschedulerecords', 'UsersController\\WorkScheduleController@index');
         Route::get('workschedulerecords/printschedule', 'UsersController\\WorkScheduleController@print_schedule')->name('printschedule');
-
+        Route::get('workschedulerecords/printschedulelist', 'UsersController\\WorkScheduleController@print_schedule_list')->name('printschedulelist');
+        Route::post('workschedulerecords/saveschedulerequest', 'UsersController\\WorkScheduleController@save_schedule_request')->name('saveschedulerequest');
+        
 //For integration with clint//
 
 

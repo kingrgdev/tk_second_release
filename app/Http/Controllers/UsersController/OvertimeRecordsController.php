@@ -155,6 +155,10 @@ class OvertimeRecordsController extends Controller
         $check_dtr_query = "SELECT * FROM date_and_time_records WHERE sched_date = '".$sched_date."' AND company_id = '".auth()->user()->company_id."'";
         $check_dtr = DB::connection('mysql2')->select($check_dtr_query);
 
+        //Checks if employee exists in punch_alteration_records
+        // $check_alter_query = "SELECT * FROM alteration_records WHERE sched_date = '".$sched_date."' AND company_id = '".auth()->user()->company_id."'";
+        // $check_alter = DB::connection('mysql2')->select($check_alter_query);
+
         //Condition if Employee DTR Exists
         if(!empty($check_dtr))
         {
@@ -2940,8 +2944,19 @@ class OvertimeRecordsController extends Controller
                 $error[] = $message;
             }
         }else{
+            
             $message = "No DTR record found for this employee";
             $error[] = $message;
+
+            //Checks if there's record for this employee in alteration records
+            // if($check_alter[0]->sched_date == $sched_date){
+            //     $message = "Matched!";
+            //     $error[] = $message;
+            // }else{
+            //     $message = "No Matched Alteration for this employee";
+            //     $error[] = $message;
+            // }
+
         }
         $result = array(
             'error'=>$error,
