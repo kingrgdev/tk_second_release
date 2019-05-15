@@ -182,7 +182,7 @@ class WorkScheduleController extends Controller
     }
 
     public function print_schedule(){
-        $employee_schedule_request = DB::connection('mysql3')->select("SELECT a.company_id AS company_id, a.template_id AS template_id,
+        $employee_schedule_request = DB::connection('mysql3')->select("SELECT a.id AS id, a.company_id AS company_id, a.template_id AS template_id,
         a.start_date AS start_date, a.infinit AS infinit, a.status AS status, a.end_date AS end_date, a.deleted AS deleted, a.approved_1_id AS approved_1_id,
         a.approved_2_id AS approved_2_id, a.request_status AS request_status, a.created_by AS created_by, a.created_date AS created_date,
         a.lu_by AS lu_by, a.lu_date, b.reg_in AS reg_in, b.reg_out AS reg_out,
@@ -424,56 +424,65 @@ class WorkScheduleController extends Controller
         $error = array();
         $success = array();
 
-        $start_date = $request->sched_temp_startDate;
-        $end_date = $request->sched_temp_endDate;
+        $start_date = date("Y-m-d",strtotime($request->sched_temp_startDate));
+        $end_date = date("Y-m-d",strtotime($request->sched_temp_endDate));
         $optradio = $request->optradio;
         $ind = $request->ind;
 
-        if($ind == "TRUE")
-        {
-            $insert_query = new ScheduleRequestRecords;
-            $insert_query->company_id = auth()->user()->company_id;
-            $insert_query->template_id = $optradio;
-            $insert_query->start_date = date("Y-m-d",strtotime($start_date));
+        $check_request_query = "SELECT * FROM employee_schedule_request WHERE ((start_date BETWEEN '".$start_date."' AND '".$end_date."') || (end_date BETWEEN '".$start_date."' AND '".$end_date."')) AND deleted = 0 AND company_id = '".auth()->user()->company_id."'";
+        $check_request = DB::connection('mysql3')->select($check_request_query);
 
-            $insert_query->infinit = 1;
-            $insert_query->end_date = date("Y-m-d",strtotime($end_date)); //Change Field to NULL with DEFAULT value!
+        if(!empty($check_request)){
+            $message = "Invalid Work Schedule Request Found";
+            $error[] = $message;
+        }else{
+            if($ind == "TRUE")
+            {
+                $insert_query = new ScheduleRequestRecords;
+                $insert_query->company_id = auth()->user()->company_id;
+                $insert_query->template_id = $optradio;
+                $insert_query->start_date = date("Y-m-d",strtotime($start_date));
 
-            $insert_query->request_status = "PENDING";
-            $insert_query->approved_1 = 0;
-            $insert_query->approved_2 = 0;
-            $insert_query->approved_1_id = "NONE";
-            $insert_query->approved_2_id = "NONE";
-            $insert_query->created_by = auth()->user()->name;
-            $insert_query->lu_by = auth()->user()->name;
-            $insert_query->timestamps = false;
-            $insert_query->save();
+                $insert_query->infinit = 1;
+                $insert_query->end_date = date("Y-m-d",strtotime($end_date)); //Change Field to NULL with DEFAULT value!
 
-            $message = "Schedule Successfully Requested!";
-            $success[] = $message;
-        }
-        else if($ind == "FALSE")
-        {
-            $insert_query = new ScheduleRequestRecords;
-            $insert_query->company_id = auth()->user()->company_id;
-            $insert_query->template_id = $optradio;
-            $insert_query->start_date = date("Y-m-d",strtotime($start_date));
+                $insert_query->request_status = "PENDING";
+                $insert_query->approved_1 = 0;
+                $insert_query->approved_2 = 0;
+                $insert_query->approved_1_id = "NONE";
+                $insert_query->approved_2_id = "NONE";
+                $insert_query->created_by = auth()->user()->name;
+                $insert_query->lu_by = auth()->user()->name;
+                $insert_query->timestamps = false;
+                $insert_query->save();
 
-            $insert_query->infinit = 0;
-            $insert_query->end_date = date("Y-m-d",strtotime($end_date)); //Change Field to NULL with DEFAULT value!
+                $message = "Schedule Successfully Requested!";
+                $success[] = $message;
+            }
+            else if($ind == "FALSE")
+            {
+                $insert_query = new ScheduleRequestRecords;
+                $insert_query->company_id = auth()->user()->company_id;
+                $insert_query->template_id = $optradio;
+                $insert_query->start_date = date("Y-m-d",strtotime($start_date));
 
-            $insert_query->request_status = "PENDING";
-            $insert_query->approved_1 = 0;
-            $insert_query->approved_2 = 0;
-            $insert_query->approved_1_id = "NONE";
-            $insert_query->approved_2_id = "NONE";
-            $insert_query->created_by = auth()->user()->name;
-            $insert_query->lu_by = auth()->user()->name;
-            $insert_query->timestamps = false;
-            $insert_query->save();
+                $insert_query->infinit = 0;
+                $insert_query->end_date = date("Y-m-d",strtotime($end_date)); //Change Field to NULL with DEFAULT value!
 
-            $message = "Schedule Successfully Requested!";
-            $success[] = $message;
+                $insert_query->request_status = "PENDING";
+                $insert_query->approved_1 = 0;
+                $insert_query->approved_2 = 0;
+                $insert_query->approved_1_id = "NONE";
+                $insert_query->approved_2_id = "NONE";
+                $insert_query->created_by = auth()->user()->name;
+                $insert_query->lu_by = auth()->user()->name;
+                $insert_query->timestamps = false;
+                $insert_query->save();
+
+                $message = "Schedule Successfully Requested!";
+                $success[] = $message;
+            }
+
         }
 
         $result = array(
