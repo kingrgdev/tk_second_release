@@ -82,25 +82,26 @@
 
                     <br>    
 
-                    <form class="form-inline">
+                    
+                    {{-- Location --}}
+                    {{-- <form class="form-inline">
 
-                        {{-- Location --}}
                     <div class="form__group col-md-8">
                         <input id="txtLocation" name="txtLocation" type="text" class="form__field" placeholder="Location *">
                         <label for="txtLocation" class="span-header form__label"><i class="icon-right fa fa-map-marker" aria-hidden="true"></i>Location *</label>
                     </div>
                         
-                    </form>
+                    </form> --}}
 
                     <br>
 
                     {{-- REASON WORK SCHED --}}
-                    <form class="form-inline">
+                    {{-- <form class="form-inline">
                         <div class="form__group col-md-8">
                             <textarea id="txtReason" name = "txtReason_apply" class="form__field" placeholder="Reason For Applying Work Schedule *"></textarea>
                             <label for="txtReason" class="span-header form__label"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Reason For Applying Work Schedule *</label>
                         </div>              
-                    </form>
+                    </form> --}}
                     {{-- REASON WORK SCHED END --}}
                     
                     <br>
@@ -193,73 +194,73 @@
                                             <tbody>
                                                 {{-- MONDAY --}}
                                                 <tr>
-                                                    <td><input id="chk_RegularShiftTable_days" type="checkbox" name="regular_shift" value="1"></td>
+                                                    <td><input id="chk_RegularShiftTable_days_mon" type="checkbox" name="chk_RegularShiftTable_days[]" value="1"></td>
                                                     <td>
                                                         <label>Monday</label><br>
                                                     </td>
                                                     <td>
-                                                        <input id="chk_RegularShiftTable_rest" type="checkbox" name="regular_shift" value="1">
+                                                        <input id="chk_RegularShiftTable_rest_mon" type="checkbox" name="chk_RegularShiftTable_rest[]" value="1">
                                                     </td>
                                                 </tr>
 
                                                 {{-- TUESDAY --}}
                                                 <tr>
-                                                    <td><input id="chk_RegularShiftTable_days" type="checkbox" name="regular_shift" value="2"></th>
+                                                    <td><input id="chk_RegularShiftTable_days_tue" type="checkbox" name="chk_RegularShiftTable_days[]" value="2"></th>
                                                     <td>
                                                         <label>Tuesday</label><br>
                                                     </td>
                                                     <td>
-                                                        <input id="chk_RegularShiftTable_rest" type="checkbox" name="regular_shift" value="2">
+                                                        <input id="chk_RegularShiftTable_rest_tue" type="checkbox" name="chk_RegularShiftTable_rest[]" value="2">
                                                     </td>
                                                 </tr>
                                                 {{-- WEDNESDAY --}}
                                                 <tr>
-                                                    <td><input id="chk_RegularShiftTable_days" type="checkbox" name="regular_shift" value="3"></th>
+                                                    <td><input id="chk_RegularShiftTable_days_wed" type="checkbox" name="chk_RegularShiftTable_days[]" value="3"></th>
                                                     <td>
                                                         <label>Wednesday</label><br>
                                                     </td>
                                                     <td>
-                                                        <input id="chk_RegularShiftTable_rest" type="checkbox" name="regular_shift" value="3">
+                                                        <input id="chk_RegularShiftTable_rest_wed" type="checkbox" name="chk_RegularShiftTable_rest[]" value="3">
                                                     </td>
                                                 </tr>
                                                 {{-- THURSDAY --}}
                                                 <tr>
-                                                    <td><input id="chk_RegularShiftTable_days" type="checkbox" name="regular_shift" value="4"></th>
+                                                    <td><input id="chk_RegularShiftTable_days_thurs" type="checkbox" name="chk_RegularShiftTable_days[]" value="4"></th>
                                                     <td>
                                                         <label>Thursday</label><br>
                                                     </td>
                                                     <td>
-                                                        <input id="chk_RegularShiftTable_rest" type="checkbox" name="regular_shift" value="4">
+                                                        <input id="chk_RegularShiftTable_rest_thurs" type="checkbox" name="chk_RegularShiftTable_rest[]" value="4">
                                                     </td>
                                                 </tr>
                                                 {{-- FRIDAY --}}
                                                 <tr>
-                                                    <td><input id="chk_RegularShiftTable_days" type="checkbox" name="regular_shift" value="5"></th>
+                                                    <td><input id="chk_RegularShiftTable_days_fri" type="checkbox" name="chk_RegularShiftTable_days[]" value="5"></th>
                                                     <td>
                                                         <label>Friday</label><br>
                                                     </td>
                                                     <td>
-                                                        <input id="chk_RegularShiftTable_rest" type="checkbox" name="regular_shift" value="5">
+                                                        <input id="chk_RegularShiftTable_rest_fri" type="checkbox" name="chk_RegularShiftTable_rest[]" value="5">
                                                     </td>
                                                 </tr>
                                                 {{-- SATURDAY --}}
                                                 <tr>
-                                                    <td><input id="chk_RegularShiftTable_days" type="checkbox" name="regular_shift" value="6"></th>
+                                                    <td><input id="chk_RegularShiftTable_days_sat" type="checkbox" name="chk_RegularShiftTable_days[]" value="6"></th>
                                                     <td>
                                                         <label>Saturday</label><br>
                                                     </td>
                                                     <td>
-                                                        <input id="chk_RegularShiftTable_rest" type="checkbox" name="regular_shift" value="6">
+                                                        <input id="chk_RegularShiftTable_rest_sat" type="checkbox" name="chk_RegularShiftTable_rest[]" value="6">
                                                     </td>
                                                 </tr>
                                                 {{-- SUNDAY --}}
                                                 <tr>
-                                                    <td><input id="chk_RegularShiftTable_days" type="checkbox" name="regular_shift" value="7"></th>
+                                                    <td><input id="chk_RegularShiftTable_days_sun" type="checkbox" name="chk_RegularShiftTable_days[]" value="7"></th>
                                                     <td>
                                                         <label>Sunday</label><br>
                                                     </td>
                                                     <td>
-                                                        <input id="chk_RegularShiftTable_rest" type="checkbox" name="regular_shift" value="7">
+                                                        <input id="chk_RegularShiftTable_rest_sun" type="checkbox" name="chk_RegularShiftTable_rest[]" value="7">
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -609,6 +610,34 @@
 
 
 <script>
+
+//cancel overtime
+$(document).on("click", ".btnCancel", function(){
+        
+        var id_to_cancel = $(this).data("add");
+        var c = confirm("Do you want to cancel this overtime?");
+
+        if(c == true)
+        {
+            $.ajax({
+                headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                url: "{{ route('cancelrequest') }}",
+                method: "POST",
+                data:{id_to_cancel: id_to_cancel}, 
+                dataType: "json",
+                success:function(data)
+                {
+                    alert(data);
+                    refresh_schedule_list();
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            });
+        }
+    });
+//cancel alteration
+
 $('#tableScheduleListTemplate').DataTable({
     "serverSide": false, 
     "retrieve": true, 
@@ -712,37 +741,105 @@ $(document).on("click", "#scheduleIcon", function(){
             var sched_temp_startDate = $("#startDate_CWS").val();
             var sched_temp_endDate = $("#endDate_CWS").val();
             var ind = document.getElementById("chk_EDIndefinite");
+            var optradio = $("input[name='optradio']:checked").val();
 
             if(ind.checked == true)
             {
-                if(sched_temp_startDate == ""){
+                if(sched_temp_startDate == "")
+                {
                     alert("Start Date Field Required!");
-                }else if(!$("input[name='optradio']:checked").val()){
+                }
+                else if(!$("input[name='optradio']:checked").val())
+                {
                     alert("Choose your Schedule Template!");
+                }
+                else
+                {
+                    var c = confirm("Apply this Work Schedule Request?");
+                    if(c == true)
+                    {
+                        $.ajax({
+                            headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                            url: "{{ route('saveschedulerequest') }}",
+                            method: "POST",
+                            dataType: "json",
+                            data: {
+                                sched_temp_startDate:sched_temp_startDate,
+                                optradio:optradio,
+                                ind:"TRUE"
+                            },
+                            success:function(data)
+                            {
+                                if(data.error.length > 0){
+                                    alert(data.error[0]);
+                                }
+                                if(data.success.length > 0){
+                                    alert(data.success[0]);
+                                    refresh_schedule_list();
+                                }
+                                
+                            },
+                            error: function(xhr, ajaxOptions, thrownError){
+                                console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                            }
+                        });
+                    }
                 }
                 
             }
             else if(ind.checked == false)
             {
-                if(sched_temp_startDate == ""){
+                if(sched_temp_startDate == "")
+                {
                     alert("Start Date Field Required!");
                 }
-                else if(sched_temp_endDate == ""){
+                else if(sched_temp_endDate == "")
+                {
                     alert("End Date Field Required!");
                 }
-                else if(!$("input[name='optradio']:checked").val()){
+                else if(!$("input[name='optradio']:checked").val())
+                {
                     alert("Choose your Schedule Template!");
                 }
+                else
+                {
+                    var c = confirm("Apply this Work Schedule Request?");
+                    if(c == true)
+                    {
+                        $.ajax({
+                            headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                            url: "{{ route('saveschedulerequest') }}",
+                            method: "POST",
+                            dataType: "json",
+                            data: {
+                                sched_temp_startDate:sched_temp_startDate,
+                                sched_temp_endDate:sched_temp_endDate,
+                                optradio:optradio,
+                                ind:"FALSE"
+                            },
+                            success:function(data)
+                            {
+                                if(data.error.length > 0){
+                                    alert(data.error[0]);
+                                }
+                                if(data.success.length > 0){
+                                    alert(data.success[0]);
+                                    refresh_schedule_list();
+                                }
+                                
+                            },
+                            error: function(xhr, ajaxOptions, thrownError){
+                                console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                            }
+                        });
+                    }
+                }
             }
-            else
-            {
-                
-            }
-            
         }
         else if(custom_sched == "rdB_CustomSchedule")
         {
             var shift_type = $("input[type=radio][name=shift_list]:checked").val();
+            
             if(shift_type == "rdB_RegularShift"){
 
                 var sched_temp_startDate = $("#startDate_CWS").val();
@@ -751,6 +848,16 @@ $(document).on("click", "#scheduleIcon", function(){
 
                 var regShiftIn = $("#dtp_RegularShiftIn").val();
                 var regShiftOut = $("#dtp_RegularShiftOut").val();
+
+                var days = new Array();
+                $.each($("input[name='chk_RegularShiftTable_days']:checked"), function(){            
+                    days.push($(this).val());
+                });
+
+                var rest = new Array();
+                $.each($("input[name='chk_RegularShiftTable_rest']:checked"), function(){            
+                    rest.push($(this).val());
+                });
 
                 if(ind.checked == true)
                 {
@@ -765,6 +872,42 @@ $(document).on("click", "#scheduleIcon", function(){
                     else if(regShiftOut == "")
                     {
                         alert("Shift Out Field Required!");
+                    }
+                    else
+                    {
+                        var c = confirm("Apply this Work Schedule Request?");
+                        if(c == true)
+                        {
+                            $.ajax({
+
+                                headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                                url: "{{ route('savecustomregular') }}",
+                                method: "POST",
+                                dataType: "json",
+                                data: {
+                                    sched_temp_startDate:sched_temp_startDate,
+                                    regShiftIn:regShiftIn,
+                                    regShiftOut:regShiftOut,
+                                    rest:rest,
+                                    days:days,
+                                    ind: "TRUE"
+                                },
+                                success:function(data)
+                                {
+                                    if(data.error.length > 0){
+                                        alert(data.error[0]);
+                                    }
+                                    if(data.success.length > 0){
+                                        alert(data.success[0]);
+                                        refresh_schedule_list();
+                                    }
+                                },
+                                error: function(xhr, ajaxOptions, thrownError){
+                                    console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                                }
+
+                            });
+                        }
                     }
                 }
                 else if(ind.checked == false)
@@ -784,21 +927,92 @@ $(document).on("click", "#scheduleIcon", function(){
                     {
                         alert("Shift Out Field Required!");
                     }
+                    else
+                    {
+                        var c = confirm("Apply this Work Schedule Request?");
+                        if(c == true)
+                        {
+                            $.ajax({
+
+                                headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                                url: "{{ route('savecustomregular') }}",
+                                method: "POST",
+                                dataType: "json",
+                                data: {
+                                    sched_temp_startDate:sched_temp_startDate,
+                                    sched_temp_endDate:sched_temp_endDate,
+                                    regShiftIn:regShiftIn,
+                                    regShiftOut:regShiftOut,
+                                    rest:rest,
+                                    days:days,
+                                    ind: "FALSE"
+                                },
+                                success:function(data)
+                                {
+                                    if(data.error.length > 0){
+                                        alert(data.error[0]);
+                                    }
+                                    if(data.success.length > 0){
+                                        alert(data.success[0]);
+                                        refresh_schedule_list();
+                                    }
+                                },
+                                error: function(xhr, ajaxOptions, thrownError){
+                                    console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                                }
+
+                            });
+                        }
+                    }
                 }
-                else
-                {
-                    alert("Working on it!");
-                }
-            }else if(shift_type == "rdB_IrregularShift"){
+            }
+            
+            else if(shift_type == "rdB_IrregularShift"){
                 alert("Irregular");
-            }else if(shift_type == "rdB_FlexiShift"){
+            }
+            
+            else if(shift_type == "rdB_FlexiShift"){
                 alert("Flexi");
-            }else if(shift_type == "rdB_FreeShift"){
+            }
+            
+            else if(shift_type == "rdB_FreeShift"){
                 alert("Free");
             }
         }
        
-            
+            // chk_RegularShiftTable_days_mon:chk_RegularShiftTable_days_mon,
+            // chk_RegularShiftTable_days_tue:chk_RegularShiftTable_days_tue,
+            // chk_RegularShiftTable_days_wed:chk_RegularShiftTable_days_wed,
+            // chk_RegularShiftTable_days_thurs:chk_RegularShiftTable_days_thurs,
+            // chk_RegularShiftTable_days_fri:chk_RegularShiftTable_days_fri,
+            // chk_RegularShiftTable_days_sat:chk_RegularShiftTable_days_sat,
+            // chk_RegularShiftTable_days_sun:chk_RegularShiftTable_days_sun,
+
+            // chk_RegularShiftTable_rest_mon:chk_RegularShiftTable_rest_mon,
+            // chk_RegularShiftTable_rest_tue:chk_RegularShiftTable_rest_tue,
+            // chk_RegularShiftTable_rest_wed:chk_RegularShiftTable_rest_wed,
+            // chk_RegularShiftTable_rest_thurs:chk_RegularShiftTable_rest_thurs,
+            // chk_RegularShiftTable_rest_fri:chk_RegularShiftTable_rest_fri,
+            // chk_RegularShiftTable_rest_sat:chk_RegularShiftTable_rest_sat,
+            // chk_RegularShiftTable_rest_sun:chk_RegularShiftTable_rest_sun
+
+            // var chk_RegularShiftTable_days_mon = $("#chk_RegularShiftTable_days_mon").val();
+            // var chk_RegularShiftTable_days_tue = $("#chk_RegularShiftTable_days_tue").val();
+            // var chk_RegularShiftTable_days_wed = $("#chk_RegularShiftTable_days_wed").val();
+            // var chk_RegularShiftTable_days_thurs = $("#chk_RegularShiftTable_days_thurs").val();
+            // var chk_RegularShiftTable_days_fri = $("#chk_RegularShiftTable_days_fri").val();
+            // var chk_RegularShiftTable_days_sat = $("#chk_RegularShiftTable_days_sat").val();
+            // var chk_RegularShiftTable_days_sun = $("#chk_RegularShiftTable_days_sun").val();
+
+            // var chk_RegularShiftTable_rest_mon = $("#chk_RegularShiftTable_rest_mon").val();
+            // var chk_RegularShiftTable_rest_tue = $("#chk_RegularShiftTable_rest_tue").val();
+            // var chk_RegularShiftTable_rest_wed = $("#chk_RegularShiftTable_rest_wed").val();
+            // var chk_RegularShiftTable_rest_thurs = $("#chk_RegularShiftTable_rest_thurs").val();
+            // var chk_RegularShiftTable_rest_fri = $("#chk_RegularShiftTable_rest_fri").val();
+            // var chk_RegularShiftTable_rest_sat = $("#chk_RegularShiftTable_rest_sat").val();
+            // var chk_RegularShiftTable_rest_sun = $("#chk_RegularShiftTable_rest_sun").val();
+
+
             // var c = confirm("Apply this Work Schedule Request?");
             // if(c == true)
             // {

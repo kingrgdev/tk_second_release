@@ -319,7 +319,7 @@ $(document).on("click", "#overtimeIcon", function(){
         {
             $.ajax({
                 headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                url: "{{ route('cancelovertime') }}",
+                url: "{{ route('cancelrequest') }}",
                 method: "POST",
                 data:{id_to_cancel: id_to_cancel}, 
                 dataType: "json",

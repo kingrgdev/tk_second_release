@@ -12,7 +12,8 @@
                     <th colspan="2" scope="colgroup" class="text-center">Applied Alteration</th>
                     <th rowspan="2" class="text-center">Reason</th>
                     <th colspan="2" scope="colgroup" class="text-center">Approval History</th>
-                    <th rowspan="2" style="text-align: center;">Remarks</th>                      
+                    <th rowspan="2" style="text-align: center;">Status</th>   
+                    <th rowspan="2" style="text-align: center;">Action</th>                      
                     <tr>
                         <th scope="col">Time In</th>
                         <th scope="col">Time Out</th>
@@ -57,34 +58,41 @@
                             @endif 
                             <td style="text-align:center;">{{$record->reason}}</td>  
                             
-                            @if($record->status == "CANCELLED")
-                                <td style=''></td>
-                                <td style=''></td>
-                                <td colspan ="3" style="color:#dc3545; text-align:center;"><i class="icon-right fa fa-times-circle"></i><b>CANCELLED</b></td>
-                                
-                            @else
+                            
                                 @if($record->approved_1 == "0")
-                                    <td>{{$record->status}}</td>   
+                                    {{-- <td>{{$record->status}}</td>    --}}
+                                    <td></td>
                                 @else
                                     <td>{{$record->level1name}}</td>   
                                 @endif
     
                                 @if($record->approved_2 == "0")
-                                    <td>{{$record->status}}</td> 
+                                    {{-- <td>{{$record->status}}</td> --}}
+                                    <td></td> 
                                 @else
                                     <td>{{$record->level2name}}</td> 
                                 @endif
-    
+
                                 @if($record->status == "APPROVED")
-                               
-                                    <td style="color:#28a745; text-align:center;"><i id='txtremarks".$counter."' class='icon-right fa fa-check-circle'></i><b>APPROVED</b>
-                                    </td>
-                                @else
+                                <td style="color:#28a745; text-align:center;"><i id='txtremarks".$counter."' class='icon-right fa fa-check-circle'></i><b>APPROVED</b></td>
+                                @endif
+
+                                @if($record->status == "PENDING")
+                                <td style='color:#E87B15; text-align:center;'><i id='txtremarks".$counter."' class='icon-right fa fa-question-circle'></i><b>PENDING</b></td>
+                                @endif
+
+                                @if($record->status == "CANCELLED")
+                                <td style='color:#dc3545; text-align:center;'><i class='icon-right fa fa-times-circle'></i><b>CANCELLED</b></td>
+                                @endif
+    
+                                @if($record->status == "PENDING")
                                     <td style="text-align:center;">
                                         <button type="button" class="btn btn-sm button red btn_Cancel" data-add="{{$record->id}}">Cancel Application</button>
                                     </td>
+                                @else
+                                    <td></td>
                                 @endif
-                            @endif
+                            
                         </tr>
                     @endforeach
                 @endif

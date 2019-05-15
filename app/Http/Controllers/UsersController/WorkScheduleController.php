@@ -11,11 +11,11 @@ use App\Models\ScheduleRequestRecords;
 
 class WorkScheduleController extends Controller
 {
-    public function index()
-    {
+    public function index(){
         $workschedulerecords = ScheduleRequestRecords::where('company_id', auth()->user()->company_id)->get();
         return view('modules.usersmodule.workschedulerecords.workschedulerecords')->with('workschedulerecords', $workschedulerecords);
     }
+
     public function print_schedule_list(){
         $schedule_template_list = DB::connection('mysql3')->select("SELECT * FROM schedule_template");
         $data = "";
@@ -180,8 +180,23 @@ class WorkScheduleController extends Controller
         $data .= '</tbody></table>';
         echo $data;
     }
+
     public function print_schedule(){
-        $employee_schedule_request = DB::connection('mysql3')->select("SELECT * FROM employee_schedule_request WHERE company_id = '".auth()->user()->company_id."' ORDER BY created_date DESC");
+        $employee_schedule_request = DB::connection('mysql3')->select("SELECT a.company_id AS company_id, a.template_id AS template_id,
+        a.start_date AS start_date, a.infinit AS infinit, a.status AS status, a.end_date AS end_date, a.deleted AS deleted, a.approved_1_id AS approved_1_id,
+        a.approved_2_id AS approved_2_id, a.request_status AS request_status, a.created_by AS created_by, a.created_date AS created_date,
+        a.lu_by AS lu_by, a.lu_date, b.reg_in AS reg_in, b.reg_out AS reg_out,
+
+        b.mon AS mon, b.mon_in AS mon_in, b.mon_out AS mon_out, b.tue AS tue, b.tue_in AS tue_in, b.tue_out AS tue_out,
+        b.wed AS wed, b.wed_in AS wed_in, b.wed_out AS wed_out, b.thu AS thu, b.thu_in AS thu_in, b.thu_out AS thu_out, 
+        b.fri AS fri, b.fri_in AS fri_in, b.fri_out AS fri_out, b.sat AS sat, b.sat_in AS sat_in, b.sat_out AS sat_out,
+        b.sun AS sun, b.sun_in AS sun_in, b.sun_out AS sun_out, b.flexihrs AS flexihrs, 
+        b.lunch_out AS lunch_out, b.lunch_in AS lunch_in, b.lunch_hrs AS lunch_hrs, b.schedule_desc AS schedule_desc, b.deleted AS bDeleted,
+        b.ind AS ind, b.type AS type FROM employee_schedule_request AS a LEFT JOIN schedule_template AS b ON a.template_id = b.ind
+        WHERE a.deleted = 0 AND a.company_id = '".auth()->user()->company_id."' ORDER BY a.created_date DESC");
+
+        $user_list = DB::connection('mysql')->select("SELECT * FROM users");
+
         $data = "";
         $data .= '
         <div id="divScheduleRecord"class="table-responsive">
@@ -224,11 +239,147 @@ class WorkScheduleController extends Controller
                 </td>";
                 $data .= "<td><a id='startDate".$counter."'>".date("F j Y",strtotime($field->start_date))."</a></td>";
                 $data .= "<td><a id='endDate".$counter."'>".date("F j Y",strtotime($field->end_date))."</a></td>";
-                $data .= "<td></td>";
-                $data .= "<td></td>";
-                $data .= "<td></td>";
-                $data .= "<td></td>";
-                $data .= "<td></td>";
+                $data .= "<td><a id='type".$counter."'>".$field->type."</a></td>";
+
+                if($field->type == "Regular Shift")
+                {
+                    $day = "";
+
+                    $reg_in = date("g:i:a", strtotime($field->reg_in));
+                    $reg_out = date("g:i:a", strtotime($field->reg_out));
+        
+                    $shift_time = $reg_in . " to " . $reg_out;
+
+                    if($field->mon == "1" || $field->mon == "2"){
+                        
+                        $day .= "Mon,";
+                    }
+                    if($field->tue == "1" || $field->tue == "2"){
+
+                        $day .= "Tue,";
+                    }
+                    if($field->wed == "1" || $field->wed == "2"){
+
+                        $day .= "Wed,";
+                    }
+                    if($field->thu == "1" || $field->thu == "2"){
+
+                        $day .= "Thu,";
+                    }
+                    if($field->fri == "1" || $field->fri == "2"){
+
+                        $day .= "Fri,";
+                    }
+                    if($field->sat == "1" || $field->sat == "2"){
+
+                        $day .= "Sat,";
+                    }
+                    if($field->sun == "1" || $field->sun == "2"){
+
+                        $day .= "Sun";
+                    }
+
+                    $data .= '<td>' . $day . '</td>';
+                    $data .= '<td>' . $shift_time . '</td>';
+                    
+                }
+                else if($field->type == "Irregular Shift")
+                {
+
+                    $day = "";
+                    $shift_time = "";
+                    if($field->mon == "1" || $field->mon == "2"){
+
+                        $mon_in = date("g:i:a", strtotime($field->mon_in));
+                        $mon_out = date("g:i:a", strtotime($field->mon_out));
+        
+                        $shift_time .= "<p> Mon : " . $mon_in . " to " . $mon_out . "<p>";
+                        
+                        $day .= "Mon,";
+                    }
+                    if($field->tue == "1" || $field->tue == "2"){
+
+                        $tue_in = date("g:i:a", strtotime($field->tue_in));
+                        $tue_out = date("g:i:a", strtotime($field->tue_out));
+        
+                        $shift_time .= "Tue : " . $tue_in . " to " . $tue_out . "<p>";
+
+                        $day .= "Tue,";
+                    }
+                    if($field->wed == "1" || $field->wed == "2"){
+
+                        $wed_in = date("g:i:a", strtotime($field->wed_in));
+                        $wed_out = date("g:i:a", strtotime($field->wed_out));
+        
+                        $shift_time .= "Wed : " . $wed_in . " to " . $wed_out . "<p>";
+
+                        $day .= "Wed,";
+                    }
+                    if($field->thu == "1" || $field->thu == "2"){
+
+                        $thu_in = date("g:i:a", strtotime($field->thu_in));
+                        $thu_out = date("g:i:a", strtotime($field->thu_out));
+        
+                        $shift_time .= "Thu : " . $thu_in . " to " . $thu_out . "<p>";
+
+                        $day .= "Thu,";
+                    }
+                    if($field->fri == "1" || $field->fri == "2"){
+
+                        $fri_in = date("g:i:a", strtotime($field->fri_in));
+                        $fri_out = date("g:i:a", strtotime($field->fri_out));
+        
+                        $shift_time .= "Fri : " . $fri_in . " to " . $fri_out . "<p>";
+
+                        $day .= "Fri,";
+                    }
+                    if($field->sat == "1" || $field->sat == "2"){
+
+                        $sat_in = date("g:i:a", strtotime($field->sat_in));
+                        $sat_out = date("g:i:a", strtotime($field->sat_out));
+        
+                        $shift_time .= "Sat : " . $sat_in . " to " . $sat_out . "<p>";
+
+                        $day .= "Sat,";
+                    }
+                    if($field->sun == "1" || $field->sun == "2"){
+
+                        $sun_in = date("g:i:a", strtotime($field->sun_in));
+                        $sun_out = date("g:i:a", strtotime($field->sun_out));
+        
+                        $shift_time .= "Sun : " . $sun_in . " to " . $sun_out . "<p>";
+
+                        $day .= "Sun";
+                    }
+
+                    $data .= '<td>' . $day . '</td>';
+                    $data .= '<td>' . $shift_time . '</td>';
+
+                }
+                else if($field->type == "Flexi Shift")
+                {
+                    $data .= "<td></td>";
+                    $data .= "<td></td>";
+                }
+                else if($field->type == "Free Shift")
+                {
+                    $data .= "<td></td>";
+                    $data .= "<td></td>";
+                }
+
+                //Approver1
+                if($user_list[0]->company_id == $field->approved_1_id){
+                    $data .= "<td>".$user_list[0]->name."</td>";
+                }else{
+                    $data .= "<td></td>";
+                }
+                //Approver2
+                if($user_list[0]->company_id == $field->approved_2_id){
+                    $data .= "<td>".$user_list[0]->name."</td>";
+                }else{
+                    $data .= "<td></td>";
+                }
+                
 
                 if($field->request_status == "APPROVED")
                 {
@@ -260,98 +411,70 @@ class WorkScheduleController extends Controller
         </table>';
         echo $data;
     }
+
+    public function cancel_schedule_request(Request $request){
+        $update_query = DB::connection('mysql3')->select("UPDATE employee_schedule_request SET request_status = 'CANCELLED', lu_by = '".auth()->user()->name."', lu_date = '".NOW()."' WHERE id = '".$request->id_to_cancel."'");
+        $message = "Request Cancelled Succesfully!"; 
+        echo json_encode($message);
+    }
+
     public function save_schedule_request(Request $request){
         $message = "";
         $result = array();
         $error = array();
         $success = array();
 
-        //Calendar
-        $start_date = date("Y-m-d",strtotime($request->startDate_CWS));                          //Start Date
-        $end_date = date("Y-m-d",strtotime($request->endDate_CWS));                              //End Date
+        $start_date = $request->sched_temp_startDate;
+        $end_date = $request->sched_temp_endDate;
+        $optradio = $request->optradio;
+        $ind = $request->ind;
 
-        //Textboxes
-        $location = $request->txtLocation;                                                       //Location
-        $reason = $request->txtReason;                                                           //Reason
-        $regular_shift_in = $request->dtp_RegularShiftIn;                                        //Regular Shift In
-        $regular_shift_out = $request->dtp_RegularShiftOut;                                      //Regular Shift Out
-        $chk_reg_days = $request->chk_RegularShiftTable_days;                                    //Custom Regular Shift Days
-        $chk_reg_rest = $request->chk_RegularShiftTable_rest;                                    //Custom Regular Shift Rest
-        
-        //Check Boxes
-        $indefinite = $request->chk_ind;                                                         //Indefinite
+        if($ind == "TRUE")
+        {
+            $insert_query = new ScheduleRequestRecords;
+            $insert_query->company_id = auth()->user()->company_id;
+            $insert_query->template_id = $optradio;
+            $insert_query->start_date = date("Y-m-d",strtotime($start_date));
 
-        //Radio Buttons
-        $chk_sched_temp = $request->chk_sched_temp;                                              //Schedule Template
-        $chk_sched_custom = $request->chk_sched_custom;                                          //Schedule Custom
+            $insert_query->infinit = 1;
+            $insert_query->end_date = date("Y-m-d",strtotime($end_date)); //Change Field to NULL with DEFAULT value!
 
-        $regular_custom = $request->regular_shift_custom;                                        //Regular Custom
-        $irregular_custom = $request->irregular_shift_custom;                                    //Irregular Custom
-        $flexi_custom = $request->flexi_shift_custom;                                            //Flexi Custom
-        $free_custom = $request->free_shift_custom;                                              //Free Custom
+            $insert_query->request_status = "PENDING";
+            $insert_query->approved_1 = 0;
+            $insert_query->approved_2 = 0;
+            $insert_query->approved_1_id = "NONE";
+            $insert_query->approved_2_id = "NONE";
+            $insert_query->created_by = auth()->user()->name;
+            $insert_query->lu_by = auth()->user()->name;
+            $insert_query->timestamps = false;
+            $insert_query->save();
 
-        $optradio = $request->optradio;                                                          //Shift Type Schedule Template
-
-
-        $employee_schedule_request_query = "SELECT * FROM employee_schedule_request WHERE company_id = '".auth()->user()->company_id."' AND (start_date BETWEEN '".$start_date."' AND '".$end_date."')";
-        $employee_schedule_request = DB::connection('mysql3')->select($employee_schedule_request_query);
-        
-        if(!empty($employee_schedule_request)){
-            $message = "Work Schedule Request already exists!";
-            $error[] = $message;
-        }else{
-
-            if($chk_sched_temp == "CHECKED")
-            {
-                $insert_query = new ScheduleRequestRecords;
-                $insert_query->company_id = auth()->user()->company_id;
-                $insert_query->template_id = $optradio;
-                $insert_query->start_date = date("Y-m-d",strtotime($start_date));
-
-                if($indefinite == "CHECKED"){
-                    $insert_query->infinit = 1;
-                    $insert_query->end_date = date("Y-m-d",strtotime($end_date)); //Change Field to NULL with DEFAULT value!
-                }else{
-                    $insert_query->infinit = 0;
-                    $insert_query->end_date = date("Y-m-d",strtotime($end_date));
-                }
-                $insert_query->request_status = "PENDING";
-                $insert_query->approved_1 = 0;
-                $insert_query->approved_2 = 0;
-                $insert_query->approved_1_id = "NONE";
-                $insert_query->approved_2_id = "NONE";
-                $insert_query->created_by = auth()->user()->name;
-                $insert_query->lu_by = auth()->user()->name;
-                $insert_query->timestamps = false;
-                $insert_query->save();
-                $message = "Work Schedule Request Successfully Applied!";
-                $success[] = $message;
-            }
-            else if($chk_sched_custom == "CHECKED")
-            {
-
-                if($regular_custom == "CHECKED"){
-                    $message = "Regular Working on it!";
-                    $error[] = $message;
-                }else if($irregular_custom == "CHECKED"){
-                    $message = "Irregular Working on it!";
-                    $error[] = $message;
-                }else if($flexi_custom == "CHECKED"){
-                    $message = "Flexi Working on it!";
-                    $error[] = $message;
-                }else if($free_custom == "CHECKED"){
-                    $message = "Free Working on it!";
-                    $error[] = $message;
-                }
-                
-            }
-
+            $message = "Schedule Successfully Requested!";
+            $success[] = $message;
         }
+        else if($ind == "FALSE")
+        {
+            $insert_query = new ScheduleRequestRecords;
+            $insert_query->company_id = auth()->user()->company_id;
+            $insert_query->template_id = $optradio;
+            $insert_query->start_date = date("Y-m-d",strtotime($start_date));
 
+            $insert_query->infinit = 0;
+            $insert_query->end_date = date("Y-m-d",strtotime($end_date)); //Change Field to NULL with DEFAULT value!
 
+            $insert_query->request_status = "PENDING";
+            $insert_query->approved_1 = 0;
+            $insert_query->approved_2 = 0;
+            $insert_query->approved_1_id = "NONE";
+            $insert_query->approved_2_id = "NONE";
+            $insert_query->created_by = auth()->user()->name;
+            $insert_query->lu_by = auth()->user()->name;
+            $insert_query->timestamps = false;
+            $insert_query->save();
 
-
-
+            $message = "Schedule Successfully Requested!";
+            $success[] = $message;
+        }
 
         $result = array(
             'error'=>$error,
@@ -359,4 +482,54 @@ class WorkScheduleController extends Controller
         );
         echo json_encode($result);
     }
+
+    public function save_custom_regular(Request $request){
+        $message = "";
+        $result = array();
+        $error = array();
+        $success = array();
+
+
+        $start_date = $request->sched_temp_startDate;
+        $end_date = $request->sched_temp_endDate;
+        $shift_in = $request->regShiftIn;
+        $shift_out = $request->regShiftOut;
+        $rest = $request->rest;
+        $days = $request->days;
+        $ind = $request->ind;
+
+        if($ind == "TRUE")
+        {
+            $message = "Schedule Successfully Applied".$days."-".$rest;
+            $success[] = $message;
+        }
+        else if($ind == "FALSE")
+        {
+            $message = "Schedule Successfully Applied".$days."-".$rest;
+            $success[] = $message;
+        }
+        else
+        {
+            $message = "Choose either Schedule Template or Custom Schedule Template";
+            $error[] = $message;
+        }
+
+        $result = array(
+            'error'=>$error,
+            'success'=>$success,
+        );
+        echo json_encode($result);
+    }
+
+    public function save_custom_irregular(Request $request){
+    }
+
+    public function save_custom_flexi(Request $request){
+    }
+
+    public function save_custom_free(Request $request){
+    }
+
+    
+
 }

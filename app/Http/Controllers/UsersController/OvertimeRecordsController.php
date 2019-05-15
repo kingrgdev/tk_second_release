@@ -19,6 +19,7 @@ class OvertimeRecordsController extends Controller
     public function print_overtime_now(){
 
         $view_overtime_records = DB::connection('mysql')->select("SELECT * FROM view_overtime_records WHERE company_id = '".auth()->user()->company_id."' ORDER BY created_at DESC");
+        $user_list = DB::connection('mysql')->select("SELECT * FROM users");
         $data = "";
         $data .= '<div id="divOvertimeRecord"class="table-responsive">
                     <table id="tableOvertimeRecord" name="tableOvertimeRecord" class="table table-hover" style="width:100%">
@@ -73,14 +74,14 @@ class OvertimeRecordsController extends Controller
                     $data .= "<td><a id='reason".$counter."'>".$field->reason."</a></td>";
                     $data .= "<td><a id='total_hrs".$counter."'>".$field->total_hrs."</a></td>";
 
-                    if($field->approved_1_id != ""){
-                        $data .= "<td><a id='approved_1_id".$counter."'>".$field->approved_1_id."</a></td>";
+                    if($field->approved_1_id == $user_list[0]->company_id){
+                        $data .= "<td><a id='approved_1_id".$counter."'>".$user_list[0]->name."</a></td>";
                     }else{
                         $data .= "<td></td>";
                     }
 
-                    if($field->approved_2_id != ""){
-                        $data .= "<td><a id='approved_2_id".$counter."'>".$field->approved_2_id."</a></td>";
+                    if($field->approved_2_id == $user_list[0]->company_id){
+                        $data .= "<td><a id='approved_2_id".$counter."'>".$user_list[0]->name."</a></td>";
                     }else{
                         $data .= "<td></td>";
                     }
