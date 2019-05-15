@@ -271,22 +271,26 @@ class WorkScheduleController extends Controller
         $end_date = date("Y-m-d",strtotime($request->endDate_CWS));                              //End Date
 
         //Textboxes
-        $location = $request->txtLocation;                              //Location
-        $reason = $request->txtReason;                                  //Reason
+        $location = $request->txtLocation;                                                       //Location
+        $reason = $request->txtReason;                                                           //Reason
+        $regular_shift_in = $request->dtp_RegularShiftIn;                                        //Regular Shift In
+        $regular_shift_out = $request->dtp_RegularShiftOut;                                      //Regular Shift Out
+        $chk_reg_days = $request->chk_RegularShiftTable_days;                                    //Custom Regular Shift Days
+        $chk_reg_rest = $request->chk_RegularShiftTable_rest;                                    //Custom Regular Shift Rest
         
         //Check Boxes
-        $indefinite = $request->chk_ind;                                //Indefinite
+        $indefinite = $request->chk_ind;                                                         //Indefinite
 
         //Radio Buttons
-        $chk_sched_temp = $request->chk_sched_temp;                     //Schedule Template
-        $chk_sched_custom = $request->chk_sched_custom;                 //Schedule Custom
+        $chk_sched_temp = $request->chk_sched_temp;                                              //Schedule Template
+        $chk_sched_custom = $request->chk_sched_custom;                                          //Schedule Custom
 
-        $regular_custom = $request->regular_shift_custom;               //Regular Custom
-        $irregular_custom = $request->irregular_shift_custom;           //Irregular Custom
-        $flexi_custom = $request->flexi_shift_custom;                   //Flexi Custom
-        $free_custom = $request->free_shift_custom;                     //Free Custom
+        $regular_custom = $request->regular_shift_custom;                                        //Regular Custom
+        $irregular_custom = $request->irregular_shift_custom;                                    //Irregular Custom
+        $flexi_custom = $request->flexi_shift_custom;                                            //Flexi Custom
+        $free_custom = $request->free_shift_custom;                                              //Free Custom
 
-        $optradio = $request->optradio;                                 //Shift Type Schedule Template
+        $optradio = $request->optradio;                                                          //Shift Type Schedule Template
 
 
         $employee_schedule_request_query = "SELECT * FROM employee_schedule_request WHERE company_id = '".auth()->user()->company_id."' AND (start_date BETWEEN '".$start_date."' AND '".$end_date."')";

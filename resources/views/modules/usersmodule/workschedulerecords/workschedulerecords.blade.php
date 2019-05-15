@@ -155,27 +155,24 @@
                                 <form class="form-inline">
 
                                     {{-- SHIFT IN --}}
-                                    <label for="">Shift In   :</label>
+                                    
                                     <div class="form-group">
-                                        <div class="input-group date" id="dtp_RegularShiftIn" data-target-input="nearest">
-                                            <input type="text" class="form-control datetimepicker-input" data-target="#dtp_RegularShiftIn"/>
-                                            <div class="input-group-append" data-target="#dtp_RegularShiftIn" data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
-                                            </div>
+                                        <div class="form__group col-md-12 fg_margin input-group date" data-target-input="nearest">
+                                            <input id="dtp_RegularShiftIn" name = "dtp_RegularShiftIn" type="text" class="datetimepicker-input form__field" placeholder="Shift In" data-target="#dtp_RegularShiftIn" data-toggle="datetimepicker">
+                                            <label for="dtp_RegularShiftIn" class="span-header form__label"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Shift In</label>
                                         </div>
                                     </div>
+
                                     {{-- SHIFT IN END --}}
 
                                     <div id="padding" style="margin-left:10px";></div>
 
                                     {{-- SHIFT OUT --}}
-                                    <label for="">Shift Out   :</label>
+                                    
                                     <div class="form-group">
-                                        <div class="input-group date" id="dtp_RegularShiftOut" data-target-input="nearest">
-                                            <input type="text" class="form-control datetimepicker-input" data-target="#dtp_RegularShiftOut"/>
-                                            <div class="input-group-append" data-target="#dtp_RegularShiftOut" data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
-                                            </div>
+                                        <div class="form__group col-md-12 fg_margin input-group date" data-target-input="nearest">
+                                            <input id="dtp_RegularShiftOut" name = "dtp_RegularShiftOut" type="text" class="datetimepicker-input form__field" placeholder="Shift Out" data-target="#dtp_RegularShiftOut" data-toggle="datetimepicker">
+                                            <label for="dtp_RegularShiftOut" class="span-header form__label"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Shift Out</label>
                                         </div>
                                     </div>
                                     {{-- SHIFT OUT END --}}
@@ -196,73 +193,73 @@
                                             <tbody>
                                                 {{-- MONDAY --}}
                                                 <tr>
-                                                    <td><input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="1"></td>
+                                                    <td><input id="chk_RegularShiftTable_days" type="checkbox" name="regular_shift" value="1"></td>
                                                     <td>
                                                         <label>Monday</label><br>
                                                     </td>
                                                     <td>
-                                                        <input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="1">
+                                                        <input id="chk_RegularShiftTable_rest" type="checkbox" name="regular_shift" value="1">
                                                     </td>
                                                 </tr>
 
                                                 {{-- TUESDAY --}}
                                                 <tr>
-                                                    <td><input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="2"></th>
+                                                    <td><input id="chk_RegularShiftTable_days" type="checkbox" name="regular_shift" value="2"></th>
                                                     <td>
                                                         <label>Tuesday</label><br>
                                                     </td>
                                                     <td>
-                                                        <input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="2">
+                                                        <input id="chk_RegularShiftTable_rest" type="checkbox" name="regular_shift" value="2">
                                                     </td>
                                                 </tr>
                                                 {{-- WEDNESDAY --}}
                                                 <tr>
-                                                    <td><input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="3"></th>
+                                                    <td><input id="chk_RegularShiftTable_days" type="checkbox" name="regular_shift" value="3"></th>
                                                     <td>
                                                         <label>Wednesday</label><br>
                                                     </td>
                                                     <td>
-                                                        <input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="3">
+                                                        <input id="chk_RegularShiftTable_rest" type="checkbox" name="regular_shift" value="3">
                                                     </td>
                                                 </tr>
                                                 {{-- THURSDAY --}}
                                                 <tr>
-                                                    <td><input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="4"></th>
+                                                    <td><input id="chk_RegularShiftTable_days" type="checkbox" name="regular_shift" value="4"></th>
                                                     <td>
                                                         <label>Thursday</label><br>
                                                     </td>
                                                     <td>
-                                                        <input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="4">
+                                                        <input id="chk_RegularShiftTable_rest" type="checkbox" name="regular_shift" value="4">
                                                     </td>
                                                 </tr>
                                                 {{-- FRIDAY --}}
                                                 <tr>
-                                                    <td><input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="5"></th>
+                                                    <td><input id="chk_RegularShiftTable_days" type="checkbox" name="regular_shift" value="5"></th>
                                                     <td>
                                                         <label>Friday</label><br>
                                                     </td>
                                                     <td>
-                                                        <input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="5">
+                                                        <input id="chk_RegularShiftTable_rest" type="checkbox" name="regular_shift" value="5">
                                                     </td>
                                                 </tr>
                                                 {{-- SATURDAY --}}
                                                 <tr>
-                                                    <td><input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="6"></th>
+                                                    <td><input id="chk_RegularShiftTable_days" type="checkbox" name="regular_shift" value="6"></th>
                                                     <td>
                                                         <label>Saturday</label><br>
                                                     </td>
                                                     <td>
-                                                        <input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="6">
+                                                        <input id="chk_RegularShiftTable_rest" type="checkbox" name="regular_shift" value="6">
                                                     </td>
                                                 </tr>
                                                 {{-- SUNDAY --}}
                                                 <tr>
-                                                    <td><input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="7"></th>
+                                                    <td><input id="chk_RegularShiftTable_days" type="checkbox" name="regular_shift" value="7"></th>
                                                     <td>
                                                         <label>Sunday</label><br>
                                                     </td>
                                                     <td>
-                                                        <input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="7">
+                                                        <input id="chk_RegularShiftTable_rest" type="checkbox" name="regular_shift" value="7">
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -708,79 +705,180 @@ $(document).on("click", "#scheduleIcon", function(){
 <script>
     //Save Schedule Request
     $(document).on("click", ".btnApplyRequest", function(){
-        var c = confirm("Apply this Work Schedule Request?");
-        if(c == true)
-        {
-            var chkIndefinite = document.getElementById("chk_EDIndefinite");
-                if(chkIndefinite.checked == true){
-                    var chk_ind = "CHECKED";
-                }else{
-                    var chk_ind = "NOT CHECK!";
-                }
+        var sched_temp = $("input[type=radio][name=cat_schedule]:checked").val();
+        var custom_sched = $("input[type=radio][name=cat_schedule]:checked").val();
+        if(sched_temp == "rdB_ScheduleTemplates"){
 
-            var rdB_CustomSchedule  = $("input[type=radio][name=cat_schedule]:checked").val();
-            var rdB_ScheduleTemplates = $("input[type=radio][name=cat_schedule]:checked").val();
-            
-                if(rdB_CustomSchedule == "rdB_CustomSchedule"){
-                    var chk_sched_custom = "CHECKED";
-                }else if(rdB_ScheduleTemplates == "rdB_ScheduleTemplates"){
-                    var chk_sched_temp = "CHECKED";
+            var sched_temp_startDate = $("#startDate_CWS").val();
+            var sched_temp_endDate = $("#endDate_CWS").val();
+            var ind = document.getElementById("chk_EDIndefinite");
+
+            if(ind.checked == true)
+            {
+                if(sched_temp_startDate == ""){
+                    alert("Start Date Field Required!");
+                }else if(!$("input[name='optradio']:checked").val()){
+                    alert("Choose your Schedule Template!");
                 }
                 
-            var shiftMode = $("input[type=radio][name=shift_list]:checked").val();
-                if(shiftMode == "rdB_RegularShift"){
-                    var regular_shift_custom = "CHECKED"
-                }else if(shiftMode == "rdB_IrregularShift"){
-                    var irregular_shift_custom = "CHECKED"
-                }else if(shiftMode == "rdB_FlexiShift"){
-                    var flexi_shift_custom = "CHECKED"
-                }else if(shiftMode == "rdB_FreeShift"){
-                    var free_shift_custom = "CHECKED"
+            }
+            else if(ind.checked == false)
+            {
+                if(sched_temp_startDate == ""){
+                    alert("Start Date Field Required!");
                 }
-            
-            var optradio = $("input[type=radio][name=optradio]:checked").val();
-            var startDate_CWS = $("#startDate_CWS").val();
-            var endDate_CWS = $("#endDate_CWS").val();
-            var txtLocation = $("#txtLocation").val();
-            var txtReason = $("#txtReason").val();
-            
-
-            $.ajax({
-                headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                url: "{{ route('saveschedulerequest') }}",
-                method: "POST",
-                dataType: "json",
-                data: {
-                    startDate_CWS:startDate_CWS,
-                    endDate_CWS:endDate_CWS,
-                    chk_ind:chk_ind,
-                    txtLocation:txtLocation,
-                    txtReason:txtReason,
-                    chk_sched_temp:chk_sched_temp,
-                    chk_sched_custom:chk_sched_custom,
-                    regular_shift_custom:regular_shift_custom,
-                    irregular_shift_custom:irregular_shift_custom,
-                    flexi_shift_custom:flexi_shift_custom,
-                    free_shift_custom:free_shift_custom,
-                    optradio:optradio
-                    },
+                else if(sched_temp_endDate == ""){
+                    alert("End Date Field Required!");
+                }
+                else if(!$("input[name='optradio']:checked").val()){
+                    alert("Choose your Schedule Template!");
+                }
+            }
+            else
+            {
                 
-                success:function(data)
-                {
-                    if(data.error.length > 0){
-                        alert(data.error[0]);
-                    }
-                    if(data.success.length > 0){
-                        alert(data.success[0]);
-                        refresh_schedule_list();
-                    }
-                    
-                },
-                error: function(xhr, ajaxOptions, thrownError){
-                    console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-                }
-            });
+            }
+            
         }
+        else if(custom_sched == "rdB_CustomSchedule")
+        {
+            var shift_type = $("input[type=radio][name=shift_list]:checked").val();
+            if(shift_type == "rdB_RegularShift"){
+
+                var sched_temp_startDate = $("#startDate_CWS").val();
+                var sched_temp_endDate = $("#endDate_CWS").val();
+                var ind = document.getElementById("chk_EDIndefinite");
+
+                var regShiftIn = $("#dtp_RegularShiftIn").val();
+                var regShiftOut = $("#dtp_RegularShiftOut").val();
+
+                if(ind.checked == true)
+                {
+                    if(sched_temp_startDate == "")
+                    {
+                        alert("Start Date Field Required!");
+                    }
+                    else if(regShiftIn == "")
+                    {
+                        alert("Shift In Field Required!");
+                    }
+                    else if(regShiftOut == "")
+                    {
+                        alert("Shift Out Field Required!");
+                    }
+                }
+                else if(ind.checked == false)
+                {
+                    if(sched_temp_startDate == ""){
+                        alert("Start Date Field Required!");
+                    }
+                    else if(sched_temp_endDate == "")
+                    {
+                        alert("End Date Field Required!");
+                    }
+                    else if(regShiftIn == "")
+                    {
+                        alert("Shift In Field Required!");
+                    }
+                    else if(regShiftOut == "")
+                    {
+                        alert("Shift Out Field Required!");
+                    }
+                }
+                else
+                {
+                    alert("Working on it!");
+                }
+            }else if(shift_type == "rdB_IrregularShift"){
+                alert("Irregular");
+            }else if(shift_type == "rdB_FlexiShift"){
+                alert("Flexi");
+            }else if(shift_type == "rdB_FreeShift"){
+                alert("Free");
+            }
+        }
+       
+            
+            // var c = confirm("Apply this Work Schedule Request?");
+            // if(c == true)
+            // {
+            //     var chkIndefinite = document.getElementById("chk_EDIndefinite");chk_RegularShiftTable_days
+            //         if(chkIndefinite.checked == true){
+            //             var chk_ind = "CHECKED";
+            //         }else{
+            //             var chk_ind = "NOT CHECK!";
+            //         }
+
+            //     var rdB_CustomSchedule  = $("input[type=radio][name=cat_schedule]:checked").val();
+            //     var rdB_ScheduleTemplates = $("input[type=radio][name=cat_schedule]:checked").val();
+                
+            //         if(rdB_CustomSchedule == "rdB_CustomSchedule"){
+            //             var chk_sched_custom = "CHECKED";
+            //         }else if(rdB_ScheduleTemplates == "rdB_ScheduleTemplates"){
+            //             var chk_sched_temp = "CHECKED";
+            //         }
+                    
+            //     var shiftMode = $("input[type=radio][name=shift_list]:checked").val();
+            //         if(shiftMode == "rdB_RegularShift"){
+            //             var regular_shift_custom = "CHECKED"
+            //         }else if(shiftMode == "rdB_IrregularShift"){
+            //             var irregular_shift_custom = "CHECKED"
+            //         }else if(shiftMode == "rdB_FlexiShift"){
+            //             var flexi_shift_custom = "CHECKED"
+            //         }else if(shiftMode == "rdB_FreeShift"){
+            //             var free_shift_custom = "CHECKED"
+            //         }
+                
+            //     var optradio = $("input[type=radio][name=optradio]:checked").val();
+            //     var startDate_CWS = $("#startDate_CWS").val();
+            //     var endDate_CWS = $("#endDate_CWS").val();
+            //     var txtLocation = $("#txtLocation").val();
+            //     var txtReason = $("#txtReason").val();
+            //     var dtp_RegularShiftOut = $("#dtp_RegularShiftOut").val();
+            //     var dtp_RegularShiftIn = $("#dtp_RegularShiftIn").val();
+                
+
+            //     $.ajax({
+            //         headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            //         url: "{{ route('saveschedulerequest') }}",
+            //         method: "POST",
+            //         dataType: "json",
+            //         data: {
+            //             startDate_CWS:startDate_CWS,
+            //             endDate_CWS:endDate_CWS,
+            //             chk_ind:chk_ind,
+            //             txtLocation:txtLocation,
+            //             txtReason:txtReason,
+            //             chk_sched_temp:chk_sched_temp,
+            //             chk_sched_custom:chk_sched_custom,
+            //             regular_shift_custom:regular_shift_custom,
+            //             irregular_shift_custom:irregular_shift_custom,
+            //             flexi_shift_custom:flexi_shift_custom,
+            //             free_shift_custom:free_shift_custom,
+            //             optradio:optradio,
+            //             dtp_RegularShiftOut:dtp_RegularShiftOut,
+            //             dtp_RegularShiftIn:dtp_RegularShiftIn,
+            //             chk_RegularShiftTable_days:chk_RegularShiftTable_days,
+            //             chk_RegularShiftTable_rest:chk_RegularShiftTable_rest
+            //             },
+                    
+            //         success:function(data)
+            //         {
+            //             if(data.error.length > 0){
+            //                 alert(data.error[0]);
+            //             }
+            //             if(data.success.length > 0){
+            //                 alert(data.success[0]);
+            //                 refresh_schedule_list();
+            //             }
+                        
+            //         },
+            //         error: function(xhr, ajaxOptions, thrownError){
+            //             console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            //         }
+            //     });
+            // }
+        
     });
 </script>
 

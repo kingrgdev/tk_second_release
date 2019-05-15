@@ -423,15 +423,15 @@
                         $('select[name=table_time_records_length]').val(a).trigger('change');
                         break;
                     }
-                    else if(res != date_to_alter[0])
-                    {
-                        az = "4";
-                        checker_validation = "false";
-                        error="Invalid Details, Check Time in and Time out!";
-                        $("select[name=table_time_records_length] option[value='365']").remove(); 
-                        $('select[name=table_time_records_length]').val(a).trigger('change');
-                        break;
-                    }
+                    // else if(res != date_to_alter[0])
+                    // {
+                    //     az = "4";
+                    //     checker_validation = "false";
+                    //     error="Invalid Details, Check Time in and Time out!";
+                    //     $("select[name=table_time_records_length] option[value='365']").remove(); 
+                    //     $('select[name=table_time_records_length]').val(a).trigger('change');
+                    //     break;
+                    // }
                     //Avoid saving the current date, If the user removes disabled attribute in the inspect elements
                     else if(date_to_alter[0] == curDate)
                     {
