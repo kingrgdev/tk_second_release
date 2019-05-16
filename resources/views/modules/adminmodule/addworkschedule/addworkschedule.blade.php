@@ -383,14 +383,14 @@
                     <div class="container">
                         <div class="form-group row">
                             <!-- lunch out -->
-                            <div class="form__group col-md-3 fg_margin input-group date my-2" data-target-input="nearest">
+                            <div class="form__group col-md-2 fg_margin input-group date my-2" data-target-input="nearest">
                                 <input id="addLunchOut" name="addLunchOut" type="text" class="datetimepicker-input form__field" data-target="#addLunchOut" data-toggle="datetimepicker" placeholder="Lunch Out">
                                 <label for="addLunchOut" class="span-header form__label"><i class="icon-right fa fa-clock-o" aria-hidden="true"></i>Lunch Out</label>
                             </div>
                             <!-- end -->
                             
                             <!-- lunch in -->
-                            <div class="form__group col-md-3 fg_margin input-group date my-2" data-target-input="nearest">
+                            <div class="form__group col-md-2 fg_margin input-group date my-2" data-target-input="nearest">
                                 <input id="addLunchIn" name="addLunchIn" type="text" class="datetimepicker-input form__field" data-target="#addLunchIn" data-toggle="datetimepicker" placeholder="Lunch In">
                                 <label for="addLunchIn" class="span-header form__label"><i class="icon-right fa fa-clock-o" aria-hidden="true"></i>Lunch In</label>
                             </div>
@@ -398,7 +398,7 @@
                             
                             <!-- total hours -->
                             <input id="hiddenLunchHours" name="hiddenLunchHours" type="hidden">
-                            <div class="form__group col-md-3 fg_margin my-2">
+                            <div class="form__group col-md-2 fg_margin my-2">
                                 <input id="txtLunchHours" name="txtLunchHours" type="number" class="form__field" placeholder="Lunch Hours" disabled>
                                 <label for="txtLunchHours" class="span-header form__label"><i class="icon-right fa fa-clock-o" aria-hidden="true"></i>Lunch Hours</label>
                             </div>
@@ -793,8 +793,8 @@ refreshTable();
                 method: "GET",
                 dataType: "json",
                 data:{ind:id},
-                success:function(data){
-                    
+                success:function(data)
+                {
                     $("#scheduleType").html(data.sched_type);
                     $("#lunchOut").html(data.lunch_out);
                     $("#lunchIn").html(data.lunch_in);

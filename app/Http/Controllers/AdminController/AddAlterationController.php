@@ -254,7 +254,7 @@ class AddAlterationController extends Controller
         $timein = date("H:i:s", strtotime($request->input('timeIn')));
         //date time in
         $datetimein = date("Y-m-d H:i:s", strtotime("$sched_date $timein"));
-        //time out
+        //time outs
         $datetimeout = date("Y-m-d H:i:s", strtotime($request->input('timeOut')));
 
         for($i = 1; $i <= $request->input('tblCount'); $i++){
