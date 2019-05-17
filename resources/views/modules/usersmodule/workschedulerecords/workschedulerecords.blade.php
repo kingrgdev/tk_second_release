@@ -23,15 +23,15 @@
     /* border-top:1px solid #000; */
 }
 .p_load{
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, .8) url('../images/loading.gif') no-repeat 50% 50%;
-        z-index: 1000;
-    }
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, .8) url('../images/loading.gif') no-repeat 50% 50%;
+    z-index: 1000;
+}
 </style>
 
 
@@ -200,8 +200,10 @@
                                     </form>
                                     <br>
                                     <br>
+                                    
                                     {{-- REGULAR TABLE --}}
                                     <div class="padding-table" style="padding-bottom:10px;">
+                                        
                                         <div class="table-responsive col-md-12">
                                             <table id="tableScheduleList" name="example" class="table" style="width:100%; text-align:center;">
                                                 <thead>
@@ -287,8 +289,8 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th></th>
-                                                        <th>Days</th>
-                                                        <th>Is Working Rest Day?</th>
+                                                        <th></th>
+                                                        <th></th>
                                                     </tr>
                                                 </tfoot>
                                             </table>
@@ -299,6 +301,7 @@
 
                                 {{-- IRREGULAR SHIFT --}}
                                 <div id="irregularShift" style="display:none";>
+                                    <br>
                                     <div class="padding-table" style="padding-bottom:10px;">
                                         <div class="table-responsive col-md-12">
                                             <table id="tableScheduleList" name="example" class="table" style="width:100%; text-align:center;">
@@ -314,12 +317,12 @@
                                                 <tbody>
                                                     {{-- MONDAY --}}
                                                     <tr>
-                                                        <td><input id="chk_IrregularShiftTable" type="checkbox" name="irregular_shift" value="1"></td>
+                                                        <td><input id="chk_IrregularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_days" name="chk_IrregularShiftTable_days[]" value="1"></td>
                                                         <td>
                                                             <label>Monday</label><br>
                                                         </td>
                                                         <td>
-                                                            <input id="chk_IrregularShiftTable" type="checkbox" name="irregular_shift" value="1">
+                                                            <input id="chk_IrregularShiftTable" type="checkbox" class = "chk_IrregularShiftTable_rest" name="chk_IrregularShiftTable_rest[]" value="1">
                                                         </td>
                                                         {{-- TABLE SHIFT IN --}}
                                                         <td>
@@ -346,12 +349,12 @@
 
                                                     {{-- TUESDAY --}}
                                                     <tr>
-                                                        <td><input id="chk_IrregularShiftTable" type="checkbox" name="irregular_shift" value="2"></th>
+                                                        <td><input id="chk_IrregularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_days" name="chk_IrregularShiftTable_days[]" value="2"></th>
                                                         <td>
                                                             <label>Tuesday</label><br>
                                                         </td>
                                                         <td>
-                                                            <input id="chk_IrregularShiftTable" type="checkbox" name="irregular_shift" value="2">
+                                                            <input id="chk_IrregularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_rest" name="chk_IrregularShiftTable_rest[]" value="2">
                                                         </td>
                                                         {{-- TABLE SHIFT IN --}}
                                                         <td>
@@ -377,12 +380,12 @@
                                                     </tr>
                                                     {{-- WEDNESDAY --}}
                                                     <tr>
-                                                        <td><input id="chk_IrregularShiftTable" type="checkbox" name="irregular_shift" value="3"></th>
+                                                        <td><input id="chk_IrregularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_days" name="chk_IrregularShiftTable_days[]" value="3"></th>
                                                         <td>
                                                             <label>Wednesday</label><br>
                                                         </td>
                                                         <td>
-                                                            <input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="3">
+                                                            <input id="chk_RegularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_rest" name="chk_IrregularShiftTable_rest[]" value="3">
                                                         </td>
                                                         {{-- TABLE SHIFT IN --}}
                                                         <td>
@@ -408,12 +411,12 @@
                                                     </tr>
                                                     {{-- THURSDAY --}}
                                                     <tr>
-                                                        <td><input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="4"></th>
+                                                        <td><input id="chk_RegularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_days" name="chk_IrregularShiftTable_days[]" value="4"></th>
                                                         <td>
                                                             <label>Thursday</label><br>
                                                         </td>
                                                         <td>
-                                                            <input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="4">
+                                                            <input id="chk_RegularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_rest" name="chk_IrregularShiftTable_rest[]" value="4">
                                                         </td>
                                                         {{-- TABLE SHIFT IN --}}
                                                         <td>
@@ -439,12 +442,12 @@
                                                     </tr>
                                                     {{-- FRIDAY --}}
                                                     <tr>
-                                                        <td><input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="5"></th>
+                                                        <td><input id="chk_RegularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_days" name="chk_IrregularShiftTable_days[]" value="5"></th>
                                                         <td>
                                                             <label>Friday</label><br>
                                                         </td>
                                                         <td>
-                                                            <input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="5">
+                                                            <input id="chk_RegularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_rest" name="chk_IrregularShiftTable_rest[]" value="5">
                                                         </td>
                                                         {{-- TABLE SHIFT IN --}}
                                                         <td>
@@ -470,12 +473,12 @@
                                                     </tr>
                                                     {{-- SATURDAY --}}
                                                     <tr>
-                                                        <td><input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="6"></th>
+                                                        <td><input id="chk_RegularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_days" name="chk_IrregularShiftTable_days[]" value="6"></th>
                                                         <td>
                                                             <label>Saturday</label><br>
                                                         </td>
                                                         <td>
-                                                            <input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="6">
+                                                            <input id="chk_RegularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_rest" name="chk_IrregularShiftTable_rest[]" value="6">
                                                         </td>
                                                         {{-- TABLE SHIFT IN --}}
                                                         <td>
@@ -501,12 +504,12 @@
                                                     </tr>
                                                     {{-- SUNDAY --}}
                                                     <tr>
-                                                        <td><input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="7"></th>
+                                                        <td><input id="chk_RegularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_days" name="chk_IrregularShiftTable_days[]" value="7"></th>
                                                         <td>
                                                             <label>Sunday</label><br>
                                                         </td>
                                                         <td>
-                                                            <input id="chk_RegularShiftTable" type="checkbox" name="regular_shift" value="7">
+                                                            <input id="chk_RegularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_rest" name="chk_IrregularShiftTable_rest[]" value="7">
                                                         </td>
                                                         {{-- TABLE SHIFT IN --}}
                                                         <td>
@@ -534,7 +537,11 @@
                                                 </tbody>
                                                 <tfoot>
                                                     <tr>
-                                                        
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
                                                     </tr>
                                                 </tfoot>
                                             </table>
@@ -884,7 +891,6 @@ $(document).on("click", "#scheduleIcon", function(){
                         dataRest.push(chkRest[x].value);
                     }
                 }
-                
                 var addLunchOut = $("#addLunchOut").val();
                 var addLunchIn = $("#addLunchIn").val();
                 var hiddenLunchHours = $("#hiddenLunchHours").val();
@@ -917,10 +923,7 @@ $(document).on("click", "#scheduleIcon", function(){
                 {
                     alert("Shift Out Field Required!");
                 }
-                else if(regShiftIn >= regShiftOut)
-                {
-                    alert("Shift In must be greater than Shift Out!");
-                }
+
                 else
                 {
                     var c = confirm("Apply this Work Schedule Request?");
@@ -964,7 +967,265 @@ $(document).on("click", "#scheduleIcon", function(){
             }
             
             else if(shift_type == "rdB_IrregularShift"){
-                alert("Irregular");
+
+                var proceed = "TRUE";
+                var templateName = $("#templateName").val();
+                var scheduleDescription = $("#scheduleDescription").val();
+
+                var addLunchOut = $("#addLunchOut").val();
+                var addLunchIn = $("#addLunchIn").val();
+                var hiddenLunchHours = $("#hiddenLunchHours").val();
+
+                var chkDays = document.getElementsByName('chk_IrregularShiftTable_days[]');  
+                var dataDays = [];
+                for (var i = 0; i < chkDays.length; i++){
+                    if (chkDays[i].checked){
+                        dataDays.push(chkDays[i].value);
+                    }
+                }
+                
+                var chkRest = document.getElementsByName('chk_IrregularShiftTable_rest[]');  
+                var dataRest = [];
+                for (var x = 0; x < chkRest.length; x++){
+                    if (chkRest[x].checked){
+                        dataRest.push(chkRest[x].value);
+                    }
+                }
+
+                var arrDays = new Array(dataDays);
+                var arrRest = new Array(dataRest);
+
+                var irr_in_mon = $("#dtp_IrregularShiftIn_mon").val();
+                var irr_out_mon = $("#dtp_IrregularShiftOut_mon").val();
+
+                var irr_in_tue = $("#dtp_IrregularShiftIn_tue").val();
+                var irr_out_tue = $("#dtp_IrregularShiftOut_tue").val();
+
+                var irr_in_wed = $("#dtp_IrregularShiftIn_wed").val();
+                var irr_out_wed = $("#dtp_IrregularShiftOut_wed").val();
+
+                var irr_in_thu = $("#dtp_IrregularShiftIn_thu").val();
+                var irr_out_thu = $("#dtp_IrregularShiftOut_thu").val();
+
+                var irr_in_fri = $("#dtp_IrregularShiftIn_fri").val();
+                var irr_out_fri = $("#dtp_IrregularShiftOut_fri").val();
+
+                var irr_in_sat = $("#dtp_IrregularShiftIn_sat").val();
+                var irr_out_sat = $("#dtp_IrregularShiftOut_sat").val();
+
+                var irr_in_sun = $("#dtp_IrregularShiftIn_sun").val();
+                var irr_out_sun = $("#dtp_IrregularShiftOut_sun").val();
+
+                if(templateName == "")
+                {
+                    alert("Template Name Field Required!");
+                }
+                else if(scheduleDescription == "")
+                {
+                    alert("Schedule Description Field Required!");
+                }
+                else if(addLunchOut == "")
+                {
+                    alert("Lunch Out Field Required!");
+                }
+                else if(addLunchIn == "")
+                {
+                    alert("Lunch In Field Required!");
+                }
+                else if(addLunchOut >= addLunchIn)
+                {
+                    alert("Lunch Out must be greater than Lunch In!");
+                }
+                else if(hiddenLunchHours == "")
+                {
+                    alert("Lunch Hours Field Required!");
+                }
+                
+                else
+                {    
+                    // Monday
+                    if(arrDays == 1)
+                    {
+                        if(irr_in_mon == "")
+                        {
+                            alert("Monday Time In Field Required");
+                            proceed = "FALSE";
+                        }
+                        else if(irr_out_mon == "")
+                        {
+                            alert("Monday Time Out Field Required");
+                            proceed = "FALSE";
+                        }
+                        else if(irr_in_mon <= irr_out_mon)
+                        {
+                            alert("Monday Time out must be greater than Monday Time In!");
+                            proceed = "FALSE";
+                        }
+                    }
+
+                    //Tuesday
+                    if(arrDays == 2)
+                    {
+                        if(irr_tue_in == "")
+                        {
+                            alert("Tuesday Time In Field Required");
+                            proceed = "FALSE";
+                        }
+                        else if(irr_tue_out == "")
+                        {
+                            alert("Tuesday Time Out Field Required");
+                            proceed = "FALSE";
+                        }
+                        else if(irr_tue_in <= irr_tue_out)
+                        {
+                            alert("Tuesday Time out must be greater than Tuesday Time In!");
+                            proceed = "FALSE";
+                        }
+                    }
+
+                    //Wednesday
+                    if(arrDays == 3)
+                    {
+                        if(irr_wed_in == "")
+                        {
+                            alert("Wednesday Time In Field Required");
+                            proceed = "FALSE";
+                        }
+                        else if(irr_wed_out == "")
+                        {
+                            alert("Wednesday Time Out Field Required");
+                            proceed = "FALSE";
+                        }
+                        else if(irr_wed_in <= irr_wed_out)
+                        {
+                            alert("Wednesday Time out must be greater than Wednesday Time In!");
+                            proceed = "FALSE";
+                        }
+                    }
+
+                    //Thursday
+                    if(arrDays == 4)
+                    {
+                        if(thu_in == "")
+                        {
+                            alert("Thursday Time In Field Required");
+                            proceed = "FALSE";
+                        }
+                        else if(thu_out == "")
+                        {
+                            alert("Thursday Time Out Field Required");
+                            proceed = "FALSE";
+                        }
+                        else if(irr_thu_in <= irr_thu_out)
+                        {
+                            alert("Thursday Time out must be greater than Thursday Time In!");
+                            proceed = "FALSE";
+                        }
+                    }
+
+                    //Friday
+                    if(arrDays == 5)
+                    {
+                        if(irr_fri_in == "")
+                        {
+                            alert("Friday Time In Field Required");
+                            proceed = "FALSE";
+                        }
+                        else if(irr_fri_out == "")
+                        {
+                            alert("Friday Time Out Field Required");
+                            proceed = "FALSE";
+                        }
+                        else if(irr_fri_in <= irr_fri_out)
+                        {
+                            alert("Friday Time out must be greater than Friday Time In!");
+                            proceed = "FALSE";
+                        }
+                    }
+
+                    //Saturday
+                    if(arrDays == 6)
+                    {
+                        if(irr_sat_in == "")
+                        {
+                            alert("Saturday Time In Field Required");
+                            proceed = "FALSE";
+                        }
+                        else if(irr_sat_out == "")
+                        {
+                            alert("Saturday Time Out Field Required");
+                            proceed = "FALSE";
+                        }
+                        else if(irr_sat_in <= irr_sat_out)
+                        {
+                            alert("Saturday Time out must be greater than Saturday Time In!");
+                            proceed = "FALSE";
+                        }
+                    }
+
+                    //Sunday
+                    if(arrDays == 7)
+                    {
+                        if(irr_sun_in == "")
+                        {
+                            alert("Sunday Time In Field Required");
+                            proceed = "FALSE";
+                        }
+                        else if(irr_sun_out == "")
+                        {
+                            alert("Sunday Time Out Field Required");
+                            proceed = "FALSE";
+                        }
+                        else if(irr_sun_in <= irr_sun_out)
+                        {
+                            alert("Sunday Time out must be greater than Sunday Time In!");
+                            proceed = "FALSE";
+                        }
+                    }
+
+
+                    if(proceed == "TRUE")
+                    {
+
+                        var c = confirm("Apply this Work Schedule Request?");
+                        if(c == true)
+                        {
+                            $.ajax({
+
+                                headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                                url: "{{ route('savecustomirregular') }}",
+                                method: "POST",
+                                dataType: "json",
+                                data: {
+                                    templateName:templateName, scheduleDescription:scheduleDescription,dataDays:dataDays,dataRest:dataRest,
+                                    addLunchOut:addLunchOut,addLunchIn:addLunchIn,hiddenLunchHours:hiddenLunchHours,irr_in_mon:irr_in_mon,
+                                    irr_out_mon:irr_out_mon,irr_in_tue:irr_in_tue,irr_out_tue:irr_out_tue,irr_in_wed:irr_in_wed,irr_out_wed:irr_out_wed,
+                                    irr_in_thu:irr_in_thu,irr_out_thu:irr_out_thu,irr_in_fri:irr_in_fri,irr_out_fri:irr_out_fri,irr_in_sat:irr_in_sat,
+                                    irr_out_sat:irr_out_sat,irr_in_sun:irr_in_sun,irr_out_sun:irr_out_sun
+                                },
+                                success:function(data)
+                                {
+                                    if(data.error.length > 0){
+                                        alert(data.error[0]);
+                                    }
+                                    if(data.success.length > 0){
+                                        alert(data.success[0]);
+                                        refresh_Table();
+                                    }
+                                },
+                                error: function(xhr, ajaxOptions, thrownError){
+                                    console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                                }
+
+                            });
+                        }
+
+                    }
+                    
+
+                }
+
+
             }
             
             else if(shift_type == "rdB_FlexiShift"){
@@ -974,88 +1235,7 @@ $(document).on("click", "#scheduleIcon", function(){
             else if(shift_type == "rdB_FreeShift"){
                 alert("Free");
             }
-        }
-
-            // var c = confirm("Apply this Work Schedule Request?");
-            // if(c == true)
-            // {
-            //     var chkIndefinite = document.getElementById("chk_EDIndefinite");chk_RegularShiftTable_days
-            //         if(chkIndefinite.checked == true){
-            //             var chk_ind = "CHECKED";
-            //         }else{
-            //             var chk_ind = "NOT CHECK!";
-            //         }
-
-            //     var rdB_CustomSchedule  = $("input[type=radio][name=cat_schedule]:checked").val();
-            //     var rdB_ScheduleTemplates = $("input[type=radio][name=cat_schedule]:checked").val();
-                
-            //         if(rdB_CustomSchedule == "rdB_CustomSchedule"){
-            //             var chk_sched_custom = "CHECKED";
-            //         }else if(rdB_ScheduleTemplates == "rdB_ScheduleTemplates"){
-            //             var chk_sched_temp = "CHECKED";
-            //         }
-                    
-            //     var shiftMode = $("input[type=radio][name=shift_list]:checked").val();
-            //         if(shiftMode == "rdB_RegularShift"){
-            //             var regular_shift_custom = "CHECKED"
-            //         }else if(shiftMode == "rdB_IrregularShift"){
-            //             var irregular_shift_custom = "CHECKED"
-            //         }else if(shiftMode == "rdB_FlexiShift"){
-            //             var flexi_shift_custom = "CHECKED"
-            //         }else if(shiftMode == "rdB_FreeShift"){
-            //             var free_shift_custom = "CHECKED"
-            //         }
-                
-            //     var optradio = $("input[type=radio][name=optradio]:checked").val();
-            //     var startDate_CWS = $("#startDate_CWS").val();
-            //     var endDate_CWS = $("#endDate_CWS").val();
-            //     var txtLocation = $("#txtLocation").val();
-            //     var txtReason = $("#txtReason").val();
-            //     var dtp_RegularShiftOut = $("#dtp_RegularShiftOut").val();
-            //     var dtp_RegularShiftIn = $("#dtp_RegularShiftIn").val();
-                
-
-            //     $.ajax({
-            //         headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            //         url: "{{ route('saveschedulerequest') }}",
-            //         method: "POST",
-            //         dataType: "json",
-            //         data: {
-            //             startDate_CWS:startDate_CWS,
-            //             endDate_CWS:endDate_CWS,
-            //             chk_ind:chk_ind,
-            //             txtLocation:txtLocation,
-            //             txtReason:txtReason,
-            //             chk_sched_temp:chk_sched_temp,
-            //             chk_sched_custom:chk_sched_custom,
-            //             regular_shift_custom:regular_shift_custom,
-            //             irregular_shift_custom:irregular_shift_custom,
-            //             flexi_shift_custom:flexi_shift_custom,
-            //             free_shift_custom:free_shift_custom,
-            //             optradio:optradio,
-            //             dtp_RegularShiftOut:dtp_RegularShiftOut,
-            //             dtp_RegularShiftIn:dtp_RegularShiftIn,
-            //             chk_RegularShiftTable_days:chk_RegularShiftTable_days,
-            //             chk_RegularShiftTable_rest:chk_RegularShiftTable_rest
-            //             },
-                    
-            //         success:function(data)
-            //         {
-            //             if(data.error.length > 0){
-            //                 alert(data.error[0]);
-            //             }
-            //             if(data.success.length > 0){
-            //                 alert(data.success[0]);
-            //                 refresh_schedule_list();
-            //             }
-                        
-            //         },
-            //         error: function(xhr, ajaxOptions, thrownError){
-            //             console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-            //         }
-            //     });
-            // }
-        
+        }        
     });
 </script>
 

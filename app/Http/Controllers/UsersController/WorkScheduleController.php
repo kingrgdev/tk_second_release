@@ -505,107 +505,102 @@ class WorkScheduleController extends Controller
         $schedule_description = $request->scheduleDescription;
         $template_name = $request->templateName;
         
-        $data_days = array($request->dataDays);
-        $data_rest = array($request->dataRest);
+        $data_days = $request->dataDays;
+        $data_rest = $request->dataRest;
 
         $lunch_out = date("H:i:s",strtotime($request->addLunchOut));
         $lunch_in = date("H:i:s",strtotime($request->addLunchIn));
         $lunch_hours = $request->hiddenLunchHours;
 
-        $insert_query = new ScheduleTemplateRecords;
-        $insert_query->template = $template_name;
-        $insert_query->type = "Regular Shift";
-        $insert_query->reg_in = $shift_in;
-        $insert_query->reg_out = $shift_out;
 
-        if($template_name == "")
-        {
+        if($template_name == ""){
             $message = "Template Name Field Required!";
             $error[] = $message;
         }
-        else if($schedule_description == "")
-        {
+
+        else if($schedule_description == ""){
             $message = "Schedule Description Field Required!";
             $error[] = $message;
         }
-        else if($lunch_out == "")
-        {
+
+        else if($lunch_out == ""){
             $message = "Lunch Out Field Required!";
             $error[] = $message;
         }
-        else if($lunch_in == "")
-        {
+
+        else if($lunch_in == ""){
             $message = "Lunch In Field Required!";
             $error[] = $message;
         }
-        else if($lunch_out >= $lunch_in)
-        {
+
+        else if($lunch_out >= $lunch_in){
             $message = "Lunch Out must be greater than Lunch In!";
             $error[] = $message;
         }
-        else if($shift_in == "")
-        {
+
+        else if($shift_in == ""){
             $message = "Shift In Field Required!";
             $error[] = $message;
         }
-        else if($shift_out == "")
-        {
+
+        else if($shift_out == ""){
             $message = "Shift Out Field Required!";
             $error[] = $message;
         }
-        else if($shift_in >= $shift_out)
-        {
-            $message = "Shift In must be greater than Shift Out!";
-            $error[] = $message;
-        }
+
         else
         {
+            
+            $insert_query = new ScheduleTemplateRecords;
+            $insert_query->template = $template_name;
+            $insert_query->type = "Regular Shift";
+            $insert_query->reg_in = $shift_in;
+            $insert_query->reg_out = $shift_out;
+
             //Monday
-            if (in_array('1', $data_days, true))
-            {
+            if (in_array('1', $data_days, true)){
                 if (in_array('1', $data_rest, true))
                 {
                     $insert_query->mon = "2";
                 }
-                else if (in_array('1', $data_rest, false))
+                else
                 {
                     $insert_query->mon = "1";
                 }
             }
-            else if(in_array('1', $data_days, false)){
+            else
+            {
                 $insert_query->mon = "0";
             }
 
             //Tuesday
-            if (in_array('2', $data_days, true))
-            {
+            if (in_array('2', $data_days, true)){
                 if (in_array('2', $data_rest, true))
                 {
                     $insert_query->tue = "2";
                 }
-                else if (in_array('2', $data_rest, false))
+                else
                 {
                     $insert_query->tue = "1";
                 }
             }
-            else if (in_array('2', $data_days, false))
+            else
             {
                 $insert_query->tue = "0";
             }
 
             //Wednesday
-            if (in_array('3', $data_days, true))
-            {
+            if (in_array('3', $data_days, true)){
                 if (in_array('3', $data_rest, true))
                 {
                     $insert_query->wed = "2";
                 }
-                else if (in_array('3', $data_rest, false))
+                else
                 {
                     $insert_query->wed = "1";
                 }
             }
-            else if (in_array('3', $data_days, false))
+            else
             {
                 $insert_query->wed = "0";
             }
@@ -617,46 +612,44 @@ class WorkScheduleController extends Controller
                 {
                     $insert_query->thu = "2";
                 }
-                else if (in_array('4', $data_rest, false))
+                else
                 {
                     $insert_query->thu = "1";
                 }
             }
-            else if (in_array('4', $data_days, false))
+            else
             {
                 $insert_query->thu = "0";
             }
 
             //Friday
-            if (in_array('5', $data_days, true))
-            {
+            if (in_array('5', $data_days, true)){
                 if (in_array('5', $data_rest, true))
                 {
                     $insert_query->fri = "2";
                 }
-                else if (in_array('5', $data_rest, false))
+                else
                 {
                     $insert_query->fri = "1";
                 }
             }
-            else if (in_array('5', $data_days, false))
+            else
             {
                 $insert_query->fri = "0";
             }
 
             //Saturday
-            if (in_array('6', $data_days, true))
-            {
+            if (in_array('6', $data_days, true)){
                 if (in_array('6', $data_rest, true))
                 {
                     $insert_query->sat = "2";
                 }
-                else if (in_array('6', $data_rest, false))
+                else
                 {
                     $insert_query->sat = "1";
                 }
             }
-            else if (in_array('6', $data_days, false))
+            else
             {
                 $insert_query->sat = "0";
             }
@@ -668,12 +661,12 @@ class WorkScheduleController extends Controller
                 {
                     $insert_query->sun = "2";
                 }
-                else if (in_array('7', $data_rest, false))
+                else
                 {
                     $insert_query->sun = "1";
                 }
             }
-            else if (in_array('7', $data_days, false))
+            else
             {
                 $insert_query->sun = "0";
             }
@@ -704,6 +697,231 @@ class WorkScheduleController extends Controller
     }
 
     public function save_custom_irregular(Request $request){
+
+        $message = "";
+        $result = array();
+        $error = array();
+        $success = array();
+
+        //Post Variables
+            $tempName = $request->templateName;
+            $schedDesc = $request->scheduleDescription;
+
+            $data_days = $request->dataDays;
+            $data_rest = $request->dataRest;
+
+            $lunch_out = date("H:i:s",strtotime($request->addLunchOut));
+            $lunch_in = date("H:i:s",strtotime($request->addLunchIn));
+
+            $lunch_hours = $request->hiddenLunchHours;
+        //Post Variables
+
+        if($tempName == ""){
+            $message = "Template Name Field Required!";
+            $error[] = $message;
+        }else if($schedDesc == ""){
+            $message = "Template Name Field Required!";
+            $error[] = $message;
+        }else if($lunch_out == ""){
+            $message = "Lunch Out Field Required!";
+            $error[] = $message;
+        }else if($lunch_in == ""){
+            $message = "Lunch In Field Required!";
+            $error[] = $message;
+        }else if($lunch_out >= $lunch_in){
+            $message = "Lunch In must be greater than Lunch Out!";
+            $error[] = $message;
+        }else{
+        
+            $insert_query = new ScheduleTemplateRecords;
+            $insert_query->template = $tempName;
+            $insert_query->type = "Irregular Shift";
+            $insert_query->reg_in = NULL;
+            $insert_query->reg_out = NULL;
+
+
+            //Monday
+            if(in_array('1', $data_days, true)){
+
+                $mon_in = date("H:i:s", strtotime($request->irr_in_mon));
+                $mon_out = date("H:i:s", strtotime($request->irr_out_mon));
+
+                $insert_query->mon_in = $mon_in;
+                $insert_query->mon_out = $mon_out;
+
+                if(in_array('1', $data_rest, true))
+                {
+                   $insert_query->mon = "2";
+                }
+                else
+                {
+                   $insert_query->mon = "1";
+                }
+            }
+            else
+            {
+                $insert_query->mon = "0";
+            }
+
+            //Tuesday
+            if(in_array('2', $data_days, true))
+            {
+                $tue_in = date("H:i:s", strtotime($request->irr_in_tue));
+                $tue_out = date("H:i:s", strtotime($request->irr_out_tue));
+
+                $insert_query->tue_in = $tue_in;
+                $insert_query->tue_out = $tue_out;
+
+                if(in_array('2', $data_rest, true))
+                {
+                   $insert_query->tue = "2";
+                }
+                else
+                {
+                   $insert_query->tue = "1";
+                }
+            }
+            else
+            {
+                $insert_query->tue = "0";
+            }
+
+            //Wednesday
+            if(in_array('3', $data_days, true))
+            {
+                $wed_in = date("H:i:s", strtotime($request->irr_in_wed));
+                $wed_out = date("H:i:s", strtotime($request->irr_out_wed));
+
+                $insert_query->wed_in = $wed_in;
+                $insert_query->wed_out = $wed_out;
+
+                if(in_array('3', $data_rest, true))
+                {
+                   $insert_query->wed = "2";
+                }
+                else
+                {
+                   $insert_query->wed = "1";
+                }
+            }
+            else
+            {
+                $insert_query->wed = "0";
+            }
+
+            //Thursday
+            if(in_array('4', $data_days, true))
+            {
+                $thu_in = date("H:i:s", strtotime($request->irr_in_thu));
+                $thu_out = date("H:i:s", strtotime($request->irr_out_thu));
+
+                $insert_query->thu_in = $thu_in;
+                $insert_query->thu_out = $thu_out;
+
+                if(in_array('4', $data_rest, true))
+                {
+                   $insert_query->thu = "2";
+                }
+                else
+                {
+                   $insert_query->thu = "1";
+                }
+            }
+            else
+            {
+                $insert_query->thu = "0";
+            }
+
+            //Friday
+            if(in_array('5', $data_days, true))
+            {
+                $fri_in = date("H:i:s", strtotime($request->irr_in_fri));
+                $fri_out = date("H:i:s", strtotime($request->irr_out_fri));
+
+                $insert_query->fri_in = $fri_in;
+                $insert_query->fri_out = $fri_out;
+
+                if(in_array('5', $data_rest, true))
+                {
+                   $insert_query->fri = "2";
+                }
+                else
+                {
+                   $insert_query->fri = "1";
+                }
+            }
+            else
+            {
+                $insert_query->fri = "0";
+            }
+
+            //Saturday
+            if(in_array('6', $data_days, true))
+            {
+                $sat_in = date("H:i:s", strtotime($request->irr_in_sat));
+                $sat_out = date("H:i:s", strtotime($request->irr_out_sat));
+
+                $insert_query->sat_in = $sat_in;
+                $insert_query->sat_out = $sat_out;
+
+                if(in_array('6', $data_rest, true))
+                {
+                   $insert_query->sat = "2";
+                }
+                else
+                {
+                   $insert_query->sat = "1";
+                }
+            }
+            else
+            {
+                $insert_query->sat = "0";
+            }
+
+            //Sunday
+            if(in_array('7', $data_days, true))
+            {
+                $sun_in = date("H:i:s", strtotime($request->irr_in_sun));
+                $sun_out = date("H:i:s", strtotime($request->irr_out_sun));
+
+                $insert_query->sun_in = $sun_in;
+                $insert_query->sun_out = $sun_out;
+
+                if(in_array('7', $data_rest, true))
+                {
+                   $insert_query->sun = "2";
+                }
+                else
+                {
+                   $insert_query->sun = "1";
+                }
+            }
+            else
+            {
+                $insert_query->sun = "0";
+            }
+
+            if($lunch_hours != ""){
+                $insert_query->lunch_out = $lunch_out;
+                $insert_query->lunch_in = $lunch_in;
+                $insert_query->lunch_hrs = $lunch_hours;
+            }
+
+            $insert_query->schedule_desc = $schedDesc;
+            $insert_query->created_by = auth()->user()->name;
+            $insert_query->lu_by = auth()->user()->name;
+            $insert_query->timestamps = false;
+            $insert_query->save();
+
+            $message = "Custom Schedule Successfully Added!";
+            $success[] = $message;
+
+        }
+        $result = array(
+            'error'=>$error,
+            'success'=>$success,
+        );
+        echo json_encode($result);
     }
 
     public function save_custom_flexi(Request $request){
