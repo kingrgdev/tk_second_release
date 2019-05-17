@@ -554,13 +554,13 @@
                                 <div id="flexiShift" style="display:none";>
                                     <label>Days :</label>
                                     <form class="form-inline">
-                                        <label><input id="chk_FlexiShift" type="checkbox" name="flexi_shift" value="1">Monday</label>
-                                        <label><input id="chk_FlexiShift" type="checkbox" name="flexi_shift" value="2">Tuesday</label>
-                                        <label><input id="chk_FlexiShift" type="checkbox" name="flexi_shift" value="3">Wednesday</label>
-                                        <label><input id="chk_FlexiShift" type="checkbox" name="flexi_shift" value="4">Thursday</label>
-                                        <label><input id="chk_FlexiShift" type="checkbox" name="flexi_shift" value="5">Friday</label>
-                                        <label><input id="chk_FlexiShift" type="checkbox" name="flexi_shift" value="6">Saturday</label>
-                                        <label><input id="chk_FlexiShift" type="checkbox" name="flexi_shift" value="7">Sunday</label>
+                                        <label><input id="chk_FlexiShift" type="checkbox" name="flexi_shift[]" value="1">Monday</label>
+                                        <label><input id="chk_FlexiShift" type="checkbox" name="flexi_shift[]" value="2">Tuesday</label>
+                                        <label><input id="chk_FlexiShift" type="checkbox" name="flexi_shift[]" value="3">Wednesday</label>
+                                        <label><input id="chk_FlexiShift" type="checkbox" name="flexi_shift[]" value="4">Thursday</label>
+                                        <label><input id="chk_FlexiShift" type="checkbox" name="flexi_shift[]" value="5">Friday</label>
+                                        <label><input id="chk_FlexiShift" type="checkbox" name="flexi_shift[]" value="6">Saturday</label>
+                                        <label><input id="chk_FlexiShift" type="checkbox" name="flexi_shift[]" value="7">Sunday</label>
                                     </form>
                                     <br>
                                     <div class="form-group" style="width:50%";>
@@ -1229,11 +1229,126 @@ $(document).on("click", "#scheduleIcon", function(){
             }
             
             else if(shift_type == "rdB_FlexiShift"){
-                alert("Flexi");
+                var templateName = $("#templateName").val();
+                var scheduleDescription = $("#scheduleDescription").val();
+
+                var addLunchOut = $("#addLunchOut").val();
+                var addLunchIn = $("#addLunchIn").val();
+                var hiddenLunchHours = $("#hiddenLunchHours").val();
+
+                var flexi_hours = $("#flexi_hours").val();
+
+                var chkDays = document.getElementsByName('flexi_shift[]');  
+                var dataDays = [];
+                for (var i = 0; i < chkDays.length; i++){
+                    if (chkDays[i].checked){
+                        dataDays.push(chkDays[i].value);
+                    }
+                }
+
+                if(templateName == "")
+                {
+                    alert("Template Name Field Required!");
+                }
+                else if(scheduleDescription == "")
+                {
+                    alert("Schedule Description Field Required!");
+                }
+                else if(addLunchOut == "")
+                {
+                    alert("Lunch Out Field Required!");
+                }
+                else if(addLunchIn == "")
+                {
+                    alert("Lunch In Field Required!");
+                }
+                else if(addLunchOut >= addLunchIn)
+                {
+                    alert("Lunch Out must be greater than Lunch In!");
+                }
+                else if(hiddenLunchHours == "")
+                {
+                    alert("Lunch Hours Field Required!");
+                }
+                else if(flexi_hours == "")
+                {
+                    alert("Flexible Hours Field Required");
+                }
+                else
+                {
+                    var c = confirm("Apply this Work Schedule Request?");
+                    if(c == true)
+                    {
+                        $.ajax({
+
+                            headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                            url: "{{ route('savecustomflexi') }}",
+                            method: "POST",
+                            dataType: "json",
+                            data: {
+                                templateName:templateName,
+                                scheduleDescription:scheduleDescription,
+                                dataDays:dataDays,
+                                addLunchOut:addLunchOut,
+                                addLunchIn:addLunchIn,
+                                hiddenLunchHours:hiddenLunchHours,
+                                flexi_hours:flexi_hours
+                            },
+                            success:function(data)
+                            {
+                                if(data.error.length > 0){
+                                    alert(data.error[0]);
+                                }
+                                if(data.success.length > 0){
+                                    alert(data.success[0]);
+                                    refresh_Table();
+                                }
+                            },
+                            error: function(xhr, ajaxOptions, thrownError){
+                                console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                            }
+
+                        });
+                    }
+                }
             }
             
             else if(shift_type == "rdB_FreeShift"){
-                alert("Free");
+                var templateName = $("#templateName").val();
+                var scheduleDescription = $("#scheduleDescription").val();
+
+                var addLunchOut = $("#addLunchOut").val();
+                var addLunchIn = $("#addLunchIn").val();
+                var hiddenLunchHours = $("#hiddenLunchHours").val();
+
+                if(templateName == "")
+                {
+                    alert("Template Name Field Required!");
+                }
+                else if(scheduleDescription == "")
+                {
+                    alert("Schedule Description Field Required!");
+                }
+                else if(addLunchOut == "")
+                {
+                    alert("Lunch Out Field Required!");
+                }
+                else if(addLunchIn == "")
+                {
+                    alert("Lunch In Field Required!");
+                }
+                else if(addLunchOut >= addLunchIn)
+                {
+                    alert("Lunch Out must be greater than Lunch In!");
+                }
+                else if(hiddenLunchHours == "")
+                {
+                    alert("Lunch Hours Field Required!");
+                }
+                else
+                {
+                    alert("Free Shift");
+                }
             }
         }        
     });

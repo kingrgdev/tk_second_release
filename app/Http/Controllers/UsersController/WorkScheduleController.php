@@ -925,9 +925,183 @@ class WorkScheduleController extends Controller
     }
 
     public function save_custom_flexi(Request $request){
+        $message = "";
+        $result = array();
+        $error = array();
+        $success = array();
+
+        //Post Variables
+            $tempName = $request->templateName;
+
+            $schedDesc = $request->scheduleDescription;
+
+            $data_days = $request->dataDays;
+
+            $lunch_out = date("H:i:s",strtotime($request->addLunchOut));
+            $lunch_in = date("H:i:s",strtotime($request->addLunchIn));
+
+            $lunch_hours = $request->hiddenLunchHours;
+            $flexi_hours = $request->flexi_hours;
+        //Post Variables
+
+
+        if($tempName == ""){
+
+            $message = "Template Name Field Required!";
+            $error[] = $message;
+
+        }
+        else if($schedDesc == ""){
+
+            $message = "Schedule Description Field Required!";
+            $error[] = $message;
+
+        }
+        else if($lunch_out == ""){
+
+            $message = "Lunch Out Field Required!";
+            $error[] = $message;
+
+        }
+        else if($lunch_in == ""){
+
+            $message = "Lunch In Field Required!";
+            $error[] = $message;
+
+        }
+        else if($lunch_hours == ""){
+
+            $message = "Lunch Hours Field Required!";
+            $error[] = $message;
+
+        }
+        else if($flexi_hours == ""){
+
+            $message = "Flexi Hours Field Required!";
+            $error[] = $message;
+
+        }else{
+        
+            $insert_query = new ScheduleTemplateRecords;
+            $insert_query->template = $tempName;
+            $insert_query->type = "Flexi Shift";
+
+            $insert_query->reg_in = null;
+            $insert_query->reg_out = null;
+
+            $insert_query->mon_in = null;
+            $insert_query->mon_out = null;
+
+            $insert_query->tue_in = null;
+            $insert_query->tue_out = null;
+
+            $insert_query->wed_in = null;
+            $insert_query->wed_out = null;
+
+            $insert_query->thu_in = null;
+            $insert_query->thu_out = null;
+
+            $insert_query->fri_in = null;
+            $insert_query->fri_out = null;
+
+            $insert_query->sat_in = null;
+            $insert_query->sat_out = null;
+
+            $insert_query->sun_in = null;
+            $insert_query->sun_out = null;
+
+            if(in_array('1', $data_days, true)){
+                $insert_query->mon = "1";
+            }
+            else
+            {
+                $insert_query->mon = "0";
+            }
+
+            if(in_array('2', $data_days, true)){
+                $insert_query->tue = "1";
+            }
+            else
+            {
+                $insert_query->tue = "0";
+            }
+
+            if(in_array('3', $data_days, true))
+            {
+                $insert_query->wed = "1";
+            }
+            else
+            {
+                $insert_query->wed = "0";
+            }
+
+            if(in_array('4', $data_days, true))
+            {
+                $insert_query->thu = "1";
+            }
+            else
+            {
+                $insert_query->thu = "0";
+            }
+
+            if(in_array('5', $data_days, true))
+            {
+                $insert_query->fri = "1";
+            }
+            else
+            {
+                $insert_query->fri = "0";
+            }
+
+            if(in_array('6', $data_days, true))
+            {
+                $insert_query->sat = "1";
+            }
+            else
+            {
+                $insert_query->sat = "0";
+            }
+
+
+            if(in_array('7', $data_days, true))
+            {
+                $insert_query->sun = "1";
+            }
+            else
+            {
+                $insert_query->sun = "0";
+            }
+
+
+            if($flexi_hours != "")
+            {
+                $insert_query->lunch_out = $lunch_out;
+                $insert_query->lunch_in = $lunch_in;
+                $insert_query->lunch_hrs = $lunch_hours;
+            }
+
+            $insert_query->schedule_desc = $schedDesc;
+            $insert_query->flexihrs =  $flexi_hours;
+            $insert_query->created_by = auth()->user()->name;
+            $insert_query->lu_by = auth()->user()->name;
+            $insert_query->timestamps = false;
+            $insert_query->save();
+
+            $message = "Custom Schedule Successfully Added!";
+            $success[] = $message;
+
+        }
+        $result = array(
+            'error'=>$error,
+            'success'=>$success,
+        );
+        echo json_encode($result);
+
     }
 
     public function save_custom_free(Request $request){
+        
+
     }
 
     

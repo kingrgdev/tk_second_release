@@ -191,6 +191,7 @@ Route::get('/overtimerecords', 'UsersController\\OvertimeRecordsController@index
         
         Route::post('workschedulerecords/savecustomregular', 'UsersController\\WorkScheduleController@save_custom_regular')->name('savecustomregular');
         Route::post('workschedulerecords/savecustomirregular', 'UsersController\\WorkScheduleController@save_custom_irregular')->name('savecustomirregular');
+        Route::post('workschedulerecords/savecustomflexi', 'UsersController\\WorkScheduleController@save_custom_flexi')->name('savecustomflexi');
         Route::post('workschedulerecords/cancelrequest', 'UsersController\\WorkScheduleController@cancel_schedule_request')->name('cancelrequest');
 //For integration with clint//
 
