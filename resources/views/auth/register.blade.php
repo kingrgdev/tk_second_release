@@ -160,7 +160,7 @@
             <div class="modal-body">
 
                 <input id="oldEmail" type="hidden" value=""/>
-                <input id="userID" type="hidden"value=""/>
+                <input id="userID" type="text"value=""/>
 
                 <div class="form-group row">
                     {{-- name --}}

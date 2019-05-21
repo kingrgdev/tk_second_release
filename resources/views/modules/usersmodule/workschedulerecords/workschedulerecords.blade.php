@@ -87,9 +87,17 @@
                                     <label><input id="chk_EDIndefinite" type="checkbox" name="end_date_indefinite"><strong>Indefinite &nbsp;</strong></label>
                                 </div>
                             </form>
-                            <br>
-                            <br>
-                            <div id="divScheduleListTemplate" class="table-responsive col-md-12">
+                            <br><br>
+
+                            <div class="form__group col-md-4">
+                                <select id="cmbScheduleTemp" name="optradio" class="form__field">
+                                    <option value="">Select Schedule</option>
+                                </select>
+                                <label for="cmbScheduleTemp" class="span-header form__label"><i class="icon-right fa fa-server" aria-hidden="true"></i>Schedule Template</label>
+                            </div>
+
+
+                            {{-- <div id="divScheduleListTemplate" class="table-responsive col-md-12">
                                 <table id="tableScheduleListTemplate" name="tableScheduleListTemplate" class="table" style="width:100%; text-align:center;">
                                     <thead>
                                         <tr>
@@ -109,7 +117,9 @@
                                     </tbody>
                                 
                                 </table>
-                            </div>
+                            </div> --}}
+
+
                         </div>
                         {{-- SCHEDULE TEMPLATE END --}}
                         
@@ -317,19 +327,19 @@
                                                 <tbody>
                                                     {{-- MONDAY --}}
                                                     <tr>
-                                                        <td><input id="chk_IrregularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_days" name="chk_IrregularShiftTable_days[]" value="1"></td>
+                                                        <td><input id="chk_IrregularShiftTable_days_mon" type="checkbox" class ="chk_IrregularShiftTable_days_mon" name="chk_IrregularShiftTable_days[]" value="1"></td>
                                                         <td>
                                                             <label>Monday</label><br>
                                                         </td>
                                                         <td>
-                                                            <input id="chk_IrregularShiftTable" type="checkbox" class = "chk_IrregularShiftTable_rest" name="chk_IrregularShiftTable_rest[]" value="1">
+                                                            <input id="chk_IrregularShiftTable_rest_mon" type="checkbox" class = "chk_IrregularShiftTable_rest_mon" name="chk_IrregularShiftTable_rest[]" value="1" disabled>
                                                         </td>
                                                         {{-- TABLE SHIFT IN --}}
                                                         <td>
                                                             <div class="form-group" style="width:200px";>
 
                                                                 <div class="form__group input-group date" data-target-input="nearest">
-                                                                    <input id="dtp_IrregularShiftIn_mon" name = "dtp_IrregularShiftIn_mon" type="text" class="datetimepicker-input form__field" placeholder="Time In" data-target="#dtp_IrregularShiftIn_mon" data-toggle="datetimepicker">
+                                                                    <input id="dtp_IrregularShiftIn_mon" name = "dtp_IrregularShiftIn_mon" type="text" class="datetimepicker-input form__field" placeholder="Time In" data-target="#dtp_IrregularShiftIn_mon" data-toggle="datetimepicker" disabled>
                                                                     <label for="dtp_IrregularShiftIn_mon" class="span-header form__label"><i class="icon-right fa fa-clock-o"></i>&nbsp;Time In</label>
                                                                 </div>
                                                             </div>
@@ -340,7 +350,7 @@
                                                         <td>
                                                             <div class="form-group" style="width:200px";>
                                                                 <div class="form__group input-group date" data-target-input="nearest">
-                                                                    <input id="dtp_IrregularShiftOut_mon" name = "dtp_IrregularShiftOut_mon" type="text" class="datetimepicker-input form__field" placeholder="Time Out" data-target="#dtp_IrregularShiftOut_mon" data-toggle="datetimepicker">
+                                                                    <input id="dtp_IrregularShiftOut_mon" name = "dtp_IrregularShiftOut_mon" type="text" class="datetimepicker-input form__field" placeholder="Time Out" data-target="#dtp_IrregularShiftOut_mon" data-toggle="datetimepicker" disabled>
                                                                     <label for="dtp_IrregularShiftOut_mon" class="span-header form__label"><i class="icon-right fa fa-clock-o"></i>&nbsp;Time Out</label>
                                                                 </div>
                                                             </div>
@@ -349,19 +359,19 @@
 
                                                     {{-- TUESDAY --}}
                                                     <tr>
-                                                        <td><input id="chk_IrregularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_days" name="chk_IrregularShiftTable_days[]" value="2"></th>
+                                                        <td><input id="chk_IrregularShiftTable_days_tue" type="checkbox" class ="chk_IrregularShiftTable_days" name="chk_IrregularShiftTable_days[]" value="2"></th>
                                                         <td>
                                                             <label>Tuesday</label><br>
                                                         </td>
                                                         <td>
-                                                            <input id="chk_IrregularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_rest" name="chk_IrregularShiftTable_rest[]" value="2">
+                                                            <input id="chk_IrregularShiftTable_rest_tue" type="checkbox" class ="chk_IrregularShiftTable_rest" name="chk_IrregularShiftTable_rest[]" value="2" disabled>
                                                         </td>
                                                         {{-- TABLE SHIFT IN --}}
                                                         <td>
                                                             <div class="form-group" style="width:200px";>
 
                                                                 <div class="form__group input-group date" data-target-input="nearest">
-                                                                    <input id="dtp_IrregularShiftIn_tue" name = "dtp_IrregularShiftIn_tue" type="text" class="datetimepicker-input form__field" placeholder="Time In" data-target="#dtp_IrregularShiftIn_tue" data-toggle="datetimepicker">
+                                                                    <input id="dtp_IrregularShiftIn_tue" name = "dtp_IrregularShiftIn_tue" type="text" class="datetimepicker-input form__field" placeholder="Time In" data-target="#dtp_IrregularShiftIn_tue" data-toggle="datetimepicker" disabled>
                                                                     <label for="dtp_IrregularShiftIn_tue" class="span-header form__label"><i class="icon-right fa fa-clock-o"></i>&nbsp;Time In</label>
                                                                 </div>
                                                             </div>
@@ -372,7 +382,7 @@
                                                         <td>
                                                             <div class="form-group" style="width:200px";>
                                                                 <div class="form__group input-group date" data-target-input="nearest">
-                                                                    <input id="dtp_IrregularShiftOut_tue" name = "dtp_IrregularShiftOut_tue" type="text" class="datetimepicker-input form__field" placeholder="Time Out" data-target="#dtp_IrregularShiftOut_tue" data-toggle="datetimepicker">
+                                                                    <input id="dtp_IrregularShiftOut_tue" name = "dtp_IrregularShiftOut_tue" type="text" class="datetimepicker-input form__field" placeholder="Time Out" data-target="#dtp_IrregularShiftOut_tue" data-toggle="datetimepicker" disabled>
                                                                     <label for="dtp_IrregularShiftOut_tue" class="span-header form__label"><i class="icon-right fa fa-clock-o"></i>&nbsp;Time Out</label>
                                                                 </div>
                                                             </div>
@@ -380,19 +390,19 @@
                                                     </tr>
                                                     {{-- WEDNESDAY --}}
                                                     <tr>
-                                                        <td><input id="chk_IrregularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_days" name="chk_IrregularShiftTable_days[]" value="3"></th>
+                                                        <td><input id="chk_IrregularShiftTable_days_wed" type="checkbox" class ="chk_IrregularShiftTable_days" name="chk_IrregularShiftTable_days[]" value="3"></th>
                                                         <td>
                                                             <label>Wednesday</label><br>
                                                         </td>
                                                         <td>
-                                                            <input id="chk_RegularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_rest" name="chk_IrregularShiftTable_rest[]" value="3">
+                                                            <input id="chk_IrregularShiftTable_rest_wed" type="checkbox" class ="chk_IrregularShiftTable_rest" name="chk_IrregularShiftTable_rest[]" value="3" disabled>
                                                         </td>
                                                         {{-- TABLE SHIFT IN --}}
                                                         <td>
                                                             <div class="form-group" style="width:200px";>
 
                                                                 <div class="form__group input-group date" data-target-input="nearest">
-                                                                    <input id="dtp_IrregularShiftIn_wed" name = "dtp_IrregularShiftIn_wed" type="text" class="datetimepicker-input form__field" placeholder="Time In" data-target="#dtp_IrregularShiftIn_wed" data-toggle="datetimepicker">
+                                                                    <input id="dtp_IrregularShiftIn_wed" name = "dtp_IrregularShiftIn_wed" type="text" class="datetimepicker-input form__field" placeholder="Time In" data-target="#dtp_IrregularShiftIn_wed" data-toggle="datetimepicker" disabled>
                                                                     <label for="dtp_IrregularShiftIn_wed" class="span-header form__label"><i class="icon-right fa fa-clock-o"></i>&nbsp;Time In</label>
                                                                 </div>
                                                             </div>
@@ -403,7 +413,7 @@
                                                         <td>
                                                             <div class="form-group" style="width:200px";>
                                                                 <div class="form__group input-group date" data-target-input="nearest">
-                                                                    <input id="dtp_IrregularShiftOut_wed" name = "dtp_IrregularShiftOut_wed" type="text" class="datetimepicker-input form__field" placeholder="Time Out" data-target="#dtp_IrregularShiftOut_wed" data-toggle="datetimepicker">
+                                                                    <input id="dtp_IrregularShiftOut_wed" name = "dtp_IrregularShiftOut_wed" type="text" class="datetimepicker-input form__field" placeholder="Time Out" data-target="#dtp_IrregularShiftOut_wed" data-toggle="datetimepicker" disabled>
                                                                     <label for="dtp_IrregularShiftOut_wed" class="span-header form__label"><i class="icon-right fa fa-clock-o"></i>&nbsp;Time Out</label>
                                                                 </div>
                                                             </div>
@@ -411,19 +421,19 @@
                                                     </tr>
                                                     {{-- THURSDAY --}}
                                                     <tr>
-                                                        <td><input id="chk_RegularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_days" name="chk_IrregularShiftTable_days[]" value="4"></th>
+                                                        <td><input id="chk_IrregularShiftTable_days_thu" type="checkbox" class ="chk_IrregularShiftTable_days" name="chk_IrregularShiftTable_days[]" value="4"></th>
                                                         <td>
                                                             <label>Thursday</label><br>
                                                         </td>
                                                         <td>
-                                                            <input id="chk_RegularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_rest" name="chk_IrregularShiftTable_rest[]" value="4">
+                                                            <input id="chk_IrregularShiftTable_rest_thu" type="checkbox" class ="chk_IrregularShiftTable_rest" name="chk_IrregularShiftTable_rest[]" value="4" disabled>
                                                         </td>
                                                         {{-- TABLE SHIFT IN --}}
                                                         <td>
                                                             <div class="form-group" style="width:200px";>
 
                                                                 <div class="form__group input-group date" data-target-input="nearest">
-                                                                    <input id="dtp_IrregularShiftIn_thu" name = "dtp_IrregularShiftIn_thu" type="text" class="datetimepicker-input form__field" placeholder="Time In" data-target="#dtp_IrregularShiftIn_thu" data-toggle="datetimepicker">
+                                                                    <input id="dtp_IrregularShiftIn_thu" name = "dtp_IrregularShiftIn_thu" type="text" class="datetimepicker-input form__field" placeholder="Time In" data-target="#dtp_IrregularShiftIn_thu" data-toggle="datetimepicker" disabled>
                                                                     <label for="dtp_IrregularShiftIn_thu" class="span-header form__label"><i class="icon-right fa fa-clock-o"></i>&nbsp;Time In</label>
                                                                 </div>
                                                             </div>
@@ -434,7 +444,7 @@
                                                         <td>
                                                             <div class="form-group" style="width:200px";>
                                                                 <div class="form__group input-group date" data-target-input="nearest">
-                                                                    <input id="dtp_IrregularShiftOut_thu" name = "dtp_IrregularShiftOut_thu" type="text" class="datetimepicker-input form__field" placeholder="Time Out" data-target="#dtp_IrregularShiftOut_thu" data-toggle="datetimepicker">
+                                                                    <input id="dtp_IrregularShiftOut_thu" name = "dtp_IrregularShiftOut_thu" type="text" class="datetimepicker-input form__field" placeholder="Time Out" data-target="#dtp_IrregularShiftOut_thu" data-toggle="datetimepicker" disabled>
                                                                     <label for="dtp_IrregularShiftOut_thu" class="span-header form__label"><i class="icon-right fa fa-clock-o"></i>&nbsp;Time Out</label>
                                                                 </div>
                                                             </div>
@@ -442,19 +452,19 @@
                                                     </tr>
                                                     {{-- FRIDAY --}}
                                                     <tr>
-                                                        <td><input id="chk_RegularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_days" name="chk_IrregularShiftTable_days[]" value="5"></th>
+                                                        <td><input id="chk_IrregularShiftTable_days_fri" type="checkbox" class ="chk_IrregularShiftTable_days" name="chk_IrregularShiftTable_days[]" value="5"></th>
                                                         <td>
                                                             <label>Friday</label><br>
                                                         </td>
                                                         <td>
-                                                            <input id="chk_RegularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_rest" name="chk_IrregularShiftTable_rest[]" value="5">
+                                                            <input id="chk_IrregularShiftTable_rest_fri" type="checkbox" class ="chk_IrregularShiftTable_rest" name="chk_IrregularShiftTable_rest[]" value="5" disabled>
                                                         </td>
                                                         {{-- TABLE SHIFT IN --}}
                                                         <td>
                                                             <div class="form-group" style="width:200px";>
 
                                                                 <div class="form__group input-group date" data-target-input="nearest">
-                                                                    <input id="dtp_IrregularShiftIn_fri" name = "dtp_IrregularShiftIn_fri" type="text" class="datetimepicker-input form__field" placeholder="Time In" data-target="#dtp_IrregularShiftIn_fri" data-toggle="datetimepicker">
+                                                                    <input id="dtp_IrregularShiftIn_fri" name = "dtp_IrregularShiftIn_fri" type="text" class="datetimepicker-input form__field" placeholder="Time In" data-target="#dtp_IrregularShiftIn_fri" data-toggle="datetimepicker" disabled>
                                                                     <label for="dtp_IrregularShiftIn_fri" class="span-header form__label"><i class="icon-right fa fa-clock-o"></i>&nbsp;Time In</label>
                                                                 </div>
                                                             </div>
@@ -465,7 +475,7 @@
                                                         <td>
                                                             <div class="form-group" style="width:200px";>
                                                                 <div class="form__group input-group date" data-target-input="nearest">
-                                                                    <input id="dtp_IrregularShiftOut_fri" name = "dtp_IrregularShiftOut_fri" type="text" class="datetimepicker-input form__field" placeholder="Time Out" data-target="#dtp_IrregularShiftOut_fri" data-toggle="datetimepicker">
+                                                                    <input id="dtp_IrregularShiftOut_fri" name = "dtp_IrregularShiftOut_fri" type="text" class="datetimepicker-input form__field" placeholder="Time Out" data-target="#dtp_IrregularShiftOut_fri" data-toggle="datetimepicker" disabled>
                                                                     <label for="dtp_IrregularShiftOut_fri" class="span-header form__label"><i class="icon-right fa fa-clock-o"></i>&nbsp;Time Out</label>
                                                                 </div>
                                                             </div>
@@ -473,19 +483,19 @@
                                                     </tr>
                                                     {{-- SATURDAY --}}
                                                     <tr>
-                                                        <td><input id="chk_RegularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_days" name="chk_IrregularShiftTable_days[]" value="6"></th>
+                                                        <td><input id="chk_IrregularShiftTable_days_sat" type="checkbox" class ="chk_IrregularShiftTable_days" name="chk_IrregularShiftTable_days[]" value="6"></th>
                                                         <td>
                                                             <label>Saturday</label><br>
                                                         </td>
                                                         <td>
-                                                            <input id="chk_RegularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_rest" name="chk_IrregularShiftTable_rest[]" value="6">
+                                                            <input id="chk_IrregularShiftTable_rest_sat" type="checkbox" class ="chk_IrregularShiftTable_rest" name="chk_IrregularShiftTable_rest[]" value="6" disabled>
                                                         </td>
                                                         {{-- TABLE SHIFT IN --}}
                                                         <td>
                                                             <div class="form-group" style="width:200px";>
 
                                                                 <div class="form__group input-group date" data-target-input="nearest">
-                                                                    <input id="dtp_IrregularShiftIn_sat" name = "dtp_IrregularShiftIn_sat" type="text" class="datetimepicker-input form__field" placeholder="Time In" data-target="#dtp_IrregularShiftIn_sat" data-toggle="datetimepicker">
+                                                                    <input id="dtp_IrregularShiftIn_sat" name = "dtp_IrregularShiftIn_sat" type="text" class="datetimepicker-input form__field" placeholder="Time In" data-target="#dtp_IrregularShiftIn_sat" data-toggle="datetimepicker" disabled>
                                                                     <label for="dtp_IrregularShiftIn_sat" class="span-header form__label"><i class="icon-right fa fa-clock-o"></i>&nbsp;Time In</label>
                                                                 </div>
                                                             </div>
@@ -496,7 +506,7 @@
                                                         <td>
                                                             <div class="form-group" style="width:200px";>
                                                                 <div class="form__group input-group date" data-target-input="nearest">
-                                                                    <input id="dtp_IrregularShiftOut_sat" name = "dtp_IrregularShiftOut_sat" type="text" class="datetimepicker-input form__field" placeholder="Time Out" data-target="#dtp_IrregularShiftOut_sat" data-toggle="datetimepicker">
+                                                                    <input id="dtp_IrregularShiftOut_sat" name = "dtp_IrregularShiftOut_sat" type="text" class="datetimepicker-input form__field" placeholder="Time Out" data-target="#dtp_IrregularShiftOut_sat" data-toggle="datetimepicker" disabled>
                                                                     <label for="dtp_IrregularShiftOut_sat" class="span-header form__label"><i class="icon-right fa fa-clock-o"></i>&nbsp;Time Out</label>
                                                                 </div>
                                                             </div>
@@ -504,19 +514,19 @@
                                                     </tr>
                                                     {{-- SUNDAY --}}
                                                     <tr>
-                                                        <td><input id="chk_RegularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_days" name="chk_IrregularShiftTable_days[]" value="7"></th>
+                                                        <td><input id="chk_IrregularShiftTable_days_sun" type="checkbox" class ="chk_IrregularShiftTable_days" name="chk_IrregularShiftTable_days[]" value="7"></th>
                                                         <td>
                                                             <label>Sunday</label><br>
                                                         </td>
                                                         <td>
-                                                            <input id="chk_RegularShiftTable" type="checkbox" class ="chk_IrregularShiftTable_rest" name="chk_IrregularShiftTable_rest[]" value="7">
+                                                            <input id="chk_IrregularShiftTable_rest_sun" type="checkbox" class ="chk_IrregularShiftTable_rest" name="chk_IrregularShiftTable_rest[]" value="7" disabled>
                                                         </td>
                                                         {{-- TABLE SHIFT IN --}}
                                                         <td>
                                                             <div class="form-group" style="width:200px";>
 
                                                                 <div class="form__group input-group date" data-target-input="nearest">
-                                                                    <input id="dtp_IrregularShiftIn_sun" name = "dtp_IrregularShiftIn_sun" type="text" class="datetimepicker-input form__field" placeholder="Time In" data-target="#dtp_IrregularShiftIn_sun" data-toggle="datetimepicker">
+                                                                    <input id="dtp_IrregularShiftIn_sun" name = "dtp_IrregularShiftIn_sun" type="text" class="datetimepicker-input form__field" placeholder="Time In" data-target="#dtp_IrregularShiftIn_sun" data-toggle="datetimepicker" disabled>
                                                                     <label for="dtp_IrregularShiftIn_sun" class="span-header form__label"><i class="icon-right fa fa-clock-o"></i>&nbsp;Time In</label>
                                                                 </div>
                                                             </div>
@@ -527,7 +537,7 @@
                                                         <td>
                                                             <div class="form-group" style="width:200px";>
                                                                 <div class="form__group input-group date" data-target-input="nearest">
-                                                                    <input id="dtp_IrregularShiftOut_sun" name = "dtp_IrregularShiftOut_sun" type="text" class="datetimepicker-input form__field" placeholder="Time Out" data-target="#dtp_IrregularShiftOut_sun" data-toggle="datetimepicker">
+                                                                    <input id="dtp_IrregularShiftOut_sun" name = "dtp_IrregularShiftOut_sun" type="text" class="datetimepicker-input form__field" placeholder="Time Out" data-target="#dtp_IrregularShiftOut_sun" data-toggle="datetimepicker" disabled>
                                                                     <label for="dtp_IrregularShiftOut_sun" class="span-header form__label"><i class="icon-right fa fa-clock-o"></i>&nbsp;Time Out</label>
                                                                 </div>
                                                             </div>
@@ -684,9 +694,9 @@ function refresh_Table(){
         data:{}, 
         success:function(data)
         {
-            
-            $('#divScheduleListTemplate').html(data);
-            $('#tableScheduleListTemplate').html(data);
+            $('#cmbScheduleTemp').html(data);
+            // $('#divScheduleListTemplate').html(data); You can get back this again if select option is not appropriate.
+            // $('#tableScheduleListTemplate').html(data); You can get back this again if select option is not appropriate.
             
             // $('#tableScheduleListTemplate').DataTable({
             //     "serverSide": false, 
@@ -700,9 +710,6 @@ function refresh_Table(){
         }
     });
 }
-
-
-
 
 //Work Schedule Request Form
 $(document).on("click", "#scheduleIcon", function(){
@@ -769,8 +776,9 @@ $(document).on("click", "#scheduleIcon", function(){
 
             var sched_temp_startDate = $("#startDate_CWS").val();
             var sched_temp_endDate = $("#endDate_CWS").val();
+            var optradio = $("#cmbScheduleTemp").val();
             var ind = document.getElementById("chk_EDIndefinite");
-            var optradio = $("input[name='optradio']:checked").val();
+            // var optradio = $("input[name='optradio']:checked").val();
 
             if(ind.checked == true)
             {
@@ -778,10 +786,14 @@ $(document).on("click", "#scheduleIcon", function(){
                 {
                     alert("Start Date Field Required!");
                 }
-                else if(!$("input[name='optradio']:checked").val())
+                else if(optradio == "")
                 {
                     alert("Choose your Schedule Template!");
                 }
+                // else if(!$("input[name='optradio']:checked").val())
+                // {
+                //     alert("Choose your Schedule Template!");
+                // }
                 else
                 {
                     var c = confirm("Apply this Work Schedule Request?");
@@ -826,10 +838,14 @@ $(document).on("click", "#scheduleIcon", function(){
                 {
                     alert("End Date Field Required!");
                 }
-                else if(!$("input[name='optradio']:checked").val())
+                else if(optradio == "")
                 {
                     alert("Choose your Schedule Template!");
                 }
+                // else if(!$("input[name='optradio']:checked").val())
+                // {
+                //     alert("Choose your Schedule Template!");
+                // }
                 else
                 {
                     var c = confirm("Apply this Work Schedule Request?");
@@ -1394,7 +1410,7 @@ $(document).ready(function(){
 
 
 
-{{-- END DATE HIDE --}}
+
 <script>
     $(document).on("click",function () {
         // var chkIndefinite = $("input[type=radio][name=cat_schedule]:checked").val();
@@ -1463,7 +1479,131 @@ $(document).ready(function(){
 </script>
 
 <script>
-//regular pick sched day//
+//Irregular Sched//
+    //Monday
+    $(document).on("click", "#chk_IrregularShiftTable_days_mon", function(){
+        if($(this). prop("checked") == true){
+            $('#chk_IrregularShiftTable_rest_mon').prop("disabled", false);
+            $('#dtp_IrregularShiftIn_mon').prop("disabled", false);
+            $('#dtp_IrregularShiftOut_mon').prop("disabled", false);
+        }
+        else{
+            $('#chk_IrregularShiftTable_rest_mon').prop("disabled", true);
+            $('#chk_IrregularShiftTable_rest_mon').prop("checked", false); 
+            $('#dtp_IrregularShiftIn_mon').val("");
+            $('#dtp_IrregularShiftOut_mon').val("");
+            $('#dtp_IrregularShiftIn_mon').prop("disabled", true);
+            $('#dtp_IrregularShiftOut_mon').prop("disabled", true);
+                
+        }  
+    });
+    //Tuesday
+    $(document).on("click", "#chk_IrregularShiftTable_days_tue", function(){
+        if($(this). prop("checked") == true){
+            $('#chk_IrregularShiftTable_rest_tue').prop("disabled", false);
+            $('#dtp_IrregularShiftIn_tue').prop("disabled", false);
+            $('#dtp_IrregularShiftOut_tue').prop("disabled", false);
+        }
+        else{
+            $('#chk_IrregularShiftTable_rest_tue').prop("disabled", true);
+            $('#chk_IrregularShiftTable_rest_tue').prop("checked", false); 
+            $('#dtp_IrregularShiftIn_tue').val("");
+            $('#dtp_IrregularShiftOut_tue').val("");
+            $('#dtp_IrregularShiftIn_tue').prop("disabled", true);
+            $('#dtp_IrregularShiftOut_tue').prop("disabled", true);
+                
+        }  
+    });
+    //Wednesday
+    $(document).on("click", "#chk_IrregularShiftTable_days_wed", function(){
+        if($(this). prop("checked") == true){
+            $('#chk_IrregularShiftTable_rest_wed').prop("disabled", false);
+            $('#dtp_IrregularShiftIn_wed').prop("disabled", false);
+            $('#dtp_IrregularShiftOut_wed').prop("disabled", false);
+        }
+        else{
+            $('#chk_IrregularShiftTable_rest_wed').prop("disabled", true);
+            $('#chk_IrregularShiftTable_rest_wed').prop("checked", false); 
+            $('#dtp_IrregularShiftIn_wed').val("");
+            $('#dtp_IrregularShiftOut_wed').val("");
+            $('#dtp_IrregularShiftIn_wed').prop("disabled", true);
+            $('#dtp_IrregularShiftOut_wed').prop("disabled", true);
+                
+        }  
+    });
+    //Thursday
+    $(document).on("click", "#chk_IrregularShiftTable_days_thu", function(){
+        if($(this). prop("checked") == true){
+            $('#chk_IrregularShiftTable_rest_thu').prop("disabled", false);
+            $('#dtp_IrregularShiftIn_thu').prop("disabled", false);
+            $('#dtp_IrregularShiftOut_thu').prop("disabled", false);
+        }
+        else{
+            $('#chk_IrregularShiftTable_rest_thu').prop("disabled", true);
+            $('#chk_IrregularShiftTable_rest_thu').prop("checked", false); 
+            $('#dtp_IrregularShiftIn_thu').val("");
+            $('#dtp_IrregularShiftOut_thu').val("");
+            $('#dtp_IrregularShiftIn_thu').prop("disabled", true);
+            $('#dtp_IrregularShiftOut_thu').prop("disabled", true);
+                
+        }  
+    });
+    //Friday
+    $(document).on("click", "#chk_IrregularShiftTable_days_fri", function(){
+        if($(this). prop("checked") == true){
+            $('#chk_IrregularShiftTable_rest_fri').prop("disabled", false);
+            $('#dtp_IrregularShiftIn_fri').prop("disabled", false);
+            $('#dtp_IrregularShiftOut_fri').prop("disabled", false);
+        }
+        else{
+            $('#chk_IrregularShiftTable_rest_fri').prop("disabled", true);
+            $('#chk_IrregularShiftTable_rest_fri').prop("checked", false); 
+            $('#dtp_IrregularShiftIn_fri').val("");
+            $('#dtp_IrregularShiftOut_fri').val("");
+            $('#dtp_IrregularShiftIn_fri').prop("disabled", true);
+            $('#dtp_IrregularShiftOut_fri').prop("disabled", true);
+                
+        }  
+    });
+    //Saturday
+    $(document).on("click", "#chk_IrregularShiftTable_days_sat", function(){
+        if($(this). prop("checked") == true){
+            $('#chk_IrregularShiftTable_rest_sat').prop("disabled", false);
+            $('#dtp_IrregularShiftIn_sat').prop("disabled", false);
+            $('#dtp_IrregularShiftOut_sat').prop("disabled", false);
+        }
+        else{
+            $('#chk_IrregularShiftTable_rest_sat').prop("disabled", true);
+            $('#chk_IrregularShiftTable_rest_sat').prop("checked", false); 
+            $('#dtp_IrregularShiftIn_sat').val("");
+            $('#dtp_IrregularShiftOut_sat').val("");
+            $('#dtp_IrregularShiftIn_sat').prop("disabled", true);
+            $('#dtp_IrregularShiftOut_sat').prop("disabled", true);
+                
+        }  
+    });
+    //Sunday
+    $(document).on("click", "#chk_IrregularShiftTable_days_sun", function(){
+        if($(this). prop("checked") == true){
+            $('#chk_IrregularShiftTable_rest_sun').prop("disabled", false);
+            $('#dtp_IrregularShiftIn_sun').prop("disabled", false);
+            $('#dtp_IrregularShiftOut_sun').prop("disabled", false);
+        }
+        else{
+            $('#chk_IrregularShiftTable_rest_sun').prop("disabled", true);
+            $('#chk_IrregularShiftTable_rest_sun').prop("checked", false); 
+            $('#dtp_IrregularShiftIn_sun').val("");
+            $('#dtp_IrregularShiftOut_sun').val("");
+            $('#dtp_IrregularShiftIn_sun').prop("disabled", true);
+            $('#dtp_IrregularShiftOut_sun').prop("disabled", true);
+                
+        }  
+    });
+//Irregular Sched//
+</script>
+
+<script>
+//Regular Sched//
         //monday
         $(document).on("click", "#chk_RegularShiftTable_days_mon", function(){
             if($(this). prop("checked") == true){
@@ -1534,7 +1674,7 @@ $(document).ready(function(){
                 $('#chk_RegularShiftTable_rest_sun').prop("checked", false);
             }  
         });
-//---------end---------//
+//Regular Sched//
 </script>
 
 {{-- DATE SETTINGS --}}

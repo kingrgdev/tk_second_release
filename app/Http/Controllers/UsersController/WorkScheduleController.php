@@ -18,167 +18,183 @@ class WorkScheduleController extends Controller
     }
 
     public function print_schedule_list(){
-        $schedule_template_list = DB::connection('mysql3')->select("SELECT * FROM schedule_template");
+        
+        $schedule_template = DB::connection('mysql3')->select("SELECT * FROM schedule_template WHERE deleted = '0'");
+
         $data = "";
-        $data .= '
-        <div id="divScheduleListTemplate" class="table-responsive col-md-12">
-            <table id="tableScheduleListTemplate" name="tableScheduleListTemplate" class="table" style="width:100%; text-align:center;">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Template Name</th>
-                        <th>Shift Time</th>
-                        <th>Days</th>
-                    </tr>
-                </thead>
-                <tbody>
-        ';
-        $counter = 1;
-        if(count($schedule_template_list) > 0){
-            foreach($schedule_template_list as $field){
-
-                $data .= "<tr>";
-                $data .= "<td><input id='rdB_CustomSchedule' type='radio' name='optradio' value='".$field->ind."'></td>";
-                $data .= "<td><a id='tempDesc".$counter."'>".$field->template."</a><br>
-                <small><a id='tempType".$counter."'>".$field->type."</a></small>
-                </td>";
+        
+        $data .= '<option value="">Select Schedule</option>';
+        if(count($schedule_template) > 0){
+            foreach($schedule_template as $field){   
                 
-                if($field->type == "Regular Shift")
-                {
-                    $day = "";
-
-                    $reg_in = date("g:i:a", strtotime($field->reg_in));
-                    $reg_out = date("g:i:a", strtotime($field->reg_out));
-        
-                    $shift_time = $reg_in . " to " . $reg_out;
-
-                    if($field->mon == "1" || $field->mon == "2"){
-                        
-                        $day .= "Mon,";
-                    }
-                    if($field->tue == "1" || $field->tue == "2"){
-
-                        $day .= "Tue,";
-                    }
-                    if($field->wed == "1" || $field->wed == "2"){
-
-                        $day .= "Wed,";
-                    }
-                    if($field->thu == "1" || $field->thu == "2"){
-
-                        $day .= "Thu,";
-                    }
-                    if($field->fri == "1" || $field->fri == "2"){
-
-                        $day .= "Fri,";
-                    }
-                    if($field->sat == "1" || $field->sat == "2"){
-
-                        $day .= "Sat,";
-                    }
-                    if($field->sun == "1" || $field->sun == "2"){
-
-                        $day .= "Sun";
-                    }
-
-                    $data .= '<td>' . $shift_time . '</td>';
-                    $data .= '<td>' . $day . '</td>';
-                }
-                else if($field->type == "Irregular Shift")
-                {
-
-                    $day = "";
-                    $shift_time = "";
-                    if($field->mon == "1" || $field->mon == "2"){
-
-                        $mon_in = date("g:i:a", strtotime($field->mon_in));
-                        $mon_out = date("g:i:a", strtotime($field->mon_out));
-        
-                        $shift_time .= "<p> Mon : " . $mon_in . " to " . $mon_out . "<p>";
-                        
-                        $day .= "Mon,";
-                    }
-                    if($field->tue == "1" || $field->tue == "2"){
-
-                        $tue_in = date("g:i:a", strtotime($field->tue_in));
-                        $tue_out = date("g:i:a", strtotime($field->tue_out));
-        
-                        $shift_time .= "Tue : " . $tue_in . " to " . $tue_out . "<p>";
-
-                        $day .= "Tue,";
-                    }
-                    if($field->wed == "1" || $field->wed == "2"){
-
-                        $wed_in = date("g:i:a", strtotime($field->wed_in));
-                        $wed_out = date("g:i:a", strtotime($field->wed_out));
-        
-                        $shift_time .= "Wed : " . $wed_in . " to " . $wed_out . "<p>";
-
-                        $day .= "Wed,";
-                    }
-                    if($field->thu == "1" || $field->thu == "2"){
-
-                        $thu_in = date("g:i:a", strtotime($field->thu_in));
-                        $thu_out = date("g:i:a", strtotime($field->thu_out));
-        
-                        $shift_time .= "Thu : " . $thu_in . " to " . $thu_out . "<p>";
-
-                        $day .= "Thu,";
-                    }
-                    if($field->fri == "1" || $field->fri == "2"){
-
-                        $fri_in = date("g:i:a", strtotime($field->fri_in));
-                        $fri_out = date("g:i:a", strtotime($field->fri_out));
-        
-                        $shift_time .= "Fri : " . $fri_in . " to " . $fri_out . "<p>";
-
-                        $day .= "Fri,";
-                    }
-                    if($field->sat == "1" || $field->sat == "2"){
-
-                        $sat_in = date("g:i:a", strtotime($field->sat_in));
-                        $sat_out = date("g:i:a", strtotime($field->sat_out));
-        
-                        $shift_time .= "Sat : " . $sat_in . " to " . $sat_out . "<p>";
-
-                        $day .= "Sat,";
-                    }
-                    if($field->sun == "1" || $field->sun == "2"){
-
-                        $sun_in = date("g:i:a", strtotime($field->sun_in));
-                        $sun_out = date("g:i:a", strtotime($field->sun_out));
-        
-                        $shift_time .= "Sun : " . $sun_in . " to " . $sun_out . "<p>";
-
-                        $day .= "Sun";
-                    }
-
-                    $data .= '<td>' . $shift_time . '</td>';
-                    $data .= "<td>".$day."</td>";
-
-                }
-                else if($field->type == "Flexi Shift")
-                {
-                    $data .= "<td></td>";
-                    $data .= "<td></td>";
-                }
-                else if($field->type == "Free Shift")
-                {
-                    $data .= "<td></td>";
-                    $data .= "<td></td>";
-                }
-                else{
-                    $data .= '<td style="color:#dc3545"><i class="fa fa-times" aria-hidden="true"></i><b>&nbsp;NO SCHEDULE</b></td>';
-                    $data .= '<td style="color:#dc3545"><i class="fa fa-times" aria-hidden="true"></i><b>&nbsp;NO SCHEDULE</b></td>';
-                    
-                }
-
-                $data .= "</tr>";
-                
-            $counter++;
+                $data .= '<option value="'. $field->ind . '">' . $field->template .'</option>';
             }
         }
-        $data .= '</tbody></table>';
+        echo $data;
+
+        // $schedule_template_list = DB::connection('mysql3')->select("SELECT * FROM schedule_template WHERE deleted = '0'");
+        //Your Table
+            // $data = "";
+            // $data .= '
+            // <div id="divScheduleListTemplate" class="table-responsive col-md-12">
+            //     <table id="tableScheduleListTemplate" name="tableScheduleListTemplate" class="table" style="width:100%; text-align:center;">
+            //         <thead>
+            //             <tr>
+            //                 <th></th>
+            //                 <th>Template Name</th>
+            //                 <th>Shift Time</th>
+            //                 <th>Days</th>
+            //             </tr>
+            //         </thead>
+            //         <tbody>
+            // ';
+            // $counter = 1;
+            // if(count($schedule_template_list) > 0){
+            //     foreach($schedule_template_list as $field){
+
+            //         $data .= "<tr>";
+            //         $data .= "<td><input id='rdB_CustomSchedule' type='radio' name='optradio' value='".$field->ind."'></td>";
+            //         $data .= "<td><a id='tempDesc".$counter."'>".$field->template."</a><br>
+            //         <small><a id='tempType".$counter."'>".$field->type."</a></small>
+            //         </td>";
+                    
+            //         if($field->type == "Regular Shift")
+            //         {
+            //             $day = "";
+
+            //             $reg_in = date("g:i:a", strtotime($field->reg_in));
+            //             $reg_out = date("g:i:a", strtotime($field->reg_out));
+            
+            //             $shift_time = $reg_in . " to " . $reg_out;
+
+            //             if($field->mon == "1" || $field->mon == "2"){
+                            
+            //                 $day .= "Mon,";
+            //             }
+            //             if($field->tue == "1" || $field->tue == "2"){
+
+            //                 $day .= "Tue,";
+            //             }
+            //             if($field->wed == "1" || $field->wed == "2"){
+
+            //                 $day .= "Wed,";
+            //             }
+            //             if($field->thu == "1" || $field->thu == "2"){
+
+            //                 $day .= "Thu,";
+            //             }
+            //             if($field->fri == "1" || $field->fri == "2"){
+
+            //                 $day .= "Fri,";
+            //             }
+            //             if($field->sat == "1" || $field->sat == "2"){
+
+            //                 $day .= "Sat,";
+            //             }
+            //             if($field->sun == "1" || $field->sun == "2"){
+
+            //                 $day .= "Sun";
+            //             }
+
+            //             $data .= '<td>' . $shift_time . '</td>';
+            //             $data .= '<td>' . $day . '</td>';
+            //         }
+            //         else if($field->type == "Irregular Shift")
+            //         {
+
+            //             $day = "";
+            //             $shift_time = "";
+            //             if($field->mon == "1" || $field->mon == "2"){
+
+            //                 $mon_in = date("g:i:a", strtotime($field->mon_in));
+            //                 $mon_out = date("g:i:a", strtotime($field->mon_out));
+            
+            //                 $shift_time .= "<p> Mon : " . $mon_in . " to " . $mon_out . "<p>";
+                            
+            //                 $day .= "Mon,";
+            //             }
+            //             if($field->tue == "1" || $field->tue == "2"){
+
+            //                 $tue_in = date("g:i:a", strtotime($field->tue_in));
+            //                 $tue_out = date("g:i:a", strtotime($field->tue_out));
+            
+            //                 $shift_time .= "Tue : " . $tue_in . " to " . $tue_out . "<p>";
+
+            //                 $day .= "Tue,";
+            //             }
+            //             if($field->wed == "1" || $field->wed == "2"){
+
+            //                 $wed_in = date("g:i:a", strtotime($field->wed_in));
+            //                 $wed_out = date("g:i:a", strtotime($field->wed_out));
+            
+            //                 $shift_time .= "Wed : " . $wed_in . " to " . $wed_out . "<p>";
+
+            //                 $day .= "Wed,";
+            //             }
+            //             if($field->thu == "1" || $field->thu == "2"){
+
+            //                 $thu_in = date("g:i:a", strtotime($field->thu_in));
+            //                 $thu_out = date("g:i:a", strtotime($field->thu_out));
+            
+            //                 $shift_time .= "Thu : " . $thu_in . " to " . $thu_out . "<p>";
+
+            //                 $day .= "Thu,";
+            //             }
+            //             if($field->fri == "1" || $field->fri == "2"){
+
+            //                 $fri_in = date("g:i:a", strtotime($field->fri_in));
+            //                 $fri_out = date("g:i:a", strtotime($field->fri_out));
+            
+            //                 $shift_time .= "Fri : " . $fri_in . " to " . $fri_out . "<p>";
+
+            //                 $day .= "Fri,";
+            //             }
+            //             if($field->sat == "1" || $field->sat == "2"){
+
+            //                 $sat_in = date("g:i:a", strtotime($field->sat_in));
+            //                 $sat_out = date("g:i:a", strtotime($field->sat_out));
+            
+            //                 $shift_time .= "Sat : " . $sat_in . " to " . $sat_out . "<p>";
+
+            //                 $day .= "Sat,";
+            //             }
+            //             if($field->sun == "1" || $field->sun == "2"){
+
+            //                 $sun_in = date("g:i:a", strtotime($field->sun_in));
+            //                 $sun_out = date("g:i:a", strtotime($field->sun_out));
+            
+            //                 $shift_time .= "Sun : " . $sun_in . " to " . $sun_out . "<p>";
+
+            //                 $day .= "Sun";
+            //             }
+
+            //             $data .= '<td>' . $shift_time . '</td>';
+            //             $data .= "<td>".$day."</td>";
+
+            //         }
+            //         else if($field->type == "Flexi Shift")
+            //         {
+            //             $data .= "<td></td>";
+            //             $data .= "<td></td>";
+            //         }
+            //         else if($field->type == "Free Shift")
+            //         {
+            //             $data .= "<td></td>";
+            //             $data .= "<td></td>";
+            //         }
+            //         else{
+            //             $data .= '<td style="color:#dc3545"><i class="fa fa-times" aria-hidden="true"></i><b>&nbsp;NO SCHEDULE</b></td>';
+            //             $data .= '<td style="color:#dc3545"><i class="fa fa-times" aria-hidden="true"></i><b>&nbsp;NO SCHEDULE</b></td>';
+                        
+            //         }
+
+            //         $data .= "</tr>";
+                    
+            //     $counter++;
+            //     }
+            // }
+            // $data .= '</tbody></table>';
+        //Your table
         echo $data;
     }
 
@@ -558,8 +574,8 @@ class WorkScheduleController extends Controller
             $insert_query->reg_out = $shift_out;
 
             //Monday
-            if (in_array('1', $data_days, true)){
-                if (in_array('1', $data_rest, true))
+            if (!empty($data_days) && in_array('1', $data_days, true)){
+                if (!empty($data_rest) && in_array('1', $data_rest, true))
                 {
                     $insert_query->mon = "2";
                 }
@@ -574,8 +590,8 @@ class WorkScheduleController extends Controller
             }
 
             //Tuesday
-            if (in_array('2', $data_days, true)){
-                if (in_array('2', $data_rest, true))
+            if (!empty($data_days) && in_array('2', $data_days, true)){
+                if (!empty($data_rest) && in_array('2', $data_rest, true))
                 {
                     $insert_query->tue = "2";
                 }
@@ -590,8 +606,8 @@ class WorkScheduleController extends Controller
             }
 
             //Wednesday
-            if (in_array('3', $data_days, true)){
-                if (in_array('3', $data_rest, true))
+            if (!empty($data_days) && in_array('3', $data_days, true)){
+                if (!empty($data_rest) && in_array('3', $data_rest, true))
                 {
                     $insert_query->wed = "2";
                 }
@@ -606,9 +622,9 @@ class WorkScheduleController extends Controller
             }
 
             //Thursday
-            if (in_array('4', $data_days, true))
+            if (!empty($data_days) && in_array('4', $data_days, true))
             {
-                if (in_array('4', $data_rest, true))
+                if (!empty($data_rest) && in_array('4', $data_rest, true))
                 {
                     $insert_query->thu = "2";
                 }
@@ -623,8 +639,8 @@ class WorkScheduleController extends Controller
             }
 
             //Friday
-            if (in_array('5', $data_days, true)){
-                if (in_array('5', $data_rest, true))
+            if (!empty($data_days) && in_array('5', $data_days, true)){
+                if (!empty($data_rest) && in_array('5', $data_rest, true))
                 {
                     $insert_query->fri = "2";
                 }
@@ -639,8 +655,8 @@ class WorkScheduleController extends Controller
             }
 
             //Saturday
-            if (in_array('6', $data_days, true)){
-                if (in_array('6', $data_rest, true))
+            if (!empty($data_days) && in_array('6', $data_days, true)){
+                if (!empty($data_rest) && in_array('6', $data_rest, true))
                 {
                     $insert_query->sat = "2";
                 }
@@ -655,9 +671,9 @@ class WorkScheduleController extends Controller
             }
 
             //Sunday
-            if (in_array('7', $data_days, true))
+            if (!empty($data_days) && in_array('7', $data_days, true))
             {
-                if (in_array('7', $data_rest, true))
+                if (!empty($data_rest) && in_array('7', $data_rest, true))
                 {
                     $insert_query->sun = "2";
                 }
@@ -741,7 +757,7 @@ class WorkScheduleController extends Controller
 
 
             //Monday
-            if(in_array('1', $data_days, true)){
+            if(!empty($data_days) && in_array('1', $data_days, true)){
 
                 $mon_in = date("H:i:s", strtotime($request->irr_in_mon));
                 $mon_out = date("H:i:s", strtotime($request->irr_out_mon));
@@ -749,7 +765,7 @@ class WorkScheduleController extends Controller
                 $insert_query->mon_in = $mon_in;
                 $insert_query->mon_out = $mon_out;
 
-                if(in_array('1', $data_rest, true))
+                if(!empty($data_rest) && in_array('1', $data_rest, true))
                 {
                    $insert_query->mon = "2";
                 }
@@ -764,7 +780,7 @@ class WorkScheduleController extends Controller
             }
 
             //Tuesday
-            if(in_array('2', $data_days, true))
+            if(!empty($data_days) && in_array('2', $data_days, true))
             {
                 $tue_in = date("H:i:s", strtotime($request->irr_in_tue));
                 $tue_out = date("H:i:s", strtotime($request->irr_out_tue));
@@ -772,7 +788,7 @@ class WorkScheduleController extends Controller
                 $insert_query->tue_in = $tue_in;
                 $insert_query->tue_out = $tue_out;
 
-                if(in_array('2', $data_rest, true))
+                if(!empty($data_rest) && in_array('2', $data_rest, true))
                 {
                    $insert_query->tue = "2";
                 }
@@ -787,7 +803,7 @@ class WorkScheduleController extends Controller
             }
 
             //Wednesday
-            if(in_array('3', $data_days, true))
+            if(!empty($data_days) && in_array('3', $data_days, true))
             {
                 $wed_in = date("H:i:s", strtotime($request->irr_in_wed));
                 $wed_out = date("H:i:s", strtotime($request->irr_out_wed));
@@ -795,7 +811,7 @@ class WorkScheduleController extends Controller
                 $insert_query->wed_in = $wed_in;
                 $insert_query->wed_out = $wed_out;
 
-                if(in_array('3', $data_rest, true))
+                if(!empty($data_rest) && in_array('3', $data_rest, true))
                 {
                    $insert_query->wed = "2";
                 }
@@ -810,7 +826,7 @@ class WorkScheduleController extends Controller
             }
 
             //Thursday
-            if(in_array('4', $data_days, true))
+            if(!empty($data_days) && in_array('4', $data_days, true))
             {
                 $thu_in = date("H:i:s", strtotime($request->irr_in_thu));
                 $thu_out = date("H:i:s", strtotime($request->irr_out_thu));
@@ -818,7 +834,7 @@ class WorkScheduleController extends Controller
                 $insert_query->thu_in = $thu_in;
                 $insert_query->thu_out = $thu_out;
 
-                if(in_array('4', $data_rest, true))
+                if(!empty($data_rest) && in_array('4', $data_rest, true))
                 {
                    $insert_query->thu = "2";
                 }
@@ -833,7 +849,7 @@ class WorkScheduleController extends Controller
             }
 
             //Friday
-            if(in_array('5', $data_days, true))
+            if(!empty($data_days) && in_array('5', $data_days, true))
             {
                 $fri_in = date("H:i:s", strtotime($request->irr_in_fri));
                 $fri_out = date("H:i:s", strtotime($request->irr_out_fri));
@@ -841,7 +857,7 @@ class WorkScheduleController extends Controller
                 $insert_query->fri_in = $fri_in;
                 $insert_query->fri_out = $fri_out;
 
-                if(in_array('5', $data_rest, true))
+                if(!empty($data_rest) && in_array('5', $data_rest, true))
                 {
                    $insert_query->fri = "2";
                 }
@@ -856,7 +872,7 @@ class WorkScheduleController extends Controller
             }
 
             //Saturday
-            if(in_array('6', $data_days, true))
+            if(!empty($data_days) && in_array('6', $data_days, true))
             {
                 $sat_in = date("H:i:s", strtotime($request->irr_in_sat));
                 $sat_out = date("H:i:s", strtotime($request->irr_out_sat));
@@ -864,7 +880,7 @@ class WorkScheduleController extends Controller
                 $insert_query->sat_in = $sat_in;
                 $insert_query->sat_out = $sat_out;
 
-                if(in_array('6', $data_rest, true))
+                if(!empty($data_rest) && in_array('6', $data_rest, true))
                 {
                    $insert_query->sat = "2";
                 }
@@ -879,7 +895,7 @@ class WorkScheduleController extends Controller
             }
 
             //Sunday
-            if(in_array('7', $data_days, true))
+            if(!empty($data_days) && in_array('7', $data_days, true))
             {
                 $sun_in = date("H:i:s", strtotime($request->irr_in_sun));
                 $sun_out = date("H:i:s", strtotime($request->irr_out_sun));
@@ -887,7 +903,7 @@ class WorkScheduleController extends Controller
                 $insert_query->sun_in = $sun_in;
                 $insert_query->sun_out = $sun_out;
 
-                if(in_array('7', $data_rest, true))
+                if(!empty($data_rest) && in_array('7', $data_rest, true))
                 {
                    $insert_query->sun = "2";
                 }
